@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/holo_white"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/bt_white"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_white_button" />
+
+                <View
+                    android:id="@+id/bt_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_gray_button" />
+
+                <View
+                    android:id="@+id/bt_blue_light"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_blue_light_button" />
+
+                <View
+                    android:id="@+id/bt_green_light"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_green_light_button" />
+
+                <View
+                    android:id="@+id/bt_red_light"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_red_light_button" />
+
+                <View
+                    android:id="@+id/bt_purple_light"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_purple_light_button" />
+
+                <View
+                    android:id="@+id/bt_orange_light"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/selector_orange_light_button" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/bt_black"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_black_button" />
+
+                <View
+                    android:id="@+id/bt_blue_dark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_blue_dark_button" />
+
+                <View
+                    android:id="@+id/bt_green_dark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_green_dark_button" />
+
+                <View
+                    android:id="@+id/bt_red_dark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_red_dark_button" />
+
+                <View
+                    android:id="@+id/bt_purple_dark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/selector_purple_dark_button" />
+
+                <View
+                    android:id="@+id/bt_orange_dark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/selector_orange_dark_button" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/bt_custom_color"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/custom_color" />
+    </LinearLayout>
+</ScrollView>

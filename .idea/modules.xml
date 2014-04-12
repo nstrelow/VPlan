@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ShowcaseView/ShowcaseView.iml" filepath="$PROJECT_DIR$/ShowcaseView/ShowcaseView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VPlan.iml" filepath="$PROJECT_DIR$/VPlan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ViewPagerIndicator/ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/ViewPagerIndicator/ViewPagerIndicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vplan/vplan.iml" filepath="$PROJECT_DIR$/vplan/vplan.iml" />
+    </modules>
+  </component>
+</project>
+

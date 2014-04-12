@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="pref_screen_settings">
+    <PreferenceCategory android:title="@string/title_common">
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/choose_school_class_dialog_title"
+            android:entries="@array/zs_classes"
+            android:entryValues="@array/zs_classes"
+            android:key="pref_my_school_class"
+            android:title="@string/choose_school_class_title" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pref_check_for_update"
+            android:summary="@string/sum_check_for_update"
+            android:title="@string/title_check_for_update" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pref_hide_common"
+            android:summary="@string/sum_hide_common"
+            android:title="@string/title_hide_common" />
+        <SwitchPreference
+            android:key="pref_show_tutorial2"
+            android:summary="@string/sum_tutorial_is_shown"
+            android:title="@string/title_tutorial" />
+        <Preference
+            android:key="pref_delete_plans"
+            android:summary="@string/sum_delete_plans"
+            android:title="@string/title_delete_plans" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/title_design">
+        <Preference
+            android:key="pref_ab_color"
+            android:summary="@string/actionbar_color_sum"
+            android:title="@string/actionbar_color_title" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_ab_icon_style"
+            android:switchTextOff="@string/switch_ic_color_dark"
+            android:switchTextOn="@string/switch_ic_color_light"
+            android:title="@string/ab_icon_style_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/title_info">
+        <Preference
+            android:key="pref_version"
+            android:title="@string/title_version" />
+        <Preference
+            android:key="pref_changelog"
+            android:title="@string/title_changes" />
+        <Preference
+            android:key="tester"
+            android:summary="Alexander Kowatzki"
+            android:title="Ehrentester" />
+        <Preference
+            android:key="copyright"
+            android:summary="©2013-2014, Nils Strelow @ FUNception Apps"
+            android:title="Copyright" />
+    </PreferenceCategory>
+</PreferenceScreen>

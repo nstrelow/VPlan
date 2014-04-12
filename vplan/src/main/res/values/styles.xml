@@ -1,0 +1,52 @@
+<resources>
+
+    <style name="LightTheme" parent="Theme.AppCompat.Light">
+        <item name="android:actionOverflowButtonStyle">
+            @style/Widget.AppCompat.ActionButton.Overflow
+        </item>
+        <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.ActionButton.Overflow</item>
+        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
+        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light">
+        <item name="android:actionOverflowButtonStyle">
+            @style/Widget.AppCompat.Light.ActionButton.Overflow
+        </item>
+        <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.Light.ActionButton.Overflow
+        </item>
+        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
+        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
+    </style>
+
+    <style name="row_element">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Small</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="header_text_view">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="EasterEggDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
+
+</resources>

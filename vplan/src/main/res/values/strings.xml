@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">V Plan</string>
+    <string name="settings">Einstellungen</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Einstellungen</string>
+
+    <string name="load_plan_msg">Einträge werden generiert&#8230;</string>
+    <string name="check_update_plan_msg">Suche nach Updates&#8230;</string>
+    <string name="update_plan_msg">Update der Pläne&#8230;</string>
+    <string name="plan_was_updated_msg">Der Vertretungsplan wurde gerade aktualisiert.</string>
+    <string name="no_updates_msg">Keine Updates für den Vertretungsplan gefunden.</string>
+    <string name="no_connection_msg">Keine Internetverbindung vorhanden. Vertretunsplan konnte nicht aktualisiert werden.</string>
+
+    <string name="choose_school_class_dialog_title">Wähle deine Klasse&#8230;</string>
+    <string name="choose_school_class_title">Meine Klasse</string>
+    <string name="title_version">Version</string>
+    <string name="title_info">Über</string>
+
+    <!-- Showcase elements -->
+    <string name="refresh_button_showcase_title">Refresh-Button</string>
+    <string name="refresh_button_showcase_message">Mit einem Klick auf den Refresh-Button aktualisierst du den Vertretungsplan.</string>
+    <string name="home_button_showcase_title">Klassenliste</string>
+    <string name="home_button_showcase_message">Mit einem Klick links oben auf das Icon oder mit einem Wisch vom linken Rand her öffnest du die Klassenliste. Klicke jetzt oben auf das Icon um eine Klassen auszuwählen.</string>
+    <string name="swipe_gesture_showcase_title">Swipe-Gesture</string>
+    <string name="swipe_gesture_showcase_message">Indem du nach links oder nach rechts wischst, kannst du zwischen den Vertretungsplänen von verschiedenen Tagen hin und herwechseln.</string>
+    <string name="colors_showcase_title">Farben</string>
+    <string name="colors_showcase_message">Die Farben der Einträge haben folgende Bedeutung:\n\nrot = Entfall\ngrün = anderer Raum\nlila = Vertretung\ngelb = Betreuung\nblau = Verlegung\norange = Klausur</string>
+    <string name="touch_info_showcase_title">Bemerkungen</string>
+    <string name="touch_info_showcase_message">Um die Bemerkungen für den jeweiligen Eintrag anzuzeigen, drücke einfach auf den Eintrag.\n\nSo das wärs dann!\nVIEL SPAß beim Benutzen von ZS-Plan wünschen dir Nils Strelow und FUNceptionApps ;D</string>
+    <string name="sum_tutorial_is_shown"> wird beim nächsten Start angezeigt</string>
+    <string name="sum_tutorial_not_shown"> wird nicht beim Start angezeigt</string>
+    <string name="title_tutorial">Tutorial</string>
+    <string name="sum_not_hide_common">Allg. Bemerkung wird bei Klick auf die Kopfzeile ausgeblendet</string>
+    <string name="sum_hide_common">Allg. Bemerkung wird beim Scrollen automatisch ausgeblendet</string>
+    <string name="title_hide_common">Hide-On-Scroll</string>
+    <string name="label_check_for_plan_service">CheckForPlanService</string>
+    <string name="title_check_for_update">Benachrichtigung</string>
+    <string name="sum_check_for_update">Benachrichtigung wenn neue Pläne verfügbar sind</string>
+    <string name="sum_not_check_for_update">Keine Benachrichtigung wenn neue Pläne verfügbar sind</string>
+    <string name="title_changes">Änderungen</string>
+    <string name="actionbar_color_title">Farbe der Statusleiste</string>
+    <string name="actionbar_color_sum">Ändere die Farbe der Statusleiste</string>
+    <string name="no_plan_msg">Sollte kein normaler Plan verfügbar sein, kann über das Menü der Plan im Browser angezeigt werden.</string>
+    <string name="get_update_notifications_title">Benachrichtigungen</string>
+    <string name="get_update_notifications_msg">Benachrichtigung für neue Vertretungspläne</string>
+    <string name="action_feedback">Feedback</string>
+
+    <string name="custom_color">Eigene Farbe&#8230;</string>
+
+    <!-- Feedback Dialog strings -->
+    <string name="feedback_dialog_title">Feedback</string>
+    <string name="bt_send_feeback_mail">Sende E-Mail</string>
+    <string name="feedback_msg_hint">Gib hier deine Nachricht ein. Die technischen Daten deines Gerätes werden automatisch hinzugefügt.</string>
+    <string name="feedback_error_msg_too_short">Deine Nachricht ist zu kurz.</string>
+    <string name="feedback_error_no_app">Es ist keine E-Mail App installiert.</string>
+    <string name="feedback_send_via">Sende mit&#8230;</string>
+    <string name="feedback_dialog_message">Hier kannst du mir ein Feedback geben, Wünsche äußern, Verbesserungsvorschläge machen, Fragen stellen oder Fehler melden.\nIch werde diese, wenn ich Zeit habe, bearbeiten.</string>
+    <string name="title_design">Design</string>
+    <string name="ab_icon_style_title">Icon-Style</string>
+    <string name="ab_icon_style_sum">Ändere den Style der Icons</string>
+    <string name="switch_ic_color_light">Hell</string>
+    <string name="switch_ic_color_dark">Dunkel</string>
+    <string name="title_common">Allgemein</string>
+    <string name="action_show_links">Im Browser anzeigen</string>
+    <string name="title_delete_plans">Lade Vertretungspläne neu</string>
+    <string name="sum_delete_plans">Löscht alle Pläne und lädt diese dann neu</string>
+    <string name="header_std">Std</string>
+    <string name="header_vertr">Vertr.</string>
+    <string name="header_fach">Fach</string>
+    <string name="header_raum">Raum</string>
+    <string name="header_statt_lehrer">statt\nLehrer</string>
+    <string name="header_statt_fach">statt\nFach</string>
+    <string name="header_statt_raum">statt\nRaum</string>
+    <string name="feedback_cancel">Abbruch</string>
+    <string name="content_keepcalm_easteregg">KeepCalmEasterEgg</string>
+    <string name="content_rainbow_easteregg">RainbowEasterEgg</string>
+</resources>
