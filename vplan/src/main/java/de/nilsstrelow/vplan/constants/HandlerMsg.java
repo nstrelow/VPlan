@@ -1,6 +1,7 @@
 package de.nilsstrelow.vplan.constants;
 
 /**
+ * constant handler message types
  * Created by djnilse on 09.04.2014.
  */
 public class HandlerMsg {

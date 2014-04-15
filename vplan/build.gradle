@@ -4,6 +4,12 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.0.3"
 
+    android.aaptOptions.useAaptPngCruncher = true
+
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 19

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * Utils for UI stuff
  * Created by djnilse on 15.04.2014.
  */
 public class UIUtils {

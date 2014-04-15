@@ -1,6 +1,5 @@
 package de.nilsstrelow.vplan.utils;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
+ * Utils to read and save files
  * Created by djnilse on 10.04.2014.
  */
 public class FileUtils {
@@ -22,8 +22,7 @@ public class FileUtils {
      */
     public static String readFile(String path) {
         try {
-            BufferedReader br = null;
-            br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(new FileReader(path));
 
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -52,7 +51,7 @@ public class FileUtils {
             outputStreamWriter.write(content);
             outputStreamWriter.close();
             fileOutputStream.close();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

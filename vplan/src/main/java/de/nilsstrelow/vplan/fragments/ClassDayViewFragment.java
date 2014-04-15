@@ -16,13 +16,10 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-import java.util.List;
-
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.Settings;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
 import de.nilsstrelow.vplan.adapters.HourAdapter;
-import de.nilsstrelow.vplan.helpers.Entry;
 import de.nilsstrelow.vplan.helpers.SchoolDay;
 
 /**
@@ -35,7 +32,7 @@ public class ClassDayViewFragment extends Fragment {
 
     SchoolDay schoolDay;
 
-    public static final ClassDayViewFragment newInstance(SchoolDay schoolDay) {
+    public static ClassDayViewFragment newInstance(SchoolDay schoolDay) {
         ClassDayViewFragment fragment = new ClassDayViewFragment();
 
         final Bundle args = new Bundle(1);

@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
-import org.w3c.dom.Text;
-
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
 import de.nilsstrelow.vplan.helpers.Entry;

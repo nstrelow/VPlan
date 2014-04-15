@@ -13,7 +13,6 @@ import de.nilsstrelow.vplan.constants.HandlerMsg;
 import de.nilsstrelow.vplan.helpers.Entry;
 import de.nilsstrelow.vplan.helpers.SchoolClass;
 import de.nilsstrelow.vplan.helpers.SchoolDay;
-import de.nilsstrelow.vplan.utils.DateUtils;
 import de.nilsstrelow.vplan.utils.FileUtils;
 
 /**
@@ -55,8 +54,7 @@ public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
                 if (!dayFile.equals("")) {
 
                     // make a new schoolDay with date
-                    //TODO: do with just one parameter, rewrite DateUtils function
-                    schoolDay = new SchoolDay(DateUtils.parseString(DateUtils.parseSchoolDay(dayFile)), dayFile.substring(0, 8));
+                    schoolDay = new SchoolDay(dayFile.substring(0, 8));
 
                     // all entries of a day
                     String[] entries = FileUtils.readFile(localSchoolClassPath + "/" + parseTimestamp(dayFile)).split("\n");

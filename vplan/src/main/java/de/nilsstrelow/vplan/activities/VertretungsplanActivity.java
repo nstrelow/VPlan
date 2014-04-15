@@ -77,13 +77,12 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public static Typeface robotoBlack;
     // UI items for ViewPager
     public static int NUM_PAGES;
-    public static Date[] dates;
     public static String[] schoolClasses;
-    private String currentSchoolClassName;
     // counter to see if every day was already checked
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
+    private String currentSchoolClassName;
     // UI items for Actionbar
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
@@ -99,7 +98,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private boolean isDownloading = false;
     private LoadVPlanTask loadVPlanTask;
     private DownloadVPlanTask downloadVertretungsplanTask;
-    private boolean isPlanLoaded = false;
 
     private Startup startup;
 
@@ -266,10 +264,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private int schoolClass() {
-        return SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
-    }
-
     private void initActionBar() {
         // Set up the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -321,52 +315,12 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         LoadVPlanTask loadVPlanTask = new LoadVPlanTask(this);
         loadVPlanTask.execute(mySchoolClass);
-    }
-
-    private void loadMyPlan() {
-        try {
-            String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
-            LoadVPlanTask loadVPlanTask = new LoadVPlanTask(this);
-            loadVPlanTask.execute(mySchoolClass);
-            isPlanLoaded = true;
-        } catch (NullPointerException e) {
-            if (!isRunning()) {
-                Toast.makeText(this, R.string.no_plan_msg, Toast.LENGTH_LONG).show();
-            }
+        if (!isRunning()) {
+            Toast.makeText(this, R.string.no_plan_msg, Toast.LENGTH_LONG).show();
         }
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
     }
-
-    /*public SchoolDay searchNextDay(Calendar today) {
-        if (dates.length != 0) {
-
-
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
-            final String t = df.format(today.getTime());
-            int length = dates.length;
-            for (int i = 0; i < length; i++) {
-                final String d = df.format(dates[i]);
-                if (t.equals(d)) {
-                    // in that case i is the right group element
-                    return schoolDays.get(i);
-                }
-            }
-            today.add(Calendar.DATE, 1);
-        /*
-        * exit with first date, if every day was already checked
-        * also if it already surpassed dates.length, could prevent future bugs
-        */
-            /*dayCounter++;
-            if (dayCounter >= dates.length) {
-                return schoolDays.get(0);
-            }
-
-            return searchNextDay(today);
-        } else {
-            return schoolDays.get(0);
-        }
-    }*/
 
     private void deleteOldVPlans() {
         try {
@@ -391,7 +345,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     //if (diff > 6 * 60 * 60 * 1000) {
                     //   plan.delete();
                     //}
-                    Date planDate = DateUtils.parseString(DateUtils.parseSchoolDay(plan.getName()));
+                    Date planDate = DateUtils.parseString(plan.getName());
                     // if date of today is "bigger" than date of plan
                     if (date != null && planDate != null) {
                         if (date.compareTo(planDate) == 1) {
@@ -409,7 +363,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
@@ -511,7 +465,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     private void loadClass() {
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
-        int position = SchoolClassUtils.getClassIndex(schoolClasses,currentSchoolClassName);
+        int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);

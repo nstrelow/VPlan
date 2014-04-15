@@ -2,16 +2,14 @@ package de.nilsstrelow.vplan.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 
 import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import de.nilsstrelow.vplan.R;
-import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
-import de.nilsstrelow.vplan.constants.HandlerMsg;
 
 /**
+ * Utils for Croutons
  * Created by djnilse on 13.04.2014.
  */
 @SuppressLint("ResourceAsColor")

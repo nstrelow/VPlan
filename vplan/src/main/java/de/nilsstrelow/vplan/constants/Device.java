@@ -3,6 +3,7 @@ package de.nilsstrelow.vplan.constants;
 import android.os.Environment;
 
 /**
+ * constant device local paths
  * Created by djnilse on 09.04.2014.
  */
 public class Device {

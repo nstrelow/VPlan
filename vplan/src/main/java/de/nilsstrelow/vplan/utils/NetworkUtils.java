@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
+ * Utils for networking
  * Created by djnilse on 10.04.2014.
  */
 public class NetworkUtils {
@@ -28,10 +29,7 @@ public class NetworkUtils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE))
                 .getActiveNetworkInfo();
 
-        if (info == null || !info.isConnected() || info.isRoaming()) {
-            return false;
-        }
-        return true;
+        return !(info == null || !info.isConnected() || info.isRoaming());
     }
 
     /**
@@ -58,8 +56,7 @@ public class NetworkUtils {
                     sb.append(line);
                     sb.append("\n");
                 }
-                String s = sb.toString();
-                return s;
+                return sb.toString();
             }
         } catch (FileNotFoundException e) {
             Log.w("getFile()", "FileNotFound");
@@ -77,8 +74,7 @@ public class NetworkUtils {
         try {
             if (exists(sUrl)) {
                 URL url = new URL(sUrl);
-                URLConnection connection = null;
-                connection = url.openConnection();
+                URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
                 connection.setConnectTimeout(30000);
                 connection.setReadTimeout(30000);
@@ -98,7 +94,7 @@ public class NetworkUtils {
                     output.flush();
                     output.close();
                     input.close();
-                } catch (Exception e5) {
+                } catch (Exception ignored) {
 
                 }
             }

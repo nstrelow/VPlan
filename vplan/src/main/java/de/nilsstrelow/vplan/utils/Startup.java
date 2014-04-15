@@ -19,17 +19,18 @@ import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.Settings;
 
 /**
+ * methods needed on startup
  * Created by djnilse on 13.04.2014.
  */
-public class Startup implements OnShowcaseEventListener{
+public class Startup implements OnShowcaseEventListener {
 
+    public static final String UPDATE_NOTIFICATION = "showed_get_update_notifications";
+    public static final String NEW_VERSION_MSG = "new_version_msg" + "205";
     private Activity activity;
     private SharedPreferences sharedPreferences;
     private boolean isTutorialMode = false;
     private boolean isNewVersion = false;
-
     private ShowcaseView homeShowcaseView;
-
     public Startup(Activity activity, SharedPreferences sharedPreferences) {
         this.activity = activity;
         this.sharedPreferences = sharedPreferences;
@@ -37,20 +38,17 @@ public class Startup implements OnShowcaseEventListener{
         isNewVersion = sharedPreferences.getBoolean(Startup.NEW_VERSION_MSG, true);
     }
 
-    public static final String UPDATE_NOTIFICATION = "showed_get_update_notifications";
-    public static final String NEW_VERSION_MSG = "new_version_msg" + "205";
-
-    public void start()  {
-        if(isTutorialMode)
+    public void start() {
+        if (isTutorialMode)
             setupRefreshGuide();
     }
 
     public boolean isTutorialMode() {
-        return  isTutorialMode;
+        return isTutorialMode;
     }
 
     public boolean isNewVersion() {
-        return  isNewVersion;
+        return isNewVersion;
     }
 
     public void hideShowcaseView() {

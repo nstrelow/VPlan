@@ -5,6 +5,7 @@ import android.util.SparseArray;
 import de.nilsstrelow.vplan.helpers.SchoolDay;
 
 /**
+ * Utils to mess with SchoolClasses
  * Created by djnilse on 08.04.2014.
  */
 public class SchoolClassUtils {
@@ -22,7 +23,7 @@ public class SchoolClassUtils {
             //int size = day.schoolClasses.size();
             for (int i = 0; i < 2/*size*/; i++) {
                 //if (day.schoolClasses.get(i).equals(schoolClass))
-                    return i;
+                return i;
             }
         } catch (NullPointerException e) {
             return -1;

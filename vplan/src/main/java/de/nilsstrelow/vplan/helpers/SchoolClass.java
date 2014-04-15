@@ -6,7 +6,6 @@ package de.nilsstrelow.vplan.helpers;
  */
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SchoolClass {
@@ -14,7 +13,7 @@ public class SchoolClass {
     private List<SchoolDay> schoolDays = new ArrayList<SchoolDay>();
 
     public SchoolDay getDay(int i) {
-        if(schoolDays.size() > i)
+        if (schoolDays.size() > i)
             return schoolDays.get(i);
         else
             return new SchoolDay();
