@@ -7,10 +7,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import de.nilsstrelow.vplan.R;
@@ -26,6 +23,8 @@ import de.nilsstrelow.vplan.utils.NetworkUtils;
  * Created by djnilse on 30.03.2014.
  */
 public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
+
+    public static final String TAG = "DownloadVPlanTask";
 
     private static boolean UPDATED;
     private final Context context;
@@ -51,10 +50,10 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
             Set<String> classesToBeUpdated = new HashSet<String>(Arrays.asList(onlineLines));
             classesToBeUpdated.removeAll(new HashSet<String>(Arrays.asList(localLines)));
 
-            for (String schoolClassToBeUpdated: classesToBeUpdated) {
+            for (String schoolClassToBeUpdated : classesToBeUpdated) {
                 String schoolClass = schoolClassToBeUpdated.substring(1, schoolClassToBeUpdated.lastIndexOf("/"));
                 updateSchoolClass(schoolClass);
-                Log.i("Schoolclass updated:", schoolClass);
+                Log.i(TAG, "Class updated: " + schoolClass);
             }
 
             FileUtils.saveFile(onlineTimestamp, Device.TIMESTAMP_PATH);
@@ -92,12 +91,12 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
             Set<String> plansToBeUpdated = new HashSet<String>(Arrays.asList(onlineLines));
             plansToBeUpdated.removeAll(new HashSet<String>(Arrays.asList(localLines)));
 
-            for(String planToBeUpdated : plansToBeUpdated) {
+            for (String planToBeUpdated : plansToBeUpdated) {
                 String filename = planToBeUpdated.substring(0, planToBeUpdated.indexOf("'"));
                 newPlanServerUrl = Server.ZS_PLAN_URL + schoolClass + "/" + filename;
                 newPlanDevicePath = localDirPath + "/" + filename;
                 NetworkUtils.saveFile(newPlanServerUrl, newPlanDevicePath);
-                Log.i("Plan updated:", filename);
+                Log.i(TAG, "Plan updated: " + filename);
             }
         }
         /* Update class timestamp */

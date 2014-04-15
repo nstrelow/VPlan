@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Message;
 
 import java.io.File;
-import java.util.List;
 
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
@@ -18,15 +17,13 @@ import de.nilsstrelow.vplan.utils.DateUtils;
 import de.nilsstrelow.vplan.utils.FileUtils;
 
 /**
+ * Loads the local VPlan files into objects
  * Created by djnilse on 08.04.2014.
  */
 public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
 
-    // just one return value, so define it local to LoadVPlanTaskold
-    List<String> classes;
     String[] schoolClasses;
     private Activity activity;
-    private String schoolClassName;
 
     public LoadVPlanTask(Activity activity) {
         this.activity = activity;
@@ -36,11 +33,8 @@ public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
     @Override
     protected SchoolClass doInBackground(String... schoolClassName) {
 
-        // just put that here, schoolClassName is folder and everyhing
-        this.schoolClassName = schoolClassName[0];
-
-        String localTimeStampPath = "";
-        String localSchoolClassPath = "";
+        String localTimeStampPath;
+        String localSchoolClassPath;
 
         SchoolClass schoolClass = new SchoolClass();
 
@@ -61,7 +55,8 @@ public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
                 if (!dayFile.equals("")) {
 
                     // make a new schoolDay with date
-                    schoolDay = new SchoolDay(DateUtils.parseString(DateUtils.parseSchoolDay(dayFile)));
+                    //TODO: do with just one parameter, rewrite DateUtils function
+                    schoolDay = new SchoolDay(DateUtils.parseString(DateUtils.parseSchoolDay(dayFile)), dayFile.substring(0, 8));
 
                     // all entries of a day
                     String[] entries = FileUtils.readFile(localSchoolClassPath + "/" + parseTimestamp(dayFile)).split("\n");

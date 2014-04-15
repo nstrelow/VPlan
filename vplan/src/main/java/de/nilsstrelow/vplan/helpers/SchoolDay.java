@@ -9,17 +9,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.nilsstrelow.vplan.constants.Device;
+import de.nilsstrelow.vplan.utils.FileUtils;
+
 public class SchoolDay {
 
     public Date day;
+    public String dayName;
     private List<Entry> entries = new ArrayList<Entry>();
     private String genericMsg;
 
     public SchoolDay() {
     }
 
-    public SchoolDay(Date date) {
-        day = date;
+    public SchoolDay(Date day, String dayName) {
+        this.day = day;
+        this.dayName = dayName;
+        genericMsg = loadGenericMsg();
     }
 
     public Entry getEntry(int i) {
@@ -40,5 +46,10 @@ public class SchoolDay {
 
     public void setGenericMessage(String genericMsg) {
         this.genericMsg = genericMsg;
+    }
+
+    private String loadGenericMsg() {
+        String s = FileUtils.readFile(Device.GENERIC_MSG_PATH + dayName + "_generic.txt");
+        return (s.length() > 0) ? s.substring(0, s.length() - 1) : "";
     }
 }
