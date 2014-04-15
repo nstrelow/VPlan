@@ -1,6 +1,5 @@
 package de.nilsstrelow.vplan.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,13 +26,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -41,11 +36,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.espian.showcaseview.OnShowcaseEventListener;
-import com.espian.showcaseview.ShowcaseView;
-import com.espian.showcaseview.ShowcaseViewBuilder;
-import com.espian.showcaseview.targets.ActionItemTarget;
-import com.espian.showcaseview.targets.ViewTarget;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -60,47 +50,37 @@ import java.util.Locale;
 import java.util.Random;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.adapters.ClassListViewAdapter;
 import de.nilsstrelow.vplan.adapters.DaysPagerAdapter;
+import de.nilsstrelow.vplan.constants.Device;
 import de.nilsstrelow.vplan.constants.HandlerMsg;
+import de.nilsstrelow.vplan.constants.Server;
 import de.nilsstrelow.vplan.fragments.FeedbackDialogFragment;
 import de.nilsstrelow.vplan.helpers.ErrorMessage;
-import de.nilsstrelow.vplan.helpers.SchoolDay;
-import de.nilsstrelow.vplan.constants.Device;
-import de.nilsstrelow.vplan.constants.Server;
+import de.nilsstrelow.vplan.helpers.SchoolClass;
 import de.nilsstrelow.vplan.receivers.CheckForPlanBroadcastReceiver;
 import de.nilsstrelow.vplan.tasks.DownloadVPlanTask;
-import de.nilsstrelow.vplan.tasks.DownloadVertretungsplanTask;
 import de.nilsstrelow.vplan.tasks.LoadVPlanTask;
+import de.nilsstrelow.vplan.utils.CroutonUtils;
 import de.nilsstrelow.vplan.utils.DateUtils;
 import de.nilsstrelow.vplan.utils.SchoolClassUtils;
+import de.nilsstrelow.vplan.utils.Startup;
 
-public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener, OnShowcaseEventListener {
+public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener {
 
-    public static final String UPDATE_NOTIFICATION = "showed_get_update_notifications";
-    public static final String NEW_VERSION_MSG = "new_version_msg" + "205";
     // Define the handler that receives messages from the thread and update the progress
     // vertretungsplan files from .zs-vertretunsplan
     public static Handler handler;
     public static SharedPreferences sharedPref;
     public static Typeface robotoBold;
     public static Typeface robotoBlack;
-    public static String currentSchoolClassName;
     // UI items for ViewPager
     public static int NUM_PAGES;
-    // more efficient than HashMap for mapping integers to objects
-    public static SparseArray<SchoolDay> schoolDays = new SparseArray<SchoolDay>();
     public static Date[] dates;
-    // item position of list
-    public static int currentSchoolDay;
-    public static int currentSchoolClass;
     public static String[] schoolClasses;
-    // Duration of Crouton in milliseconds
-    final int croutonDuration = 2000;
+    private String currentSchoolClassName;
     // counter to see if every day was already checked
-    int dayCounter = 0;
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
@@ -115,16 +95,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     // MenuItem to refresh
     private Menu optionsMenu;
     // false if not loading
-    private boolean isProgressLoading = false;
-    private boolean isTutorialMode = true;
+    private boolean isLoading = false;
+    private boolean isDownloading = false;
     private LoadVPlanTask loadVPlanTask;
-    private ShowcaseView homeShowcaseView;
     private DownloadVPlanTask downloadVertretungsplanTask;
     private boolean isPlanLoaded = false;
 
-    public static String getCurrentSchoolClassName() {
-        return currentSchoolClassName;
-    }
+    private Startup startup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +109,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         super.onCreate(savedInstanceState);
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        isTutorialMode = sharedPref.getBoolean(Settings.SHOW_TUTORIAL_PREF, true);
 
         initTheme();
 
@@ -158,62 +133,45 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         ListAdapter listAdapter = new ClassListViewAdapter(this, getResources().getStringArray(R.array.zs_classes));
         mDrawerList.setAdapter(listAdapter);
 
-        final de.keyboardsurfer.android.widget.crouton.Configuration config
-                = new de.keyboardsurfer.android.widget.crouton.Configuration.Builder()
-                .setDuration(croutonDuration).build();
-
         handler = new Handler() {
 
-            @SuppressLint("ResourceAsColor")
             // Create handleMessage function
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case HandlerMsg.LOADING:
+                    case HandlerMsg.STARTING_LOADING_PLAN:
                         supportInvalidateOptionsMenu();
-                        isProgressLoading = true;
-                        setRefreshActionButtonState(true);
+                        isLoading = true;
+                        setRefreshActionButtonState(isLoading());
                         break;
-                    case HandlerMsg.DOWNLOADING:
-                        supportInvalidateOptionsMenu();
-                        isProgressLoading = true;
-                        setSubtitle((String) msg.obj);
-                        setRefreshActionButtonState(true);
-                        break;
-                    case HandlerMsg.FINISHED_LOADING:
-                        // remove subtitle only if both are false
-                        setSubtitle(null);
-                        setRefreshActionButtonState(false);
-                        isProgressLoading = false;
-                        break;
-                    case HandlerMsg.LOAD_VPLAN_MSG:
-                        loadVPlan();
-                        break;
-                    case HandlerMsg.CROUTON_CONFIRM:
+                    case HandlerMsg.FINISHED_LOADING_PLAN:
+                        isLoading = false;
+                        setRefreshActionButtonState(isLoading());
 
-                        Style mCONFIRM = new Style.Builder()
-                                .setBackgroundColor(R.color.holo_green_crouton)
-                                .setConfiguration(config).build();
-                        Crouton.makeText(VertretungsplanActivity.this, (String) msg.obj, mCONFIRM).show();
+                        SchoolClass schoolClass = ((SchoolClass) msg.obj);
+                        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+
+                        setupTitle(currentSchoolClassName, schoolClass);
+                        setSubtitle(null);
+                        setupViewPager(schoolClass);
                         break;
-                    case HandlerMsg.CROUTON_ALERT:
-                        Style mAlert = new Style.Builder()
-                                .setBackgroundColor(R.color.holo_red_crouton)
-                                .setConfiguration(config).build();
-                        Crouton.makeText(VertretungsplanActivity.this, (String) msg.obj, mAlert).show();
+                    case HandlerMsg.STARTING_DOWNLOADING_PLAN:
+                        supportInvalidateOptionsMenu();
+                        setSubtitle((String) msg.obj);
+
+                        isDownloading = true;
+                        setRefreshActionButtonState(isLoading());
                         break;
-                    case HandlerMsg.CROUTON_INFO:
-                        Style mInfo = new Style.Builder()
-                                .setBackgroundColor(R.color.holo_blue_crouton)
-                                .setConfiguration(config).build();
-                        Crouton.makeText(VertretungsplanActivity.this, (String) msg.obj, mInfo).show();
+                    case HandlerMsg.FINISHED_DOWNLOADING_PLAN:
+                        setSubtitle(null);
+
+                        isDownloading = false;
+                        setRefreshActionButtonState(isLoading());
                         break;
-                    case HandlerMsg.LOAD_STARTPAGE_MSG:
-                        loadMyPlan();
-                        setupViewPager();
-                        break;
-                    case HandlerMsg.UPDATE:
-                        downloadVertretungsplanTask = new DownloadVPlanTask(VertretungsplanActivity.this, Device.VPLAN_PATH);
-                        downloadVertretungsplanTask.execute();
+                    case HandlerMsg.UPDATING:
+                        String updatingSchoolClass = (String) msg.obj;
+                        setSubtitle("Updating " + updatingSchoolClass + "...");
+                    case HandlerMsg.UPDATED:
+                        loadPlan();
                         break;
                     case HandlerMsg.ERROR:
                         ErrorMessage errorMessage = (ErrorMessage) msg.obj;
@@ -240,11 +198,14 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                         AlertDialog errorDialog = builder.create();
                         errorDialog.show();
                         break;
-                    case HandlerMsg.NOT_UPDATED:
-                        // loadPlan if not yet loaded
-                        if (!isPlanLoaded) {
-                            loadVPlan();
-                        }
+                    case HandlerMsg.CROUTON_CONFIRM:
+                        CroutonUtils.makeCrouton(VertretungsplanActivity.this, (String) msg.obj, CroutonUtils.CROUTON_CONFIRM);
+                        break;
+                    case HandlerMsg.CROUTON_INFO:
+                        CroutonUtils.makeCrouton(VertretungsplanActivity.this, (String) msg.obj, CroutonUtils.CROUTON_INFO);
+                        break;
+                    case HandlerMsg.CROUTON_ALERT:
+                        CroutonUtils.makeCrouton(VertretungsplanActivity.this, (String) msg.obj, CroutonUtils.CROUTON_ALERT);
                         break;
                 }
             }
@@ -259,8 +220,12 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         initDrawer();
 
-        if (isTutorialMode)
-            setupRefreshGuide();
+        startup = new Startup(this, sharedPref);
+        startup.start();
+    }
+
+    private boolean isLoading() {
+        return (isLoading || isDownloading);
     }
 
     private void initDrawer() {
@@ -283,8 +248,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 getSupportActionBar().setTitle(mTitle);
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 // fire swipeGuide when navigation drawer is closed
-                if (isTutorialMode)
-                    setupSwipeGuide();
+                if (startup.isTutorialMode())
+                    startup.setupSwipeGuide();
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -292,13 +257,17 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 
                 // hide overlay, when user clicked the navigation drawer
-                if (isTutorialMode)
-                    homeShowcaseView.hide();
+                if (startup.isTutorialMode())
+                    startup.hideShowcaseView();
             }
         };
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    private int schoolClass() {
+        return SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
     }
 
     private void initActionBar() {
@@ -348,243 +317,28 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         return sharedPref.getBoolean(Settings.ACTIONBAR_ICON_STYLE_PREF, false);
     }
 
-    @Override
-    public void onShowcaseViewHide(ShowcaseView showcaseView) {
-        switch (Integer.valueOf((String) showcaseView.getTag())) {
-            case 0:
-                setupDrawerGuide();
-                break;
-            case 1:
-                break;
-            case 2:
-                setupColorGuide();
-                break;
-            case 3:
-                setupBemerkungsGuide();
-                break;
-
-        }
-    }
-
-    @Override
-    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-    }
-
-    @Override
-    public void onShowcaseViewShow(ShowcaseView showcaseView) {
-    }
-
-    private void setupRefreshGuide() {
-
-        ShowcaseView.ConfigOptions co = new ShowcaseView.ConfigOptions();
-        co.hideOnClickOutside = false;
-        co.block = true;
-        co.shotType = ShowcaseView.TYPE_ONE_SHOT;
-        ShowcaseViewBuilder builder = new ShowcaseViewBuilder(this);
-        builder.setConfigOptions(co);
-        builder.setText(R.string.refresh_button_showcase_title, R.string.refresh_button_showcase_message);
-        ActionItemTarget refreshItemTarget = new ActionItemTarget(this, R.id.action_refresh);
-        ShowcaseView showcaseView = builder.build();
-        showcaseView.setShowcase(refreshItemTarget, true);
-        showcaseView.setOnShowcaseEventListener(this);
-        showcaseView.setScaleMultiplier(0.5f);
-        showcaseView.setTag("0");
-        ((ViewGroup) this.getWindow().getDecorView()).addView(showcaseView);
-    }
-
-    private void setupDrawerGuide() {
-
-        ShowcaseView.ConfigOptions co = new ShowcaseView.ConfigOptions();
-        co.hideOnClickOutside = false;
-        co.shotType = ShowcaseView.TYPE_ONE_SHOT;
-        co.noButton = false;
-        ShowcaseViewBuilder builder = new ShowcaseViewBuilder(this);
-        builder.setConfigOptions(co);
-        builder.setText(R.string.home_button_showcase_title, R.string.home_button_showcase_message);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth() / 2;  // deprecated
-        int height = display.getHeight() / 2;  // deprecated
-
-        homeShowcaseView = builder.build();
-        homeShowcaseView.setShowcaseItem(ShowcaseView.ITEM_ACTION_HOME, android.R.id.home, this);
-        homeShowcaseView.setOnShowcaseEventListener(this);
-        homeShowcaseView.setScaleMultiplier(0.7f);
-        homeShowcaseView.animateGesture(0, height / 2, width / 2, height / 2);
-        homeShowcaseView.setTag("1");
-        ((ViewGroup) this.getWindow().getDecorView()).addView(homeShowcaseView);
-
-    }
-
-    private void setupSwipeGuide() {
-        ShowcaseView.ConfigOptions co = new ShowcaseView.ConfigOptions();
-        co.shotType = ShowcaseView.TYPE_ONE_SHOT;
-        ShowcaseViewBuilder builder = new ShowcaseViewBuilder(this);
-        builder.setConfigOptions(co);
-        builder.setText(R.string.swipe_gesture_showcase_title, R.string.swipe_gesture_showcase_message);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth() / 2;  // deprecated
-        int height = display.getHeight() / 2;  // deprecated
-
-        ViewTarget swipeTarget = new ViewTarget(R.id.pager, this);
-        ShowcaseView showcaseView = builder.build();
-        showcaseView.setShowcase(swipeTarget, true);
-        showcaseView.setOnShowcaseEventListener(this);
-        showcaseView.animateGesture(width + width / 2.7f, height, width - width / 2, height);
-        showcaseView.setTag("2");
-        ((ViewGroup) this.getWindow().getDecorView()).addView(showcaseView);
-
-    }
-
-    private void setupColorGuide() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setTitle(R.string.colors_showcase_title);
-        builder.setMessage(R.string.colors_showcase_message);
-        builder.setPositiveButton("Weiter", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                setupBemerkungsGuide();
-                dialog.dismiss();
-            }
-        });
-
-        Dialog dialog = builder.create();
-        dialog.show();
-
-
-    }
-
-    private void setupBemerkungsGuide() {
-
-        /* set isTutorialMode false to prevent setupSwipeGuide() to fire again and save that tutorial was showed */
-        isTutorialMode = false;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(Settings.SHOW_TUTORIAL_PREF, false);
-        editor.commit();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setTitle(R.string.touch_info_showcase_title);
-        builder.setMessage(R.string.touch_info_showcase_message);
-        builder.setPositiveButton("Los gehts!", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        Dialog dialog = builder.create();
-        dialog.show();
-
-    }
-
-    private void setupNewVersionGuide() {
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(NEW_VERSION_MSG, false);
-        editor.commit();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setTitle("Version 2.5 : Heard you like colors");
-        builder.setMessage("ÜBER 500 DOWNLOADS :D\n\nÄnderungen\n\n"
-                        + "1. Statusbarfarbe: Wähle zwischen Standardfarben oder erstelle dir deine Eigene! \n"
-                        + "1,5. Wähle den Iconstyle (hell oder dunkel), damit die Icons zu deiner Farbe passen\n"
-                        + "2. Bemerkung wird jetzt unter dem Eintrag angezeigt\n"
-                        + "3. Allg. Bemerkungen werden jetzt beim Scrollen ausgeblendet, Option dazu in den Einstellungen\n"
-                        + "4. Menueintrag um den Vertretungsplan im Browser anzuzeigen, sollte es Probleme geben oder spezielle Pläne\n"
-                        + "5. Überarbeitete Einstellungen\n"
-                        + "6. Bugfixes und Optimierungen (Dienstag und so)\n\n"
-                        + "NEWS:\n\nSchriftliches Abitur ist endlich vorbei und ich hoffe alle Abiturienten habts gut überstanden.\n"
-                        + "Der Plan: (ZS) Plan an weitere Schule bringen, ich denke als erstes werde ich mit der ERS anfangen, mal sehen wie das läuft.\n"
-                        + "Ich werde ein paar Mechanismen in der App ändern, welche mir möglichen machen werden, euch nur zu benachrichtigen, wenn sich etwas in EURER Klasse/Stufe ändert!\n"
-                        + "Außerdem möchte ich die App stabiler machen, besonders für Geräte ab Android 4.0. Schreibt mir einfach ein Feedback, wenn ihr irgendwo Verbesserungsmöglichkeiten oder einfach nur nervige Sachen seht oder sendet mir einen Fehlerbericht mit einer kleinen Naricht was ihr gerade vor dem Absturz gemacht habt.\n"
-                        + "Nicht zu vergessen: ZS PLAN HAT JETZT ÜBER 500 DOWNLOADS :D :D :D\n"
-                        + "Ich danke allen, die dabei sind und in ZS Plan eine nützliche App gefunden haben.\n"
-        );
-
-        builder.setPositiveButton("Abitur vorbei ...", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplication(), "Dobby ist jetzt FREI! :D", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        Dialog dialog = builder.create();
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (sharedPref.getBoolean(UPDATE_NOTIFICATION, true)) {
-                    AlertDialog switchUpdateNotification = new AlertDialog.Builder(VertretungsplanActivity.this)
-                            .setTitle(getResources().getString(R.string.get_update_notifications_title))
-                            .setMessage(getResources().getString(R.string.get_update_notifications_msg))
-                            .setCancelable(false)
-                            .setPositiveButton("Einschalten", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    SharedPreferences.Editor editor = sharedPref.edit();
-                                    editor.putBoolean(Settings.CHECK_FOR_UPDATE, true);
-                                    editor.commit();
-                                }
-                            })
-                            .setNegativeButton("Ausschalten", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    SharedPreferences.Editor editor = sharedPref.edit();
-                                    editor.putBoolean(Settings.CHECK_FOR_UPDATE, false);
-                                    editor.commit();
-
-                                    Toast.makeText(getApplication(), "Solltest du dich umentscheiden, die Benachrichtigungen lassen sich auch in den Einstellungen aktivieren.", Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .create();
-                    switchUpdateNotification.show();
-                    //  Remember that this was now shown
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean(UPDATE_NOTIFICATION, false);
-                    editor.commit();
-                }
-            }
-        });
-        dialog.show();
-
+    private void loadPlan() {
+        String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        LoadVPlanTask loadVPlanTask = new LoadVPlanTask(this);
+        loadVPlanTask.execute(mySchoolClass);
     }
 
     private void loadMyPlan() {
         try {
-            String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "0");
-            if (!mySchoolClass.equals("0")) {
-                currentSchoolClassName = mySchoolClass;
-                int child;
-                Calendar calendar = Calendar.getInstance();
-                SchoolDay schoolToday = searchNextDay(calendar);
-                int size = schoolToday.schoolClasses.size();
-                for (int i = 0; i < size; i++) {
-                    if (schoolToday.schoolClasses.get(i).equals(mySchoolClass)) {
-                        // in that case i is the right group element
-                        child = i;
-                        selectClass(child);
-                        break;
-                    }
-                }
-                mDrawerList.setItemChecked(SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName), true);
-                mDrawerList.setSelection(SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName));
-                isPlanLoaded = true;
-            }
+            String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+            LoadVPlanTask loadVPlanTask = new LoadVPlanTask(this);
+            loadVPlanTask.execute(mySchoolClass);
+            isPlanLoaded = true;
         } catch (NullPointerException e) {
             if (!isRunning()) {
                 Toast.makeText(this, R.string.no_plan_msg, Toast.LENGTH_LONG).show();
             }
         }
-        if (sharedPref.getBoolean(NEW_VERSION_MSG, true))
-            setupNewVersionGuide();
+        if (startup.isNewVersion())
+            startup.setupNewVersionGuide();
     }
 
-    public SchoolDay searchNextDay(Calendar today) {
+    /*public SchoolDay searchNextDay(Calendar today) {
         if (dates.length != 0) {
 
 
@@ -603,7 +357,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         * exit with first date, if every day was already checked
         * also if it already surpassed dates.length, could prevent future bugs
         */
-            dayCounter++;
+            /*dayCounter++;
             if (dayCounter >= dates.length) {
                 return schoolDays.get(0);
             }
@@ -612,7 +366,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         } else {
             return schoolDays.get(0);
         }
-    }
+    }*/
 
     private void deleteOldVPlans() {
         try {
@@ -637,7 +391,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     //if (diff > 6 * 60 * 60 * 1000) {
                     //   plan.delete();
                     //}
-                    Date planDate = DateUtils.parseDate(SchoolClassUtils.parseSchoolDay(plan.getName()));
+                    Date planDate = DateUtils.parseString(DateUtils.parseSchoolDay(plan.getName()));
                     // if date of today is "bigger" than date of plan
                     if (date != null && planDate != null) {
                         if (date.compareTo(planDate) == 1) {
@@ -656,17 +410,12 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 }
             }
         } catch (Exception e) {
-            //ErrorMessage errorMessage = new ErrorMessage(false, "Fehler ")
-            // show no error message here
+
         }
     }
 
     public void loadVPlan() {
-        File vplanDir = new File(Device.VPLAN_PATH);
-        if (vplanDir.exists() && vplanDir.list().length > 0) {
-            loadVPlanTask = new LoadVPlanTask(this);
-            loadVPlanTask.execute(loadSchoolDayFiles());
-        } // if dir or files are not found, than onResume() will take care of updating
+        loadClass();
     }
 
     @Override
@@ -678,7 +427,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     @Override
     protected void onResume() {
         super.onResume();
-        Log.w("Mehtod", "onResume()");
         initActionBar();
         initDrawer();
         loadVPlan();
@@ -715,18 +463,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         super.onStop();
     }
 
-    private void setupViewPager() {
-        // one page one day !
-        NUM_PAGES = new File(Device.VPLAN_PATH).listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase(Locale.GERMANY).endsWith(".txt");
-            }
-        }).length;
+    private void setupViewPager(final SchoolClass schoolClass) {
+        NUM_PAGES = schoolClass.getSize();
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setVisibility(ViewPager.VISIBLE);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mPagerAdapter = new DaysPagerAdapter(fragmentManager);
+        mPagerAdapter = new DaysPagerAdapter(fragmentManager, schoolClass);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(NUM_PAGES - 1);
 
@@ -747,23 +490,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
             @Override
             public void onPageSelected(int position) {
-                final String replace = schoolDays.get(position).string.replace(".20", ".");
-                setTitle("KL: " + currentSchoolClassName + "   " + replace);
-                currentSchoolDay = position;
+                setupTitle(currentSchoolClassName, schoolClass, position);
             }
 
         });
-        mPager.setCurrentItem(currentSchoolDay);
-
-    }
-
-    public File[] loadSchoolDayFiles() {
-        File vertretungsplanDir = new File(Device.VPLAN_PATH);
-        return vertretungsplanDir.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase(Locale.GERMANY).endsWith(".txt");
-            }
-        });
+        mPager.setCurrentItem(0);
 
     }
 
@@ -771,28 +502,35 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        currentSchoolClass = position;
         currentSchoolClassName = schoolClasses[position];
-        selectClass(currentSchoolClass);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
         editor.commit();
+        loadClass();
     }
 
-    /**
-     * Swaps fragments in the main content view
-     */
-    private void selectClass(int schoolClass) {
-        currentSchoolClass = schoolClass;
-        setupViewPager();
+    private void loadClass() {
+        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        int position = SchoolClassUtils.getClassIndex(schoolClasses,currentSchoolClassName);
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);
-        mPager.setCurrentItem(0);
+        loadVPlanTask = new LoadVPlanTask(this);
+        loadVPlanTask.execute(currentSchoolClassName);
     }
 
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
+    }
+
+    public void setupTitle(String schoolClassName, SchoolClass schoolClass) {
+        setTitle("KL: " + schoolClassName + "   " + DateUtils.parseDate(schoolClass.getDay(0).day).replaceFirst("\\.", " "));
+    }
+
+    public void setupTitle(String schoolClassName, SchoolClass schoolClass, int position) {
+        setTitle("KL: " + schoolClassName + "   " + DateUtils.parseDate(schoolClass.getDay(position).day).replaceFirst("\\.", " "));
     }
 
     public void setSubtitle(CharSequence subTitle) {
@@ -824,7 +562,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (this.optionsMenu == null)
             this.optionsMenu = menu;
-        setRefreshActionButtonState(isProgressLoading);
+        setRefreshActionButtonState(isLoading());
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);

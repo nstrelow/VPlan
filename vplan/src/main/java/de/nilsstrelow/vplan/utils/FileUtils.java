@@ -1,11 +1,15 @@
 package de.nilsstrelow.vplan.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by djnilse on 10.04.2014.
@@ -38,6 +42,18 @@ public class FileUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void saveFile(String content, String path) {
+        File myFile = new File(path);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(myFile);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.write(content);
+            outputStreamWriter.close();
+            fileOutputStream.close();
+        } catch (Exception e) {
+        }
     }
 
 }

@@ -39,8 +39,6 @@ public class NetworkUtils {
      * @return string of downloaded file
      */
     public static String getFile(String sUrl) {
-        //if (exists(sUrl))
-        //    Log.e("saveFile()", "exists on server");
         try {
             if (exists(sUrl)) {
                 URL url = new URL(sUrl);
@@ -74,7 +72,6 @@ public class NetworkUtils {
     /**
      * @param sUrl file's url to download from
      * @param path save file to path
-     * @return
      */
     public static void saveFile(String sUrl, String path) {
         try {
@@ -113,8 +110,6 @@ public class NetworkUtils {
     public static boolean exists(String URLName) {
         try {
             HttpURLConnection.setFollowRedirects(false);
-            // note : you may also need
-            //        HttpURLConnection.setInstanceFollowRedirects(false)
             HttpURLConnection con =
                     (HttpURLConnection) new URL(URLName).openConnection();
             con.setRequestMethod("HEAD");

@@ -12,7 +12,7 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    public static Date parseDate(String target) {
+    public static Date parseString(String target) {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
         Date result = null;
         try {
@@ -21,5 +21,21 @@ public class DateUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static String parseSchoolDay(String schoolDayName) {
+        // final String --> then switch to Mo --> Montag
+        String dayWord = schoolDayName.substring(0, 2);
+        String day = schoolDayName.substring(2, 4);
+        String month = schoolDayName.substring(4, 6);
+        String year = schoolDayName.substring(6, 8);
+        return dayWord + " " + day + "." + month + "." + "20" + year;
+    }
+
+    public static String parseDate(Date date) {
+        if (date != null)
+            return new SimpleDateFormat("EEdd.MM.yy", Locale.GERMANY).format(date);
+        else
+            return "Keine Pläne";
     }
 }

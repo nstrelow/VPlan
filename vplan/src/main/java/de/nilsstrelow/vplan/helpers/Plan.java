@@ -10,9 +10,14 @@ public class Plan {
     /*
      * First element is 5a, last Element is 13
      */
-    public List<SchoolWeek> schoolClasses = new ArrayList<SchoolWeek>();
+    public List<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
 
-    public SchoolWeek getClass(int i) {
+    public SchoolClass getClass(int i) {
         return schoolClasses.get(i);
     }
+
+    public void addClass(SchoolClass schoolClass) {
+        schoolClasses.add(schoolClass);
+    }
+
 }

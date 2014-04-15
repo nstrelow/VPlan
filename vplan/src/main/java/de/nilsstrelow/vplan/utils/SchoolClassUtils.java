@@ -19,9 +19,9 @@ public class SchoolClassUtils {
      */
     public static int getClassIndex(SchoolDay day, String schoolClass) {
         try {
-            int size = day.schoolClasses.size();
-            for (int i = 0; i < size; i++) {
-                if (day.schoolClasses.get(i).equals(schoolClass))
+            //int size = day.schoolClasses.size();
+            for (int i = 0; i < 2/*size*/; i++) {
+                //if (day.schoolClasses.get(i).equals(schoolClass))
                     return i;
             }
         } catch (NullPointerException e) {
@@ -45,15 +45,6 @@ public class SchoolClassUtils {
      * @return name of schoolClass
      */
     public static String getClassName(SparseArray<SchoolDay> schoolDays, int schoolDay, int schoolClass) {
-        return schoolDays.get(schoolDay).schoolClasses.get(schoolClass);
-    }
-
-    public static String parseSchoolDay(String schoolDayName) {
-        // final String --> then switch to Mo --> Montag
-        String dayWord = schoolDayName.substring(0, 2);
-        String day = schoolDayName.substring(2, 4);
-        String month = schoolDayName.substring(4, 6);
-        String year = schoolDayName.substring(6, 8);
-        return dayWord + " " + day + "." + month + "." + "20" + year;
+        return "";//schoolDays.get(schoolDay).schoolClasses.get(schoolClass);
     }
 }

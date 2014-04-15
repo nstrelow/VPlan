@@ -15,9 +15,12 @@ public class Entry {
 
     public String line;
 
+    private boolean isNormalEntry;
+
     public Entry(String[] data) {
         line = "";
         if(data.length == 8) {
+            isNormalEntry = true;
             stunde = data[0];
             vertreter = data[1];
             fach = data[2];
@@ -27,9 +30,14 @@ public class Entry {
             stattRaum = data[6];
             bemerkung = data[7];
         } else {
+            isNormalEntry = false;
             for(int i = 0; i < data.length; i++) {
                 line = line + data[0];
             }
         }
+    }
+
+    public boolean isNormalEntry() {
+        return isNormalEntry;
     }
 }

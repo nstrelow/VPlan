@@ -5,15 +5,15 @@ package de.nilsstrelow.vplan.constants;
  */
 public class HandlerMsg {
 
-    public static final int LOAD_VPLAN_MSG = 0;
-    public static final int LOAD_STARTPAGE_MSG = 1;
-    public static final int FINISHED_LOADING = 2;
-    public static final int LOADING = 3;
-    public static final int DOWNLOADING = 4;
-    public static final int CROUTON_CONFIRM = 5;
-    public static final int CROUTON_ALERT = 6;
-    public static final int CROUTON_INFO = 7;
-    public static final int ERROR = 8;
-    public static final int NOT_UPDATED = 9;
-    public static final int UPDATE = 10;
+    /* Plan Loading States */
+    public static final int STARTING_LOADING_PLAN = 0;
+    public static final int FINISHED_LOADING_PLAN = 1;
+    public static final int STARTING_DOWNLOADING_PLAN = 2;
+    public static final int FINISHED_DOWNLOADING_PLAN = 3;
+    public static final int UPDATING = 4;
+    public static final int UPDATED = 5;
+    public static final int ERROR = 6;
+    public static final int CROUTON_CONFIRM = 7;
+    public static final int CROUTON_INFO = 8;
+    public static final int CROUTON_ALERT = 9;
 }

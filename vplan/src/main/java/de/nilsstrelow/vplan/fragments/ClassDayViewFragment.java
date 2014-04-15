@@ -23,6 +23,7 @@ import de.nilsstrelow.vplan.activities.Settings;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
 import de.nilsstrelow.vplan.adapters.HourAdapter;
 import de.nilsstrelow.vplan.helpers.Entry;
+import de.nilsstrelow.vplan.helpers.SchoolDay;
 
 /**
  * Fragment for ViewPager containing header and listview with day entries
@@ -30,24 +31,23 @@ import de.nilsstrelow.vplan.helpers.Entry;
  */
 public class ClassDayViewFragment extends Fragment {
 
-    List<Entry> entries;
+    SchoolDay schoolDay;
 
-    public ClassDayViewFragment(List<Entry> entries) {
-        this.entries = entries;
+    public ClassDayViewFragment(SchoolDay schoolDay) {
+        this.schoolDay = schoolDay;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // setup layout
         final LinearLayout rootView = (LinearLayout) inflater.inflate(R.layout.fragment_main, container, false);
         final ListView listView = (ListView) rootView.findViewById(R.id.list_vplan);
         final TextView genericTxt = (TextView) rootView.findViewById(R.id.generic_msg);
         final LinearLayout hourRow = (LinearLayout) rootView.findViewById(R.id.stdRow);
         genericTxt.setTypeface(VertretungsplanActivity.robotoBold);
-        final String[] values = getArguments().getStringArray("CLASSDATA");
-        final String genericMsg = getArguments().getString("GENERICMSG");
 
-        final HourAdapter hourAdapter = new HourAdapter(getActivity(), values);
+        final HourAdapter hourAdapter = new HourAdapter(getActivity(), schoolDay);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             SwingBottomInAnimationAdapter adapter = new SwingBottomInAnimationAdapter(hourAdapter);
             adapter.setAbsListView(listView);
@@ -56,9 +56,9 @@ public class ClassDayViewFragment extends Fragment {
             listView.setAdapter(hourAdapter);
         }
 
-        if (genericMsg != null && !genericMsg.equals("")) {
+        if (schoolDay.getGenericMessage() != null && !schoolDay.getGenericMessage().equals("")) {
             genericTxt.setVisibility(TextView.VISIBLE);
-            genericTxt.setText(genericMsg);
+            genericTxt.setText(schoolDay.getGenericMessage());
             if (listView.getAdapter().getCount() > 4) {
                 // onClickListener to make genericTxt visible and hide
                 hourRow.setOnClickListener(new View.OnClickListener() {

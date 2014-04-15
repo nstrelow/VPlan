@@ -6,6 +6,12 @@ import android.os.Message;
 import android.util.Log;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
@@ -19,72 +25,83 @@ import de.nilsstrelow.vplan.utils.NetworkUtils;
  * AsyncTask to download VPlans
  * Created by djnilse on 30.03.2014.
  */
-public class DownloadVPlanTask extends AsyncTask<String, Integer, Integer> {
+public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
 
-    private static final int UPDATED_VPLAN = 0;
-    private static final int NOT_UPDATED_VPLAN = 1;
+    private static boolean UPDATED;
     private final Context context;
     public File timestamp;
     private String vplanPath;
-    private String[] classes;
 
     public DownloadVPlanTask(Context context, String path) {
         this.context = context;
         this.vplanPath = path;
         timestamp = new File(Device.TIMESTAMP_PATH);
-        classes = context.getResources().getStringArray(R.array.zs_classes);
+        UPDATED = false;
     }
 
     @Override
-    protected Integer doInBackground(String... fileStrings) {
-        String onlineTimeStamp = "";
-        String localTimeStamp = "";
-        String localTimeStampPath = "";
-        String localDirPath = "";
-        String newPlanServerUrl = "";
-        String newPlanDevicePath = "";
-        for (String schoolClass : classes) {
-            onlineTimeStamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClass + "/timestamp");
-            //Log.e("onlineTimeStamp", onlineTimeStamp);
-            localDirPath = Device.VPLAN_PATH + schoolClass;
-            localTimeStampPath = localDirPath + "/timestamp";
-            File dir = new File(localDirPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
-                localTimeStamp = "";
-            } else {
-                localTimeStamp = FileUtils.readFile(localTimeStampPath);
+    protected Boolean doInBackground(String... fileStrings) {
+        String onlineTimestamp = NetworkUtils.getFile(Server.ZS_TIMESTAMP_URL);
+        String localTimestamp = FileUtils.readFile(Device.TIMESTAMP_PATH);
+
+        if (!onlineTimestamp.equals(localTimestamp)) {
+            String[] onlineLines = onlineTimestamp.split("\n", -1);
+            String[] localLines = localTimestamp.split("\n", -1);
+
+            Set<String> classesToBeUpdated = new HashSet<String>(Arrays.asList(onlineLines));
+            classesToBeUpdated.removeAll(new HashSet<String>(Arrays.asList(localLines)));
+
+            for (String schoolClassToBeUpdated: classesToBeUpdated) {
+                String schoolClass = schoolClassToBeUpdated.substring(1, schoolClassToBeUpdated.lastIndexOf("/"));
+                updateSchoolClass(schoolClass);
+                Log.i("Schoolclass updated:", schoolClass);
             }
 
-            // TODO : make it so only changed files are downloaded
-            if (!onlineTimeStamp.equals(localTimeStamp)) {
-                String[] lines = onlineTimeStamp.split("\n", -1);
-                for (String line : lines) {
-                    if (!line.equals("")) {
-                        newPlanServerUrl = Server.ZS_PLAN_URL + schoolClass + "/" + line.substring(0, line.indexOf("'"));
-                        newPlanDevicePath = localDirPath + "/" + line.substring(0, line.indexOf("'"));
-                        NetworkUtils.saveFile(newPlanServerUrl, newPlanDevicePath);
-                    }
-                }
-                NetworkUtils.saveFile(Server.ZS_PLAN_URL + schoolClass + "/timestamp", localTimeStampPath);
-            }
+            FileUtils.saveFile(onlineTimestamp, Device.TIMESTAMP_PATH);
         }
-        String onlineTimestamps = NetworkUtils.getFile(Server.TIMESTAMP_URL);
-        String localTimestamps = timestamp.exists() ? FileUtils.readFile(Device.TIMESTAMP_PATH) : "";
+        return UPDATED;
+    }
 
-        if ((!timestamp.exists() || !localTimestamps.equals(onlineTimestamps)) && !this.isCancelled()) {
-            onProgressUpdate(0);
-            String[] lines = onlineTimestamps.split("\\r?\\n");
-            for (String line : lines) {
-                String fileName = line.substring(4, 12) + ".txt";
-                NetworkUtils.saveFile(Server.VPLAN_URL + fileName, Device.VPLAN_PATH + "/" + fileName);
-            }
-            NetworkUtils.saveFile(Server.TIMESTAMP_URL, Device.TIMESTAMP_PATH);
-            return UPDATED_VPLAN;
+    private void updateSchoolClass(String schoolClass) {
+
+        /* update Subtitle */
+        publishProgress(schoolClass);
+
+        String localDirPath = Device.VPLAN_PATH + schoolClass;
+        String localTimestampPath = localDirPath + "/timestamp";
+
+        String onlineClassTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClass + "/timestamp");
+        String localClassTimestamp;
+
+        File dir = new File(localDirPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+            localClassTimestamp = "";
         } else {
-            Log.v("TIMESTAMP", "SAME, NO UPDATE NEEDED");
-            return NOT_UPDATED_VPLAN;
+            localClassTimestamp = FileUtils.readFile(localTimestampPath);
         }
+
+        String newPlanServerUrl;
+        String newPlanDevicePath;
+
+        if (!onlineClassTimestamp.equals(localClassTimestamp)) {
+
+            String[] onlineLines = onlineClassTimestamp.split("\n", -1);
+            String[] localLines = localClassTimestamp.split("\n", -1);
+
+            Set<String> plansToBeUpdated = new HashSet<String>(Arrays.asList(onlineLines));
+            plansToBeUpdated.removeAll(new HashSet<String>(Arrays.asList(localLines)));
+
+            for(String planToBeUpdated : plansToBeUpdated) {
+                String filename = planToBeUpdated.substring(0, planToBeUpdated.indexOf("'"));
+                newPlanServerUrl = Server.ZS_PLAN_URL + schoolClass + "/" + filename;
+                newPlanDevicePath = localDirPath + "/" + filename;
+                NetworkUtils.saveFile(newPlanServerUrl, newPlanDevicePath);
+                Log.i("Plan updated:", filename);
+            }
+        }
+        /* Update class timestamp */
+        FileUtils.saveFile(onlineClassTimestamp, Device.VPLAN_PATH + schoolClass + "/timestamp");
     }
 
     @Override
@@ -92,7 +109,7 @@ public class DownloadVPlanTask extends AsyncTask<String, Integer, Integer> {
         Message msg = new Message();
         if (NetworkUtils.isInternetAvailable(context)) {
             msg.obj = context.getResources().getString(R.string.check_update_plan_msg);
-            msg.what = HandlerMsg.LOADING;
+            msg.what = HandlerMsg.STARTING_DOWNLOADING_PLAN;
             VertretungsplanActivity.handler.sendMessage(msg);
             new File(vplanPath).mkdir();
         } else {
@@ -100,10 +117,7 @@ public class DownloadVPlanTask extends AsyncTask<String, Integer, Integer> {
             msg.what = HandlerMsg.CROUTON_ALERT;
             VertretungsplanActivity.handler.sendMessage(msg);
             msg = new Message();
-            msg.what = HandlerMsg.LOAD_STARTPAGE_MSG;
-            VertretungsplanActivity.handler.sendMessage(msg);
-            msg = new Message();
-            msg.what = HandlerMsg.FINISHED_LOADING;
+            msg.what = HandlerMsg.FINISHED_DOWNLOADING_PLAN;
             VertretungsplanActivity.handler.sendMessage(msg);
             cancel(true);
         }
@@ -111,32 +125,29 @@ public class DownloadVPlanTask extends AsyncTask<String, Integer, Integer> {
     }
 
     @Override
-    protected void onProgressUpdate(Integer... values) {
+    protected void onProgressUpdate(String... schoolClass) {
         Message msg = new Message();
-        msg.obj = context.getResources().getString(R.string.update_plan_msg);
-        msg.what = HandlerMsg.DOWNLOADING;
+        msg.obj = schoolClass[0];
+        msg.what = HandlerMsg.UPDATING;
         VertretungsplanActivity.handler.sendMessage(msg);
     }
 
     @Override
-    protected void onPostExecute(Integer result) {
+    protected void onPostExecute(Boolean result) {
         Message msg;
-        switch (result) {
-            case UPDATED_VPLAN:
-                msg = new Message();
-                msg.obj = context.getResources().getString(R.string.plan_was_updated_msg);
-                msg.what = HandlerMsg.CROUTON_CONFIRM;
-                VertretungsplanActivity.handler.sendMessage(msg);
-                VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.LOAD_VPLAN_MSG);
-                break;
-            case NOT_UPDATED_VPLAN:
-                msg = new Message();
-                msg.obj = context.getResources().getString(R.string.no_updates_msg);
-                msg.what = HandlerMsg.CROUTON_INFO;
-                VertretungsplanActivity.handler.sendMessage(msg);
-                VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.FINISHED_LOADING);
-                VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.NOT_UPDATED);
-                break;
+        if (UPDATED) {
+            VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.FINISHED_DOWNLOADING_PLAN);
+            VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.UPDATED);
+            msg = new Message();
+            msg.obj = context.getResources().getString(R.string.plan_was_updated_msg);
+            msg.what = HandlerMsg.CROUTON_CONFIRM;
+            VertretungsplanActivity.handler.sendMessage(msg);
+        } else {
+            VertretungsplanActivity.handler.sendEmptyMessage(HandlerMsg.FINISHED_DOWNLOADING_PLAN);
+            msg = new Message();
+            msg.obj = context.getResources().getString(R.string.no_updates_msg);
+            msg.what = HandlerMsg.CROUTON_INFO;
+            VertretungsplanActivity.handler.sendMessage(msg);
         }
 
     }

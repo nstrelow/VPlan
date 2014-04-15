@@ -2,13 +2,13 @@ package de.nilsstrelow.vplan.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +16,13 @@ import android.widget.TextView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
+import org.w3c.dom.Text;
+
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
+import de.nilsstrelow.vplan.helpers.Entry;
+import de.nilsstrelow.vplan.helpers.SchoolDay;
+import de.nilsstrelow.vplan.utils.UIUtils;
 
 /**
  * BaseAdapter for hour entries in ListView
@@ -27,35 +32,23 @@ public class HourAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     Activity activity;
-    String[] data;
+    SchoolDay schoolDay;
 
-    public HourAdapter(Activity activity, String[] data) {
+    public HourAdapter(Activity activity, SchoolDay schoolDay) {
         this.activity = activity;
-        this.data = data;
+        this.schoolDay = schoolDay;
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public static int getHeight(Context context, CharSequence text, int textSize, int deviceWidth, Typeface typeface, int padding) {
-        TextView textView = new TextView(context);
-        textView.setPadding(padding, padding, padding, padding);
-        textView.setTypeface(typeface);
-        textView.setText(text, TextView.BufferType.SPANNABLE);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(deviceWidth, View.MeasureSpec.AT_MOST);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        textView.measure(widthMeasureSpec, heightMeasureSpec);
-        return textView.getMeasuredHeight();
-    }
-
     @Override
     public int getCount() {
-        return data.length;
+        return schoolDay.getSize();
     }
 
     @Override
     public Object getItem(int position) {
-        return data[position];
+        return schoolDay.getEntry(position);
     }
 
     @Override
@@ -83,84 +76,86 @@ public class HourAdapter extends BaseAdapter {
         }
 
         EntryHolder holder = (EntryHolder) rowView.getTag();
-        final String[] row = data[position].split("-_-");
-        if (row != null) {
-            // make ConvertView Clickable and give color
-            rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_generic));
-            final String bemerkung = (row.length > 7) ? row[7] : "";
-            // special colors for different remarks
-            if (bemerkung.contains("Entfall") || bemerkung.contains("eigenv.Arb.")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_entfall));
-            }
-            if (bemerkung.contains("andr. Raum")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_andraum));
-            }
-            if (bemerkung.contains("Vertretung")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_vertretung));
-            }
-            if (bemerkung.contains("Betreuung")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_betreuung));
-            }
-            if (bemerkung.contains("Verlegung")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_verlegung));
-            }
-            if (bemerkung.contains("Klausur")) {
-                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_klausur));
-            }
 
-            final LinearLayout some = (LinearLayout) rowView;
+        final Entry entry = schoolDay.getEntry(position);
 
-            rowView.setOnClickListener(new View.OnClickListener() {
+        if (entry != null) {
+            if (entry.isNormalEntry()) {
+                // make ConvertView Clickable and give color
+                rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_generic));
+                //final String bemerkung = (row.length > 7) ? row[7] : "";
+                // special colors for different remarks
+                if (entry.bemerkung.contains("Entfall") || entry.bemerkung.contains("eigenv.Arb.")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_entfall));
+                }
+                if (entry.bemerkung.contains("andr. Raum")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_andraum));
+                }
+                if (entry.bemerkung.contains("Vertretung")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_vertretung));
+                }
+                if (entry.bemerkung.contains("Betreuung")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_betreuung));
+                }
+                if (entry.bemerkung.contains("Verlegung")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_verlegung));
+                }
+                if (entry.bemerkung.contains("Klausur")) {
+                    rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_klausur));
+                }
 
-                final Handler handler = new Handler();
+                final LinearLayout some = (LinearLayout) rowView;
 
-                @Override
-                public void onClick(View v) {
-                    if (!bemerkung.equals("")) {
+                rowView.setOnClickListener(new View.OnClickListener() {
 
-                        final TextView txt = (TextView) some.findViewById(R.id.bemerkung);
-                        txt.setText(bemerkung);
-                        txt.setTypeface(VertretungsplanActivity.robotoBold);
+                    final Handler handler = new Handler();
 
-                        if (txt.getVisibility() == TextView.GONE) {
-                            expand(txt, txt.getText().toString(), some.getWidth());
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    collapse(txt);
-                                }
-                            }, 6000);
-                        } else {
-                            collapse(txt);
-                            handler.removeCallbacks(null);
+                    @Override
+                    public void onClick(View v) {
+                        if (!entry.bemerkung.equals("")) {
+
+                            final TextView txt = (TextView) some.findViewById(R.id.bemerkung);
+                            txt.setText(entry.bemerkung);
+                            txt.setTypeface(VertretungsplanActivity.robotoBold);
+
+                            if (txt.getVisibility() == TextView.GONE) {
+                                expand(txt, txt.getText().toString(), some.getWidth());
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        collapse(txt);
+                                    }
+                                }, 6000);
+                            } else {
+                                collapse(txt);
+                                handler.removeCallbacks(null);
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            if (row.length > 6) {
-                holder.txtStunde.setText(row[0]);
+                holder.txtStunde.setText(entry.stunde);
                 holder.txtStunde.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.vertreter.setText(row[1]);
+                holder.vertreter.setText(entry.vertreter);
                 holder.vertreter.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.fach.setText(row[2]);
+                holder.fach.setText(entry.fach);
                 holder.fach.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.raum.setText(row[3]);
+                holder.raum.setText(entry.raum);
                 holder.raum.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.stattLehrer.setText(row[4]);
+                holder.stattLehrer.setText(entry.stattLehrer);
                 holder.stattLehrer.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.stattFach.setText(row[5]);
+                holder.stattFach.setText(entry.stattFach);
                 holder.stattFach.setTypeface(VertretungsplanActivity.robotoBold);
-                holder.stattRaum.setText(row[6]);
+                holder.stattRaum.setText(entry.stattRaum);
                 holder.stattRaum.setTypeface(VertretungsplanActivity.robotoBold);
             } else {
-                //LinearLayout root = new LinearLayout(activity);
                 TextView special = new TextView(activity);
-                special.setText(row[0]);
+                special.setText(entry.line);
                 special.setTypeface(VertretungsplanActivity.robotoBold);
-                special.setHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, activity.getResources().getDisplayMetrics()));
+                special.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
+                int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, activity.getResources().getDisplayMetrics());
+                special.setPadding(padding, padding, padding, padding);
                 special.setGravity(Gravity.CENTER);
-                //root.addView(special);
                 special.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_special));
                 rowView = special;
             }
@@ -173,7 +168,7 @@ public class HourAdapter extends BaseAdapter {
         //set Visible
         view.setVisibility(View.VISIBLE);
 
-        ValueAnimator mAnimator = slideAnimator(0, getHeight(activity, text, 14, width, VertretungsplanActivity.robotoBold, activity.getResources().getDimensionPixelSize(R.dimen.standard_padding)), view);
+        ValueAnimator mAnimator = slideAnimator(0, UIUtils.getHeight(activity, text, 14, width, VertretungsplanActivity.robotoBold, activity.getResources().getDimensionPixelSize(R.dimen.standard_padding)), view);
         mAnimator.start();
     }
 

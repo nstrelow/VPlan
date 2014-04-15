@@ -211,7 +211,7 @@ public class CheckForPlanService extends Service {
         protected Integer doInBackground(String... fileStrings) {
 
             localTimestamps = timestamp.exists() ? getLocalTimestamps() : "";
-            String onlineTimestamps = getVPSTimestamps(Server.TIMESTAMP_URL);
+            String onlineTimestamps = getVPSTimestamps(Server.TIMESTAMP_URL_OLD);
 
             if (timestamp.exists() && localTimestamps.equals(onlineTimestamps)) {
                 Log.v("CheckForPlanService", "SAME, NO UPDATED NEEDED");
