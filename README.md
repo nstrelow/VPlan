@@ -3,7 +3,7 @@ VPlan
 
 VPlan is a not yet finished generic Version of ZS Plan, available on Play Store : https://play.google.com/store/apps/details?id=de.nilsstrelow.ziehenschulevertretungsplan
 
-## Lizenz
+## License
 Copyright © 2014 Nils Strelow
 
 Licensed under the Apache License, Version 2.0 (the "License");  
@@ -18,7 +18,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and  
 limitations under the License.
 
-## Open-Source-Licenses
+## Opensource-Licenses
 [ShowcaseView](https://github.com/amlcurran/ShowcaseView): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 Copyright © 2012 Alex Curran ([+Alex](https://plus.google.com/110510888639261520925/posts))
 
