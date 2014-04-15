@@ -31,10 +31,24 @@ import de.nilsstrelow.vplan.helpers.SchoolDay;
  */
 public class ClassDayViewFragment extends Fragment {
 
+    public static final String SCHOOLDAY_KEY = "schoolday_key";
+
     SchoolDay schoolDay;
 
-    public ClassDayViewFragment(SchoolDay schoolDay) {
-        this.schoolDay = schoolDay;
+    public static final ClassDayViewFragment newInstance(SchoolDay schoolDay) {
+        ClassDayViewFragment fragment = new ClassDayViewFragment();
+
+        final Bundle args = new Bundle(1);
+        args.putParcelable(SCHOOLDAY_KEY, schoolDay);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        schoolDay = getArguments().getParcelable(SCHOOLDAY_KEY);
     }
 
     @Override

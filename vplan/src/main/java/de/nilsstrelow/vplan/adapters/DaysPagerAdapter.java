@@ -12,6 +12,7 @@ import de.nilsstrelow.vplan.helpers.SchoolClass;
 import de.nilsstrelow.vplan.helpers.SchoolDay;
 
 /**
+ * PagerAdapter to show substitution plan of one class
  * Created by djnilse on 08.04.2014.
  */
 public class DaysPagerAdapter extends FragmentStatePagerAdapter {
@@ -27,8 +28,7 @@ public class DaysPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int dayIndex) {
-        SchoolDay schoolDay = schoolClass.getDay(dayIndex);
-        return new ClassDayViewFragment(schoolClass.getDay(dayIndex));
+        return ClassDayViewFragment.newInstance(schoolClass.getDay(dayIndex));
     }
 
     @Override

@@ -1,9 +1,11 @@
 package de.nilsstrelow.vplan.helpers;
 
+import java.io.Serializable;
+
 /**
  * Created by djnilse on 12.04.2014.
  */
-public class Entry {
+public class Entry implements Serializable{
     public String stunde;
     public String vertreter;
     public String fach;
