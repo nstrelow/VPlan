@@ -18,7 +18,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and  
 limitations under the License.
 
-## Opensource-Licenses
+## Open-Source-Licenses
 [ShowcaseView](https://github.com/amlcurran/ShowcaseView): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 Copyright © 2012 Alex Curran ([+Alex](https://plus.google.com/110510888639261520925/posts))
 
