@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_add_reminder"
+        android:title="@string/action_add_reminder"
+        android:icon="@drawable/ic_action_alerts_and_states_add_alarm"
+        app:showAsAction="always" />
+</menu>

@@ -1,11 +1,17 @@
 package de.nilsstrelow.vplan.adapters;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -29,10 +35,10 @@ import de.nilsstrelow.vplan.utils.UIUtils;
 public class HourAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
-    Activity activity;
+    ActionBarActivity activity;
     SchoolDay schoolDay;
 
-    public HourAdapter(Activity activity, SchoolDay schoolDay) {
+    public HourAdapter(ActionBarActivity activity, SchoolDay schoolDay) {
         this.activity = activity;
         this.schoolDay = schoolDay;
         inflater = (LayoutInflater) activity
@@ -54,8 +60,9 @@ public class HourAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("NewApi")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
 
         // reuse views
@@ -129,6 +136,52 @@ public class HourAdapter extends BaseAdapter {
                                 handler.removeCallbacks(null);
                             }
                         }
+                    }
+                });
+
+                rowView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                    View view;
+
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            view = v;
+                            view.setAlpha(0.7f);
+                            activity.startActionMode(new ActionMode.Callback() {
+                                @Override
+                                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                                    switch (item.getItemId()) {
+
+                                        case R.id.action_add_reminder:
+                                            activity.getSupportFragmentManager();
+                                            break;
+
+
+                                    }
+                                    return true;
+                                }
+
+                                @Override
+                                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                                    mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
+                                    return true;
+                                }
+
+                                @Override
+                                public void onDestroyActionMode(ActionMode mode) {
+                                    view.setAlpha(1);
+                                }
+
+                                @Override
+                                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                                    mode.setTitle("Reminder");
+                                    return false;
+                                }
+                            });
+                        }
+                        return true;
                     }
                 });
 

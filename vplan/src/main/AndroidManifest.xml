@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.nilsstrelow.vplan">
+    package="de.nilsstrelow.vplan" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,10 +11,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/LightTheme">
+        android:theme="@style/LightTheme" >
         <activity
-            android:name=".activities.VertretungsplanActivity"
-            android:label="@string/app_name">
+            android:name="de.nilsstrelow.vplan.activities.VertretungsplanActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,20 +22,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Settings"
-            android:label="@string/settings">
+            android:name="de.nilsstrelow.vplan.activities.Settings"
+            android:label="@string/settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.nilsstrelow.ziehenschulevertretungsplan.VertretungsplanActivity" />
         </activity>
 
-        <receiver android:name=".receivers.CheckForUpdateBroadcastReceiver">
+        <receiver android:name="de.nilsstrelow.vplan.receivers.CheckForUpdateBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
-            android:name=".services.CheckForUpdateService"
+            android:name="de.nilsstrelow.vplan.services.CheckForUpdateService"
             android:label="@string/label_check_for_plan_service" />
     </application>
+
 </manifest>

@@ -7,15 +7,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Einstellungen</string>
-
-    <string name="load_plan_msg">Einträge werden generiert&#8230;</string>
-    <string name="check_update_plan_msg">Suche nach Updates&#8230;</string>
-    <string name="update_plan_msg">Update der Pläne&#8230;</string>
+    <string name="load_plan_msg">Einträge werden generiert…</string>
+    <string name="check_update_plan_msg">Suche nach Updates…</string>
+    <string name="update_plan_msg">Update der Pläne…</string>
     <string name="plan_was_updated_msg">Der Vertretungsplan wurde gerade aktualisiert.</string>
     <string name="no_updates_msg">Keine Updates für den Vertretungsplan gefunden.</string>
     <string name="no_connection_msg">Keine Internetverbindung vorhanden. Vertretunsplan konnte nicht aktualisiert werden.</string>
-
-    <string name="choose_school_class_dialog_title">Wähle deine Klasse&#8230;</string>
+    <string name="choose_school_class_dialog_title">Wähle deine Klasse…</string>
     <string name="choose_school_class_title">Meine Klasse</string>
     <string name="title_version">Version</string>
     <string name="title_info">Über</string>
@@ -48,8 +46,7 @@
     <string name="get_update_notifications_title">Benachrichtigungen</string>
     <string name="get_update_notifications_msg">Benachrichtigung für neue Vertretungspläne</string>
     <string name="action_feedback">Feedback</string>
-
-    <string name="custom_color">Eigene Farbe&#8230;</string>
+    <string name="custom_color">Eigene Farbe…</string>
 
     <!-- Feedback Dialog strings -->
     <string name="feedback_dialog_title">Feedback</string>
@@ -57,7 +54,7 @@
     <string name="feedback_msg_hint">Gib hier deine Nachricht ein. Die technischen Daten deines Gerätes werden automatisch hinzugefügt.</string>
     <string name="feedback_error_msg_too_short">Deine Nachricht ist zu kurz.</string>
     <string name="feedback_error_no_app">Es ist keine E-Mail App installiert.</string>
-    <string name="feedback_send_via">Sende mit&#8230;</string>
+    <string name="feedback_send_via">Sende mit…</string>
     <string name="feedback_dialog_message">Hier kannst du mir ein Feedback geben, Wünsche äußern, Verbesserungsvorschläge machen, Fragen stellen oder Fehler melden.\nIch werde diese, wenn ich Zeit habe, bearbeiten.</string>
     <string name="title_design">Design</string>
     <string name="ab_icon_style_title">Icon-Style</string>
@@ -78,4 +75,6 @@
     <string name="feedback_cancel">Abbruch</string>
     <string name="content_keepcalm_easteregg">KeepCalmEasterEgg</string>
     <string name="content_rainbow_easteregg">RainbowEasterEgg</string>
+    <string name="action_add_reminder">Reminder erstellen</string>
+
 </resources>

@@ -31,6 +31,7 @@ public class Startup implements OnShowcaseEventListener {
     private boolean isTutorialMode = false;
     private boolean isNewVersion = false;
     private ShowcaseView homeShowcaseView;
+
     public Startup(Activity activity, SharedPreferences sharedPreferences) {
         this.activity = activity;
         this.sharedPreferences = sharedPreferences;
