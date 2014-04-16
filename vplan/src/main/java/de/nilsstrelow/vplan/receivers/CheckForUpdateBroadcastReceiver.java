@@ -18,9 +18,11 @@ import android.util.Log;
 import java.util.Calendar;
 
 import de.nilsstrelow.vplan.activities.Settings;
-import de.nilsstrelow.vplan.services.CheckForPlanService;
+import de.nilsstrelow.vplan.services.CheckForUpdateService;
 
-public class CheckForPlanBroadcastReceiver extends BroadcastReceiver {
+public class CheckForUpdateBroadcastReceiver extends BroadcastReceiver {
+
+    private final String TAG = CheckForUpdateBroadcastReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,10 +33,9 @@ public class CheckForPlanBroadcastReceiver extends BroadcastReceiver {
 
         boolean checkForUpdate = sharedPref.getBoolean(Settings.CHECK_FOR_UPDATE, true);
 
-        // only start hourly update if preference for it is true
         if (checkForUpdate) {
 
-            Intent i = new Intent(context, CheckForPlanService.class);
+            Intent i = new Intent(context, CheckForUpdateService.class);
             PendingIntent pendingIntent = PendingIntent.getService(context,
                     14672, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -44,22 +45,7 @@ public class CheckForPlanBroadcastReceiver extends BroadcastReceiver {
             am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                     AlarmManager.INTERVAL_HOUR, pendingIntent);
 
-            Log.v(CheckForPlanBroadcastReceiver.class.getSimpleName(), "start PendingIntent");
+            Log.v(TAG, "start PendingIntent");
         }
     }
-    /*
-    public void setAlarm(Context context) {
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, CheckForPlanService.class);
-        PendingIntent pi = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, pi);
-    }
-
-    public void cancelAlarm(Context context) {
-        Intent intent = new Intent(context, CheckForPlanService.class);
-        PendingIntent sender = PendingIntent.getService(context, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(sender);
-    }
-    */
 }

@@ -12,4 +12,6 @@ public class Server {
     public static final String ZS_PLAN_URL = VPLAN_URL + "zs/";
     public static final String ZS_TIMESTAMP_URL = ZS_PLAN_URL + "timestamp";
     public static final String ZS_WEBSITE_URL = "http://www.ziehenschule-online.de/vplan/";
+
+    public static final String TIMESTAMP = "/timestamp";
 }

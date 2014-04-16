@@ -29,13 +29,13 @@
                 android:value="de.nilsstrelow.ziehenschulevertretungsplan.VertretungsplanActivity" />
         </activity>
 
-        <receiver android:name=".receivers.CheckForPlanBroadcastReceiver">
+        <receiver android:name=".receivers.CheckForUpdateBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <service
-            android:name=".services.CheckForPlanService"
+            android:name=".services.CheckForUpdateService"
             android:label="@string/label_check_for_plan_service" />
     </application>
 </manifest>

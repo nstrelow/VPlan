@@ -59,7 +59,7 @@ import de.nilsstrelow.vplan.constants.Server;
 import de.nilsstrelow.vplan.fragments.FeedbackDialogFragment;
 import de.nilsstrelow.vplan.helpers.ErrorMessage;
 import de.nilsstrelow.vplan.helpers.SchoolClass;
-import de.nilsstrelow.vplan.receivers.CheckForPlanBroadcastReceiver;
+import de.nilsstrelow.vplan.receivers.CheckForUpdateBroadcastReceiver;
 import de.nilsstrelow.vplan.tasks.DownloadVPlanTask;
 import de.nilsstrelow.vplan.tasks.LoadVPlanTask;
 import de.nilsstrelow.vplan.utils.CroutonUtils;
@@ -401,7 +401,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     public void startCheckForUpdate() {
-        Intent intent = new Intent(this, CheckForPlanBroadcastReceiver.class);
+        Intent intent = new Intent(this, CheckForUpdateBroadcastReceiver.class);
         sendBroadcast(intent);
     }
 

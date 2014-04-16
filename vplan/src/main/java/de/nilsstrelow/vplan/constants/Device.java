@@ -10,4 +10,6 @@ public class Device {
     public static final String VPLAN_PATH = Environment.getExternalStorageDirectory() + "/" + ".zs-vertretungsplan/";
     public static final String TIMESTAMP_PATH = VPLAN_PATH + "timestamp";
     public static final String GENERIC_MSG_PATH = VPLAN_PATH + "generic/";
+
+    public static final String TIMESTAMP = "/timestamp";
 }
