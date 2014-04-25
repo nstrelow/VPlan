@@ -76,5 +76,6 @@
     <string name="content_keepcalm_easteregg">KeepCalmEasterEgg</string>
     <string name="content_rainbow_easteregg">RainbowEasterEgg</string>
     <string name="action_add_reminder">Reminder erstellen</string>
+    <string name="add_reminder_dialog_title">Reminder</string>
 
 </resources>

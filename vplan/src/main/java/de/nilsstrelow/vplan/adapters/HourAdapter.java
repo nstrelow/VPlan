@@ -1,10 +1,13 @@
 package de.nilsstrelow.vplan.adapters;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -24,6 +27,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
+import de.nilsstrelow.vplan.fragments.AddReminderDialogFragment;
 import de.nilsstrelow.vplan.helpers.Entry;
 import de.nilsstrelow.vplan.helpers.SchoolDay;
 import de.nilsstrelow.vplan.utils.UIUtils;
@@ -156,6 +160,9 @@ public class HourAdapter extends BaseAdapter {
 
                                         case R.id.action_add_reminder:
                                             activity.getSupportFragmentManager();
+                                            Entry selectedEntry = schoolDay.getEntry(position);
+                                            showAddReminderDialog(activity.getSupportFragmentManager(), selectedEntry);
+                                            mode.finish();
                                             break;
 
 
@@ -213,6 +220,19 @@ public class HourAdapter extends BaseAdapter {
         }
 
         return rowView;
+    }
+
+    void showAddReminderDialog(FragmentManager fragmentManager, Entry entry) {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        Fragment prev = fragmentManager.findFragmentByTag("reminder");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = AddReminderDialogFragment.newInstance(entry);
+        newFragment.show(ft, "reminder");
     }
 
     private void expand(View view, String text, int width) {

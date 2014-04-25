@@ -41,4 +41,7 @@
     <color name="holo_orange_dark_ab">#ffff8800</color>
     <color name="holo_blue_bright_ab">#ff00ddff</color>
 
+    <!-- color for title of entries in expanded_entry.xml -->
+    <color name="reminder_title">#777</color>
+
 </resources>

@@ -14,10 +14,10 @@ public class DateUtils {
 
     public static Date parseString(String schoolDayName) {
 
-        DateFormat df = new SimpleDateFormat("EEddMMyy", Locale.GERMAN);
+        DateFormat df = new SimpleDateFormat("ddMMyy", Locale.US);
         Date result = null;
         try {
-            result = df.parse(schoolDayName.substring(0, 8));
+            result = df.parse(schoolDayName.substring(2, 8));
         } catch (ParseException e) {
             e.printStackTrace();
         }

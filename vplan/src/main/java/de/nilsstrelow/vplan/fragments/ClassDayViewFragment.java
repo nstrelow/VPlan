@@ -1,8 +1,10 @@
 package de.nilsstrelow.vplan.fragments;
 
+import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +60,7 @@ public class ClassDayViewFragment extends Fragment {
         final LinearLayout hourRow = (LinearLayout) rootView.findViewById(R.id.stdRow);
         genericTxt.setTypeface(VertretungsplanActivity.robotoBold);
 
-        final HourAdapter hourAdapter = new HourAdapter(getActivity(), schoolDay);
+        final HourAdapter hourAdapter = new HourAdapter((ActionBarActivity)getActivity(), schoolDay);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             SwingBottomInAnimationAdapter adapter = new SwingBottomInAnimationAdapter(hourAdapter);
             adapter.setAbsListView(listView);

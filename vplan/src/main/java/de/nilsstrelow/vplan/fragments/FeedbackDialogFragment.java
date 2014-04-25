@@ -23,10 +23,6 @@ public class FeedbackDialogFragment extends DialogFragment {
 
     public static final String EMAIL = "funceptionapps@gmail.com";
 
-    /**
-     * Create a new instance of MyDialogFragment, providing "num"
-     * as an argument.
-     */
     public static FeedbackDialogFragment newInstance() {
         return new FeedbackDialogFragment();
     }

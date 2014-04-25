@@ -7,10 +7,10 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\djnilse\Dropbox\ASProjects\VPlan" />
-            <option value="C:\Users\djnilse\Dropbox\ASProjects\VPlan\ShowcaseView" />
-            <option value="C:\Users\djnilse\Dropbox\ASProjects\VPlan\ViewPagerIndicator" />
-            <option value="C:\Users\djnilse\Dropbox\ASProjects\VPlan\vplan" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ShowcaseView" />
+            <option value="$PROJECT_DIR$/ViewPagerIndicator" />
+            <option value="$PROJECT_DIR$/vplan" />
           </set>
         </option>
       </GradleProjectSettings>

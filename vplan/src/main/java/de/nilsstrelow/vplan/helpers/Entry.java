@@ -3,6 +3,7 @@ package de.nilsstrelow.vplan.helpers;
 import java.io.Serializable;
 
 /**
+ * Entry containing everything for one substitution entry
  * Created by djnilse on 12.04.2014.
  */
 public class Entry implements Serializable {

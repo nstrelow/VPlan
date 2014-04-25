@@ -493,7 +493,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     void showFeedbackDialog() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("feedback");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -501,7 +501,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         // Create and show the dialog.
         DialogFragment newFragment = FeedbackDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.show(ft, "feedback");
     }
 
     public void restoreActionBar() {
