@@ -27,7 +27,7 @@
             android:id="@+id/indicator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:padding="1dp"
             app:fillColor="@color/holo_blue"
             app:pageColor="#00000000"
@@ -43,7 +43,7 @@
         android:background="#fff"
         android:choiceMode="singleChoice"
         android:divider="#e3e3e3"
-        android:dividerHeight="0.1dp"
+        android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -53,14 +53,16 @@ public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
 
                 if (!dayFile.equals("")) {
 
-                    // make a new schoolDay with date
+                    // make a new schoolDay with day
                     schoolDay = new SchoolDay(dayFile.substring(0, 8));
 
                     // all entries of a day
                     String[] entries = FileUtils.readFile(localSchoolClassPath + "/" + parseTimestamp(dayFile)).split("\n");
 
                     for (String line : entries) {
-                        schoolDay.addEntry(parseEntry(line));
+                        Entry adding = parseEntry(line);
+                        adding.day = schoolDay.day;
+                        schoolDay.addEntry(adding);
                     }
                     schoolClass.addDay(schoolDay);
                 }

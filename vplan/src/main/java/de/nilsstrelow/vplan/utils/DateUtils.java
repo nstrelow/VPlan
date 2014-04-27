@@ -3,6 +3,7 @@ package de.nilsstrelow.vplan.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -29,5 +30,28 @@ public class DateUtils {
             return new SimpleDateFormat("EEdd.MM.yy", Locale.GERMANY).format(date);
         else
             return "Keine Pläne";
+    }
+
+    public static int getYear(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.YEAR);
+    }
+
+    public static int getMonth(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.MONTH);
+    }
+
+    public static int getDay(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static boolean isFuture(Date date) {
+        final Calendar now = Calendar.getInstance();
+        return now.getTime().before(date);
     }
 }

@@ -46,7 +46,7 @@ public class ClassListViewAdapter extends ArrayAdapter<String> {
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
 
-        holder.entry.setTypeface(VertretungsplanActivity.robotoBlack);
+        holder.entry.setTypeface(VertretungsplanActivity.robotoBold);
         if (className.startsWith("5") || className.startsWith("6") || className.startsWith("7")) {
             //txtListChild.setBackground(activity.getResources().getDrawable(R.drawable.rectangle_orange));
             holder.entry.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.rectangle_orange));

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_reminder"
-        android:title="@string/action_add_reminder"
         android:icon="@drawable/ic_action_alerts_and_states_add_alarm"
+        android:title="@string/action_add_reminder"
         app:showAsAction="always" />
 </menu>

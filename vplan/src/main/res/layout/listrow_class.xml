@@ -11,8 +11,8 @@
         android:id="@+id/child_item"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/view_padding"
+        android:layout_marginTop="@dimen/view_padding"
         android:background="@drawable/rectangle_orange"
         android:gravity="center"
         android:minHeight="48dp"
@@ -20,10 +20,5 @@
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:textStyle="bold" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="#e3e3e3" />
 
 </LinearLayout>

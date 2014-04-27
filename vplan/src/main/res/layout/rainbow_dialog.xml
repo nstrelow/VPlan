@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/view_padding"
         android:contentDescription="@string/content_rainbow_easteregg"
 
         android:src="@drawable/rainbow_easteregg" />

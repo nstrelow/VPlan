@@ -1,6 +1,5 @@
 package de.nilsstrelow.vplan.fragments;
 
-import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,10 +56,20 @@ public class ClassDayViewFragment extends Fragment {
         final LinearLayout rootView = (LinearLayout) inflater.inflate(R.layout.fragment_main, container, false);
         final ListView listView = (ListView) rootView.findViewById(R.id.list_vplan);
         final TextView genericTxt = (TextView) rootView.findViewById(R.id.generic_msg);
-        final LinearLayout hourRow = (LinearLayout) rootView.findViewById(R.id.stdRow);
+        final LinearLayout header = (LinearLayout) rootView.findViewById(R.id.headerRow);
+
+
+        final int mCount = header.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            final View mChild = header.getChildAt(i);
+            if (mChild instanceof TextView) {
+                ((TextView) mChild).setTypeface(VertretungsplanActivity.robotoBold);
+            }
+        }
+
         genericTxt.setTypeface(VertretungsplanActivity.robotoBold);
 
-        final HourAdapter hourAdapter = new HourAdapter((ActionBarActivity)getActivity(), schoolDay);
+        final HourAdapter hourAdapter = new HourAdapter((ActionBarActivity) getActivity(), schoolDay);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             SwingBottomInAnimationAdapter adapter = new SwingBottomInAnimationAdapter(hourAdapter);
             adapter.setAbsListView(listView);
@@ -74,7 +83,7 @@ public class ClassDayViewFragment extends Fragment {
             genericTxt.setText(schoolDay.getGenericMessage());
             if (listView.getAdapter().getCount() > 4) {
                 // onClickListener to make genericTxt visible and hide
-                hourRow.setOnClickListener(new View.OnClickListener() {
+                header.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (!VertretungsplanActivity.sharedPref.getBoolean(Settings.HIDE_COMMON_PREF, true)) {

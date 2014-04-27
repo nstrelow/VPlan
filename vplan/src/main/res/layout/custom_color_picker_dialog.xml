@@ -16,21 +16,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="@dimen/view_padding" />
 
         <com.larswerkman.holocolorpicker.SVBar
             android:id="@+id/svbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="@dimen/view_padding" />
 
         <com.larswerkman.holocolorpicker.OpacityBar
             android:id="@+id/opacitybar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="@dimen/view_padding" />
     </LinearLayout>
 
 </ScrollView>

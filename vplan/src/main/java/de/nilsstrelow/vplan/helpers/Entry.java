@@ -1,6 +1,7 @@
 package de.nilsstrelow.vplan.helpers;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Entry containing everything for one substitution entry
@@ -17,6 +18,8 @@ public class Entry implements Serializable {
     public String bemerkung;
 
     public String line;
+
+    public Date day;
 
     private boolean isNormalEntry;
 

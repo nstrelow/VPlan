@@ -36,9 +36,10 @@
     <string name="sum_hide_common">Allg. Bemerkung wird beim Scrollen automatisch ausgeblendet</string>
     <string name="title_hide_common">Hide-On-Scroll</string>
     <string name="label_check_for_plan_service">CheckForPlanService</string>
+    <string name="label_reminder_service">ReminderService</string>
     <string name="title_check_for_update">Benachrichtigung</string>
-    <string name="sum_check_for_update">Benachrichtigung wenn neue Pläne verfügbar sind</string>
-    <string name="sum_not_check_for_update">Keine Benachrichtigung wenn neue Pläne verfügbar sind</string>
+    <string name="sum_check_for_update">Benachrichtigung wenn neue Pläne für deine Klasse verfügbar sind</string>
+    <string name="sum_not_check_for_update">Keine Benachrichtigung wenn neue Pläne für deine Klasse verfügbar sind</string>
     <string name="title_changes">Änderungen</string>
     <string name="actionbar_color_title">Farbe der Statusleiste</string>
     <string name="actionbar_color_sum">Ändere die Farbe der Statusleiste</string>
@@ -77,5 +78,17 @@
     <string name="content_rainbow_easteregg">RainbowEasterEgg</string>
     <string name="action_add_reminder">Reminder erstellen</string>
     <string name="add_reminder_dialog_title">Reminder</string>
+
+    <!-- Notification Lines -->
+    <string name="notification_line_stunde">Stunde %1$s.</string>
+    <string name="notification_line_vertreter">Vertreter: %1$s</string>
+    <string name="notification_line_fach">Fach: %1$s</string>
+    <string name="notification_line_raum">Raum: %1$s</string>
+    <string name="notification_line_statt_lehrer">statt Lehrer: %1$s</string>
+    <string name="notification_line_statt_fach">statt Fach: %1$s</string>
+    <string name="notification_line_statt_raum">statt Raum: %1$s</string>
+    <string name="notification_line_bemerkung">Bemerkung: %1$s</string>
+    <string name="title_activity_add_reminder">AddReminderActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

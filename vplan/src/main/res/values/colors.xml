@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Ziehenschul blue -->
-    <color name="zs_blue">#00165c</color>
-	
-	<!-- Entry Colors -->
+
+    <color name="header_divider">#fff</color>
+
+    <color name="header_textviews">#555</color>
+    <color name="hour_divider">#ccc</color>
+
+    <!-- Entry Colors -->
     <color name="holo_blue_light">#8033b5e5</color>
     <color name="holo_green_light">#8099cc00</color>
     <color name="holo_red_light">#80ff4444</color>
@@ -17,15 +20,15 @@
     <!--<color name="holo_gray_bright">#33CCCCCC</color>-->
     <color name="holo_blue">#AA0099cc</color>
     <color name="bg_generic_msg">#800099cc</color>
-	
-	<!-- Crouton Colors -->
+
+    <!-- Crouton Colors -->
     <color name="holo_blue_crouton">#ff33b5e5</color>
     <color name="holo_green_crouton">#ff99cc00</color>
     <color name="holo_red_crouton">#ffff4444</color>
 
     <color name="holo_gray_dark">#444</color>
 
-	<!-- Custom ActionBar Colors -->
+    <!-- Custom ActionBar Colors -->
     <color name="holo_white">#fff</color>
     <color name="holo_black">#000</color>
     <!--<color name="holo_gray_light">#999999</color>-->
@@ -43,5 +46,6 @@
 
     <!-- color for title of entries in expanded_entry.xml -->
     <color name="reminder_title">#777</color>
+
 
 </resources>

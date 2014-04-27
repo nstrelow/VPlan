@@ -69,16 +69,11 @@ import de.nilsstrelow.vplan.utils.Startup;
 
 public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener {
 
-    // Define the handler that receives messages from the thread and update the progress
-    // vertretungsplan files from .zs-vertretunsplan
     public static Handler handler;
     public static SharedPreferences sharedPref;
     public static Typeface robotoBold;
-    public static Typeface robotoBlack;
-    // UI items for ViewPager
     public static int NUM_PAGES;
     public static String[] schoolClasses;
-    // counter to see if every day was already checked
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
@@ -93,7 +88,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private ViewPager mPager;
     // MenuItem to refresh
     private Menu optionsMenu;
-    // false if not loading
     private boolean isLoading = false;
     private boolean isDownloading = false;
     private LoadVPlanTask loadVPlanTask;
@@ -110,17 +104,10 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         initTheme();
 
-        setContentView(R.layout.activity_vertretungsplan);
+        setContentView(R.layout.activity_plan);
 
         robotoBold = Typeface.createFromAsset(getAssets(),
                 "Roboto-Bold.ttf");
-        robotoBlack = Typeface.createFromAsset(getAssets(),
-                "Roboto-Black.ttf");
-
-
-        // set up random easteregg click counter
-        Random rand = new Random();
-        randomEasterEggNumber = rand.nextInt(6) + 4;
 
         schoolClasses = getResources().getStringArray(R.array.zs_classes);
 
@@ -211,7 +198,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         //deleteOldVPlans();
 
-        // Set the list's click listener
         mTitle = mDrawerTitle = getTitle();
 
         initActionBar();
@@ -234,18 +220,15 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             icon = R.drawable.ic_drawer_holo_light;
         }
 
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
-                mDrawerLayout, /* DrawerLayout object */
-                icon, /* nav drawer image to replace 'Up' caret */
-                R.string.navigation_drawer_open, /* "open drawer" description for accessibility */
-                R.string.navigation_drawer_close /* "close drawer" description for accessibility */
+        mDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                icon,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
         ) {
             public void onDrawerClosed(View view) {
                 getSupportActionBar().setTitle(mTitle);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                // fire swipeGuide when navigation drawer is closed
+                supportInvalidateOptionsMenu();
                 if (startup.isTutorialMode())
                     startup.setupSwipeGuide();
             }
@@ -254,18 +237,15 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 getSupportActionBar().setTitle(mDrawerTitle);
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 
-                // hide overlay, when user clicked the navigation drawer
                 if (startup.isTutorialMode())
                     startup.hideShowcaseView();
             }
         };
 
-        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     private void initActionBar() {
-        // Set up the action bar.
         ActionBar actionBar = getSupportActionBar();
         int color = sharedPref.getInt(Settings.ACTIONBAR_COLOR_PREF, 0xffffff);
         actionBar.setBackgroundDrawable(new ColorDrawable(color));
@@ -294,7 +274,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         }
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -368,14 +347,10 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         }
     }
 
-    public void loadVPlan() {
-        loadClass();
-    }
-
     @Override
     protected void onStart() {
-        EasyTracker.getInstance(this).activityStart(this);
         super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
@@ -383,15 +358,14 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         super.onResume();
         initActionBar();
         initDrawer();
-        loadVPlan();
+        loadClass();
         downloadVertretungsplanTask = new DownloadVPlanTask(this, Device.VPLAN_PATH);
         downloadVertretungsplanTask.execute();
         startCheckForUpdate();
-    }
 
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
+        // set up random easteregg click counter
+        Random rand = new Random();
+        randomEasterEggNumber = rand.nextInt(6) + 4;
     }
 
     @Override
@@ -406,15 +380,10 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     protected void onStop() {
+        super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
         loadVPlanTask.cancel(true);
-        super.onStop();
     }
 
     private void setupViewPager(final SchoolClass schoolClass) {

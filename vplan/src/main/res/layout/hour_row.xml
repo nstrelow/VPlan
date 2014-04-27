@@ -17,67 +17,37 @@
             style="@style/row_element"
             android:textStyle="bold" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="34dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/vertreter"
             style="@style/row_element" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/fach"
             style="@style/row_element" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/raum"
             style="@style/row_element" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/statt_lehrer"
             style="@style/row_element" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/statt_fach"
             style="@style/row_element" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/hour_divider" />
 
         <TextView
             android:id="@+id/statt_raum"
@@ -89,6 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="8dp"
+        android:padding="@dimen/view_padding"
         android:visibility="gone" />
 </LinearLayout>

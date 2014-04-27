@@ -44,6 +44,9 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
         String localTimestamp = FileUtils.readFile(Device.TIMESTAMP_PATH);
 
         if (!onlineTimestamp.equals(localTimestamp)) {
+
+            UPDATED = true;
+
             String[] onlineLines = onlineTimestamp.split("\n", -1);
             String[] localLines = localTimestamp.split("\n", -1);
 
@@ -55,7 +58,6 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
                 updateSchoolClass(schoolClass);
                 Log.i(TAG, "Class updated: " + schoolClass);
             }
-
             FileUtils.saveFile(onlineTimestamp, Device.TIMESTAMP_PATH);
         }
         return UPDATED;
