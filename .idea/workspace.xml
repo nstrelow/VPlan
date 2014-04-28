@@ -30,15 +30,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/HoloColorPicker_1_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/HoloColorPicker_1_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/build.gradle" afterPath="$PROJECT_DIR$/vplan/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VPlan.iws" />
@@ -98,8 +92,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -107,51 +101,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VertretungsplanActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VertretungsplanActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26604435" vertical-offset="852" max-vertical-offset="9645">
-              <caret line="72" column="47" selection-start-line="72" selection-start-column="47" selection-end-line="72" selection-end-column="47" />
+            <state vertical-scroll-proportion="-4.5555553" vertical-offset="4482" max-vertical-offset="9420">
+              <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4028#8124#0" expanded="true" />
-                <element signature="e#6350#6658#0" expanded="true" />
-                <element signature="e#6623#6624#0" expanded="true" />
-                <element signature="e#6806#7285#0" expanded="true" />
-                <element signature="e#7254#7255#0" expanded="true" />
-                <element signature="e#8113#8114#0" expanded="true" />
-                <element signature="e#8363#8364#0" expanded="true" />
-                <element signature="e#8414#8415#0" expanded="true" />
-                <element signature="e#9011#9042#0" expanded="true" />
-                <element signature="e#9060#9092#0" expanded="true" />
-                <element signature="e#12333#12353#0" expanded="true" />
-                <element signature="e#16471#16472#0" expanded="true" />
-                <element signature="e#16530#16531#0" expanded="true" />
-                <element signature="e#19721#19916#0" expanded="true" />
-                <element signature="e#19901#19902#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DownloadVPlanTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java">
+      <file leaf-file-name="FileUtils.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2445">
-              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1738#1746#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.32409012" vertical-offset="23" max-vertical-offset="870">
+              <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoadVPlanTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java">
+      <file leaf-file-name="Settings.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="1320">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+            <state vertical-scroll-proportion="-6.6296296" vertical-offset="1" max-vertical-offset="5580">
+              <caret line="46" column="47" selection-start-line="46" selection-start-column="41" selection-end-line="46" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -2129,9 +2105,7 @@
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/adapters/HourAdapter.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/DateUtils.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/constants/Device.java" />
-        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/drawable/rectangle_hour_header.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/adapters/ClassListViewAdapter.java" />
@@ -2156,7 +2130,9 @@
         <option value="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/activity_plan.xml" />
+        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java" />
+        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" />
       </list>
     </option>
   </component>
@@ -2192,7 +2168,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2702,6 +2677,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2866,6 +2842,19 @@
       </ExternalSystemSettings>
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2891,19 +2880,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3020,6 +2996,11 @@
       <created>1397048002641</created>
       <updated>1397048002641</updated>
     </task>
+    <task id="LOCAL-00001" summary="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class">
+      <created>1398719473273</created>
+      <updated>1398719473273</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3029,7 +3010,6 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21578613" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3040,17 +3020,18 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33699232" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33699232" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930705" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20089002" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19516847" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2579583" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="92" y="91" width="1495" height="827" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21578613" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21954022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -3083,25 +3064,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java</url>
-          <line>596</line>
+          <line>597</line>
           <properties />
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java</url>
-          <line>604</line>
+          <line>605</line>
           <properties />
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java</url>
-          <line>598</line>
+          <line>599</line>
           <properties />
           <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java</url>
-          <line>603</line>
+          <line>604</line>
           <properties class="de.nilsstrelow.vplan.activities.VertretungsplanActivity" method="onConfigurationChanged" />
           <option name="timeStamp" value="120" />
         </line-breakpoint>
@@ -3175,13 +3156,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="404" max-vertical-offset="1020">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/NetworkUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.50384027" vertical-offset="1202" max-vertical-offset="1853">
@@ -3201,28 +3175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3572" max-vertical-offset="4879">
           <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9364486" vertical-offset="6435" max-vertical-offset="7072">
-          <caret line="465" column="5" selection-start-line="465" selection-start-column="5" selection-end-line="465" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3591#3636#0" expanded="false" />
-            <element signature="e#3639#3685#0" expanded="false" />
-            <element signature="e#3811#3850#0" expanded="false" />
-            <element signature="e#3853#3896#0" expanded="false" />
-            <element signature="e#4022#4066#0" expanded="false" />
-            <element signature="e#4069#4117#0" expanded="false" />
-            <element signature="e#6735#6790#0" expanded="false" />
-            <element signature="e#6793#6852#0" expanded="false" />
-            <element signature="e#7037#7087#0" expanded="false" />
-            <element signature="e#7090#7144#0" expanded="false" />
-            <element signature="e#7680#7736#0" expanded="false" />
-            <element signature="e#7739#7796#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3345,7 +3297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1861805" vertical-offset="652" max-vertical-offset="1173">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -3433,7 +3384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20797227" vertical-offset="0" max-vertical-offset="2235">
           <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3441,7 +3391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="428" max-vertical-offset="1005">
           <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3449,7 +3398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8180243" vertical-offset="398" max-vertical-offset="975">
           <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3469,7 +3417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13914657" vertical-offset="0" max-vertical-offset="3120">
           <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3520,10 +3467,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2445">
           <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1738#1746#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3535,28 +3479,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6296296" vertical-offset="1" max-vertical-offset="5580">
+          <caret line="46" column="47" selection-start-line="46" selection-start-column="41" selection-end-line="46" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26604435" vertical-offset="852" max-vertical-offset="9645">
-          <caret line="72" column="47" selection-start-line="72" selection-start-column="47" selection-end-line="72" selection-end-column="47" />
+        <state vertical-scroll-proportion="-4.5555553" vertical-offset="4482" max-vertical-offset="9420">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4028#8124#0" expanded="true" />
-            <element signature="e#6350#6658#0" expanded="true" />
-            <element signature="e#6623#6624#0" expanded="true" />
-            <element signature="e#6806#7285#0" expanded="true" />
-            <element signature="e#7254#7255#0" expanded="true" />
-            <element signature="e#8113#8114#0" expanded="true" />
-            <element signature="e#8363#8364#0" expanded="true" />
-            <element signature="e#8414#8415#0" expanded="true" />
-            <element signature="e#9011#9042#0" expanded="true" />
-            <element signature="e#9060#9092#0" expanded="true" />
-            <element signature="e#12333#12353#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#16530#16531#0" expanded="true" />
-            <element signature="e#19721#19916#0" expanded="true" />
-            <element signature="e#19901#19902#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32409012" vertical-offset="23" max-vertical-offset="870">
+          <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -34,6 +33,7 @@ import com.larswerkman.holocolorpicker.SVBar;
 import java.io.File;
 
 import de.nilsstrelow.vplan.R;
+import de.nilsstrelow.vplan.constants.Device;
 
 /**
  * Created by djnilse on 11/19/13.
@@ -339,9 +339,9 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        File zsDir = new File(Environment.getExternalStorageDirectory() + "/" + ".zs-vertretungsplan");
-                        if (zsDir.exists())
-                            deleteFolder(zsDir);
+                        File vplanDir = new File(Device.VPLAN_PATH);
+                        if (vplanDir.exists())
+                            deleteFolder(vplanDir);
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
@@ -402,37 +402,23 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
                 initializeActionBar();
             }
         }
-        if (preference.getKey().equals(CHANGELOG_PREF)) {
+        /*if (preference.getKey().equals(CHANGELOG_PREF)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Version 2.5 : Heard you like colors");
-            builder.setMessage("ÜBER 500 DOWNLOADS :D\n\nÄnderungen\n\n"
-                            + "1. Statusbarfarbe: Wähle zwischen Standardfarben oder erstelle dir deine Eigene! \n"
-                            + "1,5. Wähle den Iconstyle (hell oder dunkel), damit die Icons zu deiner Farbe passen\n"
-                            + "2. Bemerkung wird jetzt unter dem Eintrag angezeigt\n"
-                            + "3. Allg. Bemerkungen werden jetzt beim Scrollen ausgeblendet, Option dazu in den Einstellungen\n"
-                            + "4. Menueintrag um den Vertretungsplan im Browser anzuzeigen, sollte es Probleme geben oder spezielle Pläne\n"
-                            + "5. Überarbeitete Einstellungen\n"
-                            + "6. Bugfixes und Optimierungen (Dienstag und so)\n\n"
-                            + "NEWS:\n\nSchriftliches Abitur ist endlich vorbei und ich hoffe alle Abiturienten habts gut überstanden.\n"
-                            + "Der Plan: (ZS) Plan an weitere Schule bringen, ich denke als erstes werde ich mit der ERS anfangen, mal sehen wie das läuft.\n"
-                            + "Ich werde ein paar Mechanismen in der App ändern, welche mir möglichen machen werden, euch nur zu benachrichtigen, wenn sich etwas in EURER Klasse/Stufe ändert!\n"
-                            + "Außerdem möchte ich die App stabiler machen, besonders für Geräte ab Android 4.0. Schreibt mir einfach ein Feedback, wenn ihr irgendwo Verbesserungsmöglichkeiten oder einfach nur nervige Sachen seht oder sendet mir einen Fehlerbericht mit einer kleinen Naricht was ihr gerade vor dem Absturz gemacht habt.\n"
-                            + "Nicht zu vergessen: ZS PLAN HAT JETZT ÜBER 500 DOWNLOADS :D :D :D\n"
-                            + "Ich danke allen, die dabei sind und in ZS Plan eine nützliche App gefunden haben.\n"
-            );
+            builder.setTitle("");
+            builder.setMessage("");
 
-            builder.setPositiveButton("Abitur vorbei ...", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(getApplication(), "Dobby ist jetzt FREI! :D", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "", Toast.LENGTH_LONG).show();
                 }
             });
 
 
             Dialog dialog = builder.create();
             dialog.show();
-        }
+        }*/
 
 
         counter++;

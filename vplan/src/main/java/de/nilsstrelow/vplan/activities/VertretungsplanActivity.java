@@ -322,8 +322,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     protected void onResume() {
         super.onResume();
         initActionBar();
-        loadClass();
         updateClass();
+        loadClass();
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
         startCheckForUpdate();
@@ -394,6 +394,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
         editor.commit();
+        updateClass();
         loadClass();
     }
 

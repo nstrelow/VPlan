@@ -36,7 +36,7 @@ public class FileUtils {
 
             return sb.toString();
         } catch (FileNotFoundException e) {
-            Log.e("readFile()", "FileNotFound");
+            Log.e("FileUtils.readFile()", "FileNotFound: " + path);
         } catch (IOException e) {
             e.printStackTrace();
         }
