@@ -77,6 +77,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
+    ActionBar actionBar;
     private String currentSchoolClassName;
     // UI items for Actionbar
     private CharSequence mTitle;
@@ -91,8 +92,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private boolean isLoading = false;
     private boolean isDownloading = false;
     private LoadVPlanTask loadVPlanTask;
-    private DownloadVPlanTask downloadVertretungsplanTask;
-
+    private DownloadVPlanTask downloadVPlanTask;
     private Startup startup;
 
     @Override
@@ -110,13 +110,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 "Roboto-Bold.ttf");
 
         schoolClasses = getResources().getStringArray(R.array.zs_classes);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        mDrawerList.setOnItemClickListener(this);
-
-        ListAdapter listAdapter = new ClassListViewAdapter(this, getResources().getStringArray(R.array.zs_classes));
-        mDrawerList.setAdapter(listAdapter);
 
         handler = new Handler() {
 
@@ -200,9 +193,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         mTitle = mDrawerTitle = getTitle();
 
-        initActionBar();
-
         initDrawer();
+        initActionBar();
 
         startup = new Startup(this, sharedPref);
         startup.start();
@@ -220,6 +212,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             icon = R.drawable.ic_drawer_holo_light;
         }
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        ListAdapter listAdapter = new ClassListViewAdapter(this, getResources().getStringArray(R.array.zs_classes));
+
         mDrawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
                 icon,
@@ -227,26 +224,36 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 R.string.navigation_drawer_close
         ) {
             public void onDrawerClosed(View view) {
+
                 getSupportActionBar().setTitle(mTitle);
                 supportInvalidateOptionsMenu();
                 if (startup.isTutorialMode())
                     startup.setupSwipeGuide();
+
+                super.onDrawerClosed(view);
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 
+                getSupportActionBar().setTitle(mDrawerTitle);
+                supportInvalidateOptionsMenu();
                 if (startup.isTutorialMode())
                     startup.hideShowcaseView();
+
+                super.onDrawerOpened(drawerView);
             }
         };
 
+        mDrawerList.setOnItemClickListener(this);
+        mDrawerList.setAdapter(listAdapter);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        // just styling option add shadow the right edge of the drawer
+        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     }
 
     private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         int color = sharedPref.getInt(Settings.ACTIONBAR_COLOR_PREF, 0xffffff);
         actionBar.setBackgroundDrawable(new ColorDrawable(color));
         int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
@@ -273,9 +280,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 actionBarSubTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
         }
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
     }
 
     private void initTheme() {
@@ -297,54 +303,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         if (!isRunning()) {
             Toast.makeText(this, R.string.no_plan_msg, Toast.LENGTH_LONG).show();
         }
-        if (startup.isNewVersion())
-            startup.setupNewVersionGuide();
+
     }
 
-    private void deleteOldVPlans() {
-        try {
-            File vplanDir = new File(Device.VPLAN_PATH);
-            File[] plans = vplanDir.listFiles(new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.toLowerCase(Locale.GERMANY).endsWith(".txt");
-                }
-            });
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
-            Calendar today = Calendar.getInstance();
-            final String format = df.format(today.getTime());
-            Date date = null;
-            try {
-                date = df.parse(format);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if (vplanDir.exists()) {
-                for (final File plan : plans) {
-                    //long diff = timestamp.lastModified() - plan.lastModified();
-                    //if (diff > 6 * 60 * 60 * 1000) {
-                    //   plan.delete();
-                    //}
-                    Date planDate = DateUtils.parseString(plan.getName());
-                    // if date of today is "bigger" than date of plan
-                    if (date != null && planDate != null) {
-                        if (date.compareTo(planDate) == 1) {
-                            plan.delete();
-                        }
-                        // getTime() are milliseconds, so make them to hours and look up if its already at 18
-                        if ((System.currentTimeMillis() - planDate.getTime()) / 1000 / 60 / 60 >= 18) {
-                            plan.delete();
-                        }
-                    }
-
-                    if (!plan.getName().matches("(Mo|Di|Mi|Do|Fr)[0-9]{6}.txt")) {
-                        //Toast.makeText(this, "It's not a plan: " + plan.getName(), Toast.LENGTH_SHORT).show();
-                        plan.delete();
-                    }
-                }
-            }
-        } catch (Exception ignored) {
-
-        }
+    private void updateClass() {
+        String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        downloadVPlanTask = new DownloadVPlanTask(this, Device.VPLAN_PATH);
+        downloadVPlanTask.execute(mySchoolClass);
     }
 
     @Override
@@ -357,10 +322,10 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     protected void onResume() {
         super.onResume();
         initActionBar();
-        initDrawer();
         loadClass();
-        downloadVertretungsplanTask = new DownloadVPlanTask(this, Device.VPLAN_PATH);
-        downloadVertretungsplanTask.execute();
+        updateClass();
+        if (startup.isNewVersion())
+            startup.setupNewVersionGuide();
         startCheckForUpdate();
 
         // set up random easteregg click counter
@@ -468,7 +433,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         }
         ft.addToBackStack(null);
 
-        // Create and show the dialog.
         DialogFragment newFragment = FeedbackDialogFragment.newInstance();
         newFragment.show(ft, "feedback");
     }
@@ -477,27 +441,23 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle(mTitle);
     }
 
-    /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (this.optionsMenu == null)
             this.optionsMenu = menu;
         setRefreshActionButtonState(isLoading());
-        // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.optionsMenu = menu;
         if (!mDrawerLayout.isDrawerOpen(R.id.left_drawer)) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.vertretungsplan, menu);
             colorRefresh(menu);
             restoreActionBar();
@@ -522,16 +482,15 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        //if (mDrawerToggle.onOptionsItemSelected(item)) {
+        //return true;
+        //}
         switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivityForResult(new Intent(this, Settings.class), settingsRequestCode);
                 return true;
             case R.id.action_refresh:
-                downloadVertretungsplanTask = new DownloadVPlanTask(this, Device.VPLAN_PATH);
-                downloadVertretungsplanTask.execute();
+                updateClass();
                 return true;
             case R.id.action_feedback:
                 showFeedbackDialog();
@@ -553,13 +512,59 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         return super.onOptionsItemSelected(item);
     }
 
+    private void deleteOldVPlans() {
+        try {
+            File vplanDir = new File(Device.VPLAN_PATH);
+            File[] plans = vplanDir.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase(Locale.GERMANY).endsWith(".txt");
+                }
+            });
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
+            Calendar today = Calendar.getInstance();
+            final String format = df.format(today.getTime());
+            Date date = null;
+            try {
+                date = df.parse(format);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (vplanDir.exists()) {
+                for (final File plan : plans) {
+                    //long diff = timestamp.lastModified() - plan.lastModified();
+                    //if (diff > 6 * 60 * 60 * 1000) {
+                    //   plan.delete();
+                    //}
+                    Date planDate = DateUtils.parseString(plan.getName());
+                    // if date of today is "bigger" than date of plan
+                    if (date != null && planDate != null) {
+                        if (date.compareTo(planDate) == 1) {
+                            plan.delete();
+                        }
+                        // getTime() are milliseconds, so make them to hours and look up if its already at 18
+                        if ((System.currentTimeMillis() - planDate.getTime()) / 1000 / 60 / 60 >= 18) {
+                            plan.delete();
+                        }
+                    }
+
+                    if (!plan.getName().matches("(Mo|Di|Mi|Do|Fr)[0-9]{6}.txt")) {
+                        //Toast.makeText(this, "It's not a plan: " + plan.getName(), Toast.LENGTH_SHORT).show();
+                        plan.delete();
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+
+        }
+    }
+
     private void rainbowEasterEgg() {
         counter++;
         if (counter == randomEasterEggNumber - 2) {
             Toast.makeText(this, "You've got tha clicks", Toast.LENGTH_SHORT).show();
         }
         if (counter == randomEasterEggNumber) {
-            Toast.makeText(this, "You mindless clicker, yoouuu ^^", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You mindless clicker, youuu ^^", Toast.LENGTH_LONG).show();
             Dialog easterEgg = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
             easterEgg.setContentView(R.layout.rainbow_dialog);
             WindowManager.LayoutParams lp = easterEgg.getWindow().getAttributes();
@@ -588,10 +593,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         }
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -602,7 +603,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -626,8 +626,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     private boolean isRunning() {
-        if (downloadVertretungsplanTask != null) {
-            AsyncTask.Status status = downloadVertretungsplanTask.getStatus();
+        if (downloadVPlanTask != null) {
+            AsyncTask.Status status = downloadVPlanTask.getStatus();
             return (AsyncTask.Status.RUNNING == status);
         } else {
             return false;

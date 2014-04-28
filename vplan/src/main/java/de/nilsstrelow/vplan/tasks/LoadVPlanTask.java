@@ -21,12 +21,10 @@ import de.nilsstrelow.vplan.utils.FileUtils;
  */
 public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
 
-    String[] schoolClasses;
     private Activity activity;
 
     public LoadVPlanTask(Activity activity) {
         this.activity = activity;
-        schoolClasses = activity.getResources().getStringArray(R.array.zs_classes);
     }
 
     @Override

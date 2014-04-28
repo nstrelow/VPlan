@@ -54,7 +54,7 @@
             android:title="Ehrentester" />
         <Preference
             android:key="copyright"
-            android:summary="©2013-2014, Nils Strelow @ FUNception Apps"
+            android:summary="©2014, Nils Strelow"
             android:title="Copyright" />
     </PreferenceCategory>
 </PreferenceScreen>
