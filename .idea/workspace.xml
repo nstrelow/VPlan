@@ -29,10 +29,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: de.nilsstrelow.vplan" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="improve add_reminder_activity layout">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
+    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="also download generic messages">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VPlan.iws" />
@@ -3035,7 +3032,11 @@
       <created>1398777945958</created>
       <updated>1398777945958</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="also download generic messages">
+      <created>1398778702008</created>
+      <updated>1398778702008</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3091,7 +3092,8 @@
     <MESSAGE value="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class" />
     <MESSAGE value="update copyright" />
     <MESSAGE value="improve add_reminder_activity layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="improve add_reminder_activity layout" />
+    <MESSAGE value="also download generic messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="also download generic messages" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
