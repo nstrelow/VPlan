@@ -53,7 +53,7 @@
         <Preference
             android:key="tester"
             android:summary="Alexander Kowatzki"
-            android:title="Ehrentester" />
+            android:title="Tester" />
         <Preference
             android:key="copyright"
             android:summary="©2014 Nils Strelow"

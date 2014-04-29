@@ -29,9 +29,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: de.nilsstrelow.vplan" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="update copyright">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" />
+    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="improve add_reminder_activity layout">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" afterPath="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VPlan.iws" />
@@ -100,11 +101,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VertretungsplanActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VertretungsplanActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46448088" vertical-offset="3910" max-vertical-offset="9571">
-              <caret line="322" column="25" selection-start-line="322" selection-start-column="25" selection-end-line="322" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3744" max-vertical-offset="9571">
+              <caret line="310" column="37" selection-start-line="310" selection-start-column="37" selection-end-line="310" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DownloadVPlanTask.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.17850637" vertical-offset="990" max-vertical-offset="3077">
+              <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+              <folding>
+                <element signature="e#5272#5336#0" expanded="true" />
+                <element signature="e#5541#5601#0" expanded="true" />
+                <element signature="e#6511#6574#0" expanded="true" />
+                <element signature="e#6861#6918#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="536" max-vertical-offset="1105">
+              <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="590" max-vertical-offset="1139">
+              <caret line="54" column="48" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -2113,16 +2149,16 @@
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/fragment_main.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/feedback_dialog.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java" />
-        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
         <option value="$PROJECT_DIR$/vplan/build.gradle" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/activity_plan.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/Settings.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" />
-        <option value="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
-        <option value="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" />
+        <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
+        <option value="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
+        <option value="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
       </list>
     </option>
   </component>
@@ -2995,7 +3031,11 @@
       <created>1398776993340</created>
       <updated>1398776993341</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="improve add_reminder_activity layout">
+      <created>1398777945958</created>
+      <updated>1398777945958</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3050,7 +3090,8 @@
     </option>
     <MESSAGE value="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class" />
     <MESSAGE value="update copyright" />
-    <option name="LAST_COMMIT_MESSAGE" value="update copyright" />
+    <MESSAGE value="improve add_reminder_activity layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="improve add_reminder_activity layout" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -3418,14 +3459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2445">
-          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="1320">
@@ -3446,22 +3479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1712204" vertical-offset="195" max-vertical-offset="986">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="590" max-vertical-offset="1139">
-          <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7887067" vertical-offset="536" max-vertical-offset="1105">
-          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -3498,9 +3515,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46448088" vertical-offset="3910" max-vertical-offset="9571">
-          <caret line="322" column="25" selection-start-line="322" selection-start-column="25" selection-end-line="322" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3744" max-vertical-offset="9571">
+          <caret line="310" column="37" selection-start-line="310" selection-start-column="37" selection-end-line="310" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="590" max-vertical-offset="1139">
+          <caret line="54" column="48" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="536" max-vertical-offset="1105">
+          <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17850637" vertical-offset="990" max-vertical-offset="3077">
+          <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+          <folding>
+            <element signature="e#5272#5336#0" expanded="true" />
+            <element signature="e#5541#5601#0" expanded="true" />
+            <element signature="e#6511#6574#0" expanded="true" />
+            <element signature="e#6861#6918#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

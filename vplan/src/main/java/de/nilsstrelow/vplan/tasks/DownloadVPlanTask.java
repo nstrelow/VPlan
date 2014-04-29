@@ -40,6 +40,7 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... schoolClassName) {
+        updateGeneric();
         return updateMyClass(schoolClassName[0]);
     }
 
@@ -68,6 +69,23 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
     }
 
     private boolean updateMyClass(String schoolClassName) {
+
+        String onlineTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClassName + "/timestamp");
+        String localTimestamp = FileUtils.readFile(Device.VPLAN_PATH + schoolClassName + "/timestamp");
+
+        if (!onlineTimestamp.equals(localTimestamp)) {
+
+            UPDATED = true;
+            updateSchoolClass(schoolClassName);
+            Log.i(TAG, "Class updated: " + schoolClassName);
+        }
+        return UPDATED;
+    }
+
+    /* Update von Allgemeinen Bemerkungen */
+    private boolean updateGeneric() {
+
+        String schoolClassName = "generic";
 
         String onlineTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClassName + "/timestamp");
         String localTimestamp = FileUtils.readFile(Device.VPLAN_PATH + schoolClassName + "/timestamp");
