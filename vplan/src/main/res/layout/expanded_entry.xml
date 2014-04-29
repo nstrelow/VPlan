@@ -133,5 +133,6 @@
     <TextView
         android:id="@+id/rBemerkung"
         style="@style/reminder_entry_text_view"
+        android:gravity="left"
         android:text="andr. Raum" />
 </LinearLayout>

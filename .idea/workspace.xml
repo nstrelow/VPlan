@@ -29,11 +29,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: de.nilsstrelow.vplan" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/HoloColorPicker_1_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/HoloColorPicker_1_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
+    <list default="true" id="5e9e6df3-e104-4aa3-8410-92f378d9a59a" name="Default" comment="update copyright">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VPlan.iws" />
@@ -105,8 +103,21 @@
       <file leaf-file-name="VertretungsplanActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4335155" vertical-offset="3910" max-vertical-offset="9571">
-              <caret line="321" column="31" selection-start-line="321" selection-start-column="31" selection-end-line="321" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.46448088" vertical-offset="3910" max-vertical-offset="9571">
+              <caret line="322" column="25" selection-start-line="322" selection-start-column="25" selection-end-line="322" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_reminder_activity.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/add_reminder_activity.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.0" vertical-offset="889" max-vertical-offset="1411">
+              <caret line="65" column="55" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -2098,11 +2109,9 @@
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/color_picker_dialog.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/plan_header.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/fragments/ClassDayViewFragment.java" />
-        <option value="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/AddReminderActivity.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/fragment_main.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/layout/feedback_dialog.xml" />
-        <option value="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/LoadVPlanTask.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/tasks/DownloadVPlanTask.java" />
         <option value="$PROJECT_DIR$/vplan/build.gradle" />
@@ -2112,6 +2121,8 @@
         <option value="$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/utils/FileUtils.java" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/xml-v14/settings.xml" />
         <option value="$PROJECT_DIR$/vplan/src/main/res/xml/settings.xml" />
+        <option value="$PROJECT_DIR$/vplan/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml" />
       </list>
     </option>
   </component>
@@ -2344,7 +2355,7 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2679,6 +2690,7 @@
     <property name="LayoutCode.rearrangeEntries" value="true" />
     <property name="LayoutCode.rearrangeEntriesXML" value="true" />
     <property name="SearchEverywhereHistoryKey" value="Copyright&#9;ACTION&#9;UpdateCopyright&#10;exists&#9;PSI&#9;JAVA://de.nilsstrelow.vplan.utils.NetworkUtils#exists" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="AVD_for_Android_Wear_Square_by_Google" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -2979,7 +2991,11 @@
       <created>1398719473273</created>
       <updated>1398719473273</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update copyright">
+      <created>1398776993340</created>
+      <updated>1398776993341</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2989,6 +3005,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21529052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3010,7 +3027,6 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2579583" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="92" y="91" width="1495" height="827" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21578613" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21954022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -3033,7 +3049,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix DrawerToggle, improve DownloadVPlanTask&#10;DownloadVPlanTask now only downloads VPlan for user choosen school class" />
+    <MESSAGE value="update copyright" />
+    <option name="LAST_COMMIT_MESSAGE" value="update copyright" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -3300,16 +3317,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16314779" vertical-offset="0" max-vertical-offset="2414">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/done_cancel_bar.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3327,16 +3334,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0441458" vertical-offset="0" max-vertical-offset="697">
           <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/add_reminder_activity.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7523992" vertical-offset="509" max-vertical-offset="1411">
-          <caret line="53" column="55" selection-start-line="53" selection-start-column="55" selection-end-line="53" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -3405,14 +3402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025996534" vertical-offset="420" max-vertical-offset="1650">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0-sources.jar!/android/support/v4/widget/DrawerLayout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33275563" vertical-offset="15723" max-vertical-offset="24600">
@@ -3477,10 +3466,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4335155" vertical-offset="782" max-vertical-offset="1870">
+          <caret line="60" column="54" selection-start-line="60" selection-start-column="54" selection-end-line="60" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/expanded_entry.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6091954" vertical-offset="1892" max-vertical-offset="2431">
+          <caret line="130" column="53" selection-start-line="130" selection-start-column="53" selection-end-line="130" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vplan/src/main/res/layout/add_reminder_activity.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.0" vertical-offset="889" max-vertical-offset="1411">
+          <caret line="65" column="55" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vplan/src/main/java/de/nilsstrelow/vplan/activities/VertretungsplanActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4335155" vertical-offset="3910" max-vertical-offset="9571">
-          <caret line="321" column="31" selection-start-line="321" selection-start-column="31" selection-end-line="321" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.46448088" vertical-offset="3910" max-vertical-offset="9571">
+          <caret line="322" column="25" selection-start-line="322" selection-start-column="25" selection-end-line="322" selection-end-column="25" />
           <folding />
         </state>
       </provider>
