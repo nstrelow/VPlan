@@ -22,7 +22,7 @@ public class ClassListViewAdapter extends ArrayAdapter<String> {
     private final String[] schoolClasses;
 
     public ClassListViewAdapter(Activity activity, String[] schoolClasses) {
-        super(activity, R.layout.listrow_class, schoolClasses);
+        super(activity, R.layout.listrow_class_drawer, schoolClasses);
         this.activity = activity;
         this.schoolClasses = schoolClasses;
 
@@ -39,7 +39,7 @@ public class ClassListViewAdapter extends ArrayAdapter<String> {
             ViewHolder viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.listrow_class, parent, false);
+            rowView = inflater.inflate(R.layout.listrow_class_drawer, parent, false);
             viewHolder.entry = (TextView) rowView.findViewById(R.id.child_item);
             rowView.setTag(viewHolder);
         }

@@ -3,11 +3,14 @@ package de.nilsstrelow.vplan.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -27,11 +30,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,7 +73,7 @@ import de.nilsstrelow.vplan.utils.DateUtils;
 import de.nilsstrelow.vplan.utils.SchoolClassUtils;
 import de.nilsstrelow.vplan.utils.Startup;
 
-public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener {
+public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener, ActionBar.OnNavigationListener {
 
     public static Handler handler;
     public static SharedPreferences sharedPref;
@@ -87,6 +93,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private DaysPagerAdapter mPagerAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private ViewPager mPager;
+    private ArrayAdapter mSpinnerAdapter;
+    private android.app.ActionBar.OnNavigationListener mOnNavigationListener;
     // MenuItem to refresh
     private Menu optionsMenu;
     private boolean isLoading = false;
@@ -276,9 +284,113 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             if (actionBarSubTitle != null)
                 actionBarSubTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
         }
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+
+        mSpinnerAdapter = new ArrayAdapter(this, R.array.zs_classes) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                final String className = schoolClasses[position];
+
+                View rowView = convertView;
+
+                if (rowView == null) {
+                    ViewHolder viewHolder = new ViewHolder();
+                    LayoutInflater inflater = (LayoutInflater)
+                            getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    rowView = inflater.inflate(R.layout.listrow_class_spinner, parent, false);
+                    viewHolder.entry = (TextView) rowView.findViewById(R.id.child_item);
+                    rowView.setTag(viewHolder);
+                }
+
+                ViewHolder holder = (ViewHolder) rowView.getTag();
+
+                holder.entry.setTypeface(VertretungsplanActivity.robotoBold);
+                if (className.startsWith("5") || className.startsWith("6") || className.startsWith("7")) {
+                    //txtListChild.setBackground(activity.getResources().getDrawable(R.drawable.rectangle_orange));
+                    holder.entry.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectangle_orange));
+                }
+                if (className.startsWith("8") || className.startsWith("9")) {
+                    //txtListChild.setBackground(activity.getResources().getDrawable(R.drawable.rectangle_orange));
+                    holder.entry.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectangle_green));
+                }
+                if (className.startsWith("1")) {
+                    //txtListChild.setBackground(activity.getResources().getDrawable(R.drawable.rectangle_orange));
+                    holder.entry.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectangle_purple));
+                }
+                holder.entry.setText(schoolClasses[position]);
+                return rowView;
+            }
+
+            @Override
+            public void registerDataSetObserver(DataSetObserver observer) {
+
+            }
+
+            @Override
+            public void unregisterDataSetObserver(DataSetObserver observer) {
+
+            }
+
+            @Override
+            public int getCount() {
+                return schoolClasses.length;
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return schoolClasses[position];
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public boolean hasStableIds() {
+                return false;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                convertView = getLayoutInflater().inflate(R.layout.class_list_textview, null);
+                TextView classTxt = (TextView) convertView.findViewById(R.id.classTxt);
+                classTxt.setText("KL: " + schoolClasses[position]);
+                if (useLightIcons()) {
+                    classTxt.setTextColor(Color.WHITE);
+                } else {
+                    classTxt.setTextColor(Color.BLACK);
+                }
+                return convertView;
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                return 0;
+            }
+
+            @Override
+            public int getViewTypeCount() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            class ViewHolder {
+                TextView entry;
+            }
+        };
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+
     }
 
     private void initTheme() {
@@ -314,6 +426,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position); //don't need that here
+        getSupportActionBar().setSelectedNavigationItem(position);
         mDrawerLayout.closeDrawer(mDrawerList);
         loadVPlanTask = new LoadVPlanTask(this);
         loadVPlanTask.execute(currentSchoolClassName);
@@ -384,13 +497,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         });
         mPager.setCurrentItem(0);
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
+        getSupportActionBar().setSelectedNavigationItem(position);
         currentSchoolClassName = schoolClasses[position];
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
@@ -400,21 +513,44 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     @Override
+    public boolean onNavigationItemSelected(int position, long itemId) {
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
+        currentSchoolClassName = schoolClasses[position];
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
+        editor.commit();
+        updateClass();
+        loadClass();
+        return true;
+    }
+
+    @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        TextView actionBarDate = (TextView) getLayoutInflater().inflate(
+                R.layout.actionbar_date_textview,
+                null);
+        if (useLightIcons()) {
+            actionBarDate.setTextColor(Color.WHITE);
+        } else {
+            actionBarDate.setTextColor(Color.BLACK);
+        }
+        actionBarDate.setText(title);
+        actionBar.setCustomView(actionBarDate);
+
     }
 
     public void setupTitle(String schoolClassName, SchoolClass schoolClass) {
-        setTitle("KL: " + schoolClassName + "   " + DateUtils.parseDate(schoolClass.getDay(0).day).replaceFirst("\\.", " "));
+        setTitle(DateUtils.parseDate(schoolClass.getDay(0).day).replaceFirst("\\.", " "));
     }
 
     public void setupTitle(String schoolClassName, SchoolClass schoolClass, int position) {
-        setTitle("KL: " + schoolClassName + "   " + DateUtils.parseDate(schoolClass.getDay(position).day).replaceFirst("\\.", " "));
+        setTitle(DateUtils.parseDate(schoolClass.getDay(position).day).replaceFirst("\\.", " "));
     }
 
     public void setSubtitle(CharSequence subTitle) {
-        getSupportActionBar().setSubtitle(subTitle);
+        //getSupportActionBar().setSubtitle(subTitle);
     }
 
     void showFeedbackDialog() {
@@ -431,11 +567,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(mTitle);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 
     @Override
@@ -628,5 +764,4 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             return false;
         }
     }
-
 }
