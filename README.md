@@ -9,7 +9,7 @@ A previous version of the app was ZS Plan, wish was just for Ziehenschule and ca
 There is a [beta Google+ Community](https://plus.google.com/communities/116677531626306143784). You can join and download the beta.
 
 ## Mechanism
-The substitution plans are downloaded from their respective school sites and formatted to a specific on an external server. From there on VPlan checks if plans have been added or changed and downloads them onto the device.
+The substitution plans are downloaded from their respective school sites and formatted to a CSV-File on an external server. From there on VPlan checks if plans have been added or changed and downloads them onto the device.
 
 ## License
 
