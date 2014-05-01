@@ -1,7 +1,15 @@
 VPlan
 =====
 
-VPlan is a not yet finished generic Version of ZS Plan, available on Play Store : https://play.google.com/store/apps/details?id=de.nilsstrelow.ziehenschulevertretungsplan
+VPlan is a substitution plan for german schools, also known as "Vertretungsplan".
+It shows changes made in the usual timetable of students by day and class.
+This is an attempt to make a universal app, that holds the same format and layout for multiple schools.
+The first school implemented was Ziehenschule Frankfurt am Main, my school, and I plan to add many more over time.
+A previous version of the app was ZS Plan, wish was just for Ziehenschule and can be found [here](https://play.google.com/store/apps/details?id=de.nilsstrelow.ziehenschulevertretungsplan).
+There is a [beta Google+ Community](https://plus.google.com/communities/116677531626306143784). You can join and download the beta.
+
+## Mechanism
+The substitution plans are downloaded from their respective school sites and formatted to a CSV-File on an external server. From there on VPlan checks if plans have been added or changed and downloads them onto the device.
 
 ## License
 
