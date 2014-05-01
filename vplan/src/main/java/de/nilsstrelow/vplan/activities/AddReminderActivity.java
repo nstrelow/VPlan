@@ -15,8 +15,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
-
 import java.util.Date;
 
 import de.nilsstrelow.vplan.R;
@@ -135,17 +133,5 @@ public class AddReminderActivity extends ActionBarActivity {
             am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000, pendingIntent);
         else
             am.set(AlarmManager.RTC_WAKEUP, timeToNotify.getTime(), pendingIntent);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EasyTracker.getInstance(this).activityStart(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
     }
 }

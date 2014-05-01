@@ -36,7 +36,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.File;
@@ -129,7 +128,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
 
                         setupTitle(currentSchoolClassName, schoolClass);
-                        setSubtitle(null);
                         setupViewPager(schoolClass);
                         break;
                     case HandlerMsg.STARTING_DOWNLOADING_PLAN:
@@ -140,8 +138,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                         setRefreshActionButtonState(isLoading());
                         break;
                     case HandlerMsg.FINISHED_DOWNLOADING_PLAN:
-                        setSubtitle(null);
-
                         isDownloading = false;
                         setRefreshActionButtonState(isLoading());
                         break;
@@ -312,18 +308,22 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         downloadVPlanTask.execute(mySchoolClass);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EasyTracker.getInstance(this).activityStart(this);
+    private void loadClass() {
+        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position); //don't need that here
+        mDrawerLayout.closeDrawer(mDrawerList);
+        loadVPlanTask = new LoadVPlanTask(this);
+        loadVPlanTask.execute(currentSchoolClassName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initActionBar();
-        updateClass();
         loadClass();
+        updateClass();
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
         startCheckForUpdate();
@@ -347,8 +347,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     @Override
     protected void onStop() {
         super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
         loadVPlanTask.cancel(true);
+        downloadVPlanTask.cancel(true);
     }
 
     private void setupViewPager(final SchoolClass schoolClass) {
@@ -396,16 +396,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         editor.commit();
         updateClass();
         loadClass();
-    }
-
-    private void loadClass() {
-        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
-        int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
-        mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position); //don't need that here
-        mDrawerLayout.closeDrawer(mDrawerList);
-        loadVPlanTask = new LoadVPlanTask(this);
-        loadVPlanTask.execute(currentSchoolClassName);
     }
 
     @Override
@@ -589,6 +579,9 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     }
                 } else {
                     MenuItemCompat.setActionView(refreshItem, null);
+
+                    /* also set subtitle null */
+                    setSubtitle(null);
                 }
             }
         }
