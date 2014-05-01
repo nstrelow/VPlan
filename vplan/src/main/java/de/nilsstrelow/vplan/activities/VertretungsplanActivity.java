@@ -21,6 +21,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -245,7 +246,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // just styling option add shadow the right edge of the drawer
-        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     }
 
     private void initActionBar() {
