@@ -402,7 +402,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
         mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position);
+        mDrawerList.setSelection(position); //don't need that here
         mDrawerLayout.closeDrawer(mDrawerList);
         loadVPlanTask = new LoadVPlanTask(this);
         loadVPlanTask.execute(currentSchoolClassName);
