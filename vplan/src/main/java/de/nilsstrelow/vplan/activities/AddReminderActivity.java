@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.constants.Hours;
@@ -29,7 +29,7 @@ public class AddReminderActivity extends ActionBarActivity {
     public static final String ENTRY_KEY = "entry_key";
     private boolean DEBUG = false;
     private Entry selectedEntry;
-    private Date timeToNotify;
+    private Calendar timeToNotify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,8 @@ public class AddReminderActivity extends ActionBarActivity {
         setContentView(R.layout.add_reminder_activity);
 
         selectedEntry = (Entry) getIntent().getSerializableExtra(ENTRY_KEY);
-        timeToNotify = selectedEntry.day;
+        timeToNotify = Calendar.getInstance();
+        timeToNotify.setTime(selectedEntry.day);
 
         if (DEBUG)
             Log.e(TAG, timeToNotify.toString());
@@ -56,7 +57,7 @@ public class AddReminderActivity extends ActionBarActivity {
         timePicker.setCurrentHour(Integer.valueOf(times[0]));
         timePicker.setCurrentMinute(Integer.valueOf(times[1]));
 
-        datePicker.init(DateUtils.getYear(timeToNotify), DateUtils.getMonth(timeToNotify), DateUtils.getDay(timeToNotify), new DatePicker.OnDateChangedListener() {
+        datePicker.init(timeToNotify.get(Calendar.YEAR), timeToNotify.get(Calendar.MONTH), timeToNotify.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -76,16 +77,18 @@ public class AddReminderActivity extends ActionBarActivity {
         doneActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int day = datePicker.getDayOfMonth();
+                int hour = timePicker.getCurrentHour();
+                int min = timePicker.getCurrentMinute();
 
-                timeToNotify.setYear(datePicker.getYear());
-                timeToNotify.setMonth(datePicker.getMonth());
-                timeToNotify.setDate(datePicker.getDayOfMonth());
-                timeToNotify.setHours(timePicker.getCurrentHour());
-                timeToNotify.setMinutes(timePicker.getCurrentMinute());
+                timeToNotify.set(year, month, day, hour, min);
 
-                Log.e(TAG, timeToNotify.toString());
 
-                if (DateUtils.isFuture(timeToNotify)) {
+                Log.e(TAG, timeToNotify.getTime().toString());
+
+                if (DateUtils.isFuture(timeToNotify.getTime())) {
                     addReminder();
                     Toast.makeText(AddReminderActivity.this, title + " erstellt", Toast.LENGTH_LONG).show();
                     finish();
@@ -127,11 +130,12 @@ public class AddReminderActivity extends ActionBarActivity {
 
         AlarmManager am = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
 
-        Log.e(TAG, timeToNotify.toString());
+        Log.e(TAG, timeToNotify.getTime().toString());
 
         if (DEBUG)
             am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000, pendingIntent);
         else
-            am.set(AlarmManager.RTC_WAKEUP, timeToNotify.getTime(), pendingIntent);
+            am.set(AlarmManager.RTC_WAKEUP, timeToNotify.getTime().getTime(), pendingIntent);
+
     }
 }

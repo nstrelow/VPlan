@@ -159,7 +159,6 @@ public class HourAdapter extends BaseAdapter {
                                         case R.id.action_add_reminder:
                                             activity.getSupportFragmentManager();
                                             Entry selectedEntry = schoolDay.getEntry(position);
-                                            //showAddReminderDialog(activity.getSupportFragmentManager(), selectedEntry);
                                             Intent reminderIntent = new Intent(activity, AddReminderActivity.class);
                                             reminderIntent.putExtra(AddReminderActivity.ENTRY_KEY, selectedEntry);
                                             activity.startActivity(reminderIntent);
@@ -184,7 +183,7 @@ public class HourAdapter extends BaseAdapter {
 
                                 @Override
                                 public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                                    mode.setTitle("Reminder");
+                                    mode.setTitle("Eintragsauswahl");
                                     return false;
                                 }
                             });
