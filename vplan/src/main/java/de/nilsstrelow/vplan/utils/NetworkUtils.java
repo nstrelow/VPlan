@@ -70,7 +70,7 @@ public class NetworkUtils {
      * @param sUrl file's url to download from
      * @param path save file to path
      */
-    public static void saveFile(String sUrl, String path) {
+    public static void downloadFileTo(String sUrl, String path) {
         try {
             if (exists(sUrl)) {
                 URL url = new URL(sUrl);

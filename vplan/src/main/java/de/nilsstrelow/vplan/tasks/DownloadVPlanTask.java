@@ -133,7 +133,7 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
                 String filename = planToBeUpdated.substring(0, planToBeUpdated.indexOf("'"));
                 newPlanServerUrl = Server.ZS_PLAN_URL + schoolClass + "/" + filename;
                 newPlanDevicePath = localDirPath + "/" + filename;
-                NetworkUtils.saveFile(newPlanServerUrl, newPlanDevicePath);
+                NetworkUtils.downloadFileTo(newPlanServerUrl, newPlanDevicePath);
                 Log.i(TAG, "Plan updated: " + filename);
             }
         }
