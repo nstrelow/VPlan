@@ -24,9 +24,8 @@ import de.nilsstrelow.vplan.utils.NetworkUtils;
  */
 public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
 
-    public static final String TAG = "DownloadVPlanTask";
-
     private static boolean UPDATED;
+    private final String TAG = DownloadVPlanTask.class.getSimpleName();
     private final Context context;
     public File timestamp;
     private String vplanPath;

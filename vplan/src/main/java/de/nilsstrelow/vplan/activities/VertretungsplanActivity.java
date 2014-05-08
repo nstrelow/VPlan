@@ -30,6 +30,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,13 +48,13 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.nilsstrelow.vplan.R;
@@ -70,6 +71,7 @@ import de.nilsstrelow.vplan.tasks.DownloadVPlanTask;
 import de.nilsstrelow.vplan.tasks.LoadVPlanTask;
 import de.nilsstrelow.vplan.utils.CroutonUtils;
 import de.nilsstrelow.vplan.utils.DateUtils;
+import de.nilsstrelow.vplan.utils.FileUtils;
 import de.nilsstrelow.vplan.utils.SchoolClassUtils;
 import de.nilsstrelow.vplan.utils.Startup;
 
@@ -80,6 +82,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public static Typeface robotoBold;
     public static int NUM_PAGES;
     public static String[] schoolClasses;
+    private final String TAG = VertretungsplanActivity.class.getSimpleName();
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
@@ -194,7 +197,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             }
         };
 
-        //deleteOldVPlans();
+        deleteOldVPlans();
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -641,49 +644,38 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     private void deleteOldVPlans() {
+        String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         try {
-            File vplanDir = new File(Device.VPLAN_PATH);
-            File[] plans = vplanDir.listFiles(new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.toLowerCase(Locale.GERMANY).endsWith(".txt");
-                }
-            });
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
-            Calendar today = Calendar.getInstance();
-            final String format = df.format(today.getTime());
-            Date date = null;
-            try {
-                date = df.parse(format);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if (vplanDir.exists()) {
-                for (final File plan : plans) {
-                    //long diff = timestamp.lastModified() - plan.lastModified();
-                    //if (diff > 6 * 60 * 60 * 1000) {
-                    //   plan.delete();
-                    //}
-                    Date planDate = DateUtils.parseString(plan.getName());
-                    // if date of today is "bigger" than date of plan
-                    if (date != null && planDate != null) {
-                        if (date.compareTo(planDate) == 1) {
-                            plan.delete();
-                        }
-                        // getTime() are milliseconds, so make them to hours and look up if its already at 18
-                        if ((System.currentTimeMillis() - planDate.getTime()) / 1000 / 60 / 60 >= 18) {
-                            plan.delete();
-                        }
-                    }
+            final String PATH = Device.VPLAN_PATH + mySchoolClass;
 
-                    if (!plan.getName().matches("(Mo|Di|Mi|Do|Fr)[0-9]{6}.txt")) {
-                        //Toast.makeText(this, "It's not a plan: " + plan.getName(), Toast.LENGTH_SHORT).show();
-                        plan.delete();
+            File myClassDir = new File(PATH + "/");
+            if (myClassDir.exists()) {
+                String[] timestamp = FileUtils.readFile(PATH + "/timestamp").split("\n");
+                List<File> timestampPlans = new ArrayList<File>();
+                File[] plans = myClassDir.listFiles(new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase(Locale.GERMANY).endsWith(".csv");
                     }
+                });
+
+                for (final String line : timestamp) {
+                    timestampPlans.add(new File(PATH + "/" + line.substring(0, 15)));
+                }
+
+                Set<File> plansOnDevice = new HashSet<File>(Arrays.asList(plans));
+                plansOnDevice.removeAll(new HashSet<File>(timestampPlans));
+
+                for (File planOnDevice : plansOnDevice) {
+                    Log.i(TAG, "Plan deleted: " + planOnDevice.getName());
+                    planOnDevice.delete();
                 }
             }
+
+
         } catch (Exception ignored) {
 
         }
+
     }
 
     private void rainbowEasterEgg() {
