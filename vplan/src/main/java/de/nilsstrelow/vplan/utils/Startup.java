@@ -66,27 +66,16 @@ public class Startup implements OnShowcaseEventListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
-        builder.setTitle("Version 2.5 : Heard you like colors");
-        builder.setMessage("ÜBER 500 DOWNLOADS :D\n\nÄnderungen\n\n"
-                        + "1. Statusbarfarbe: Wähle zwischen Standardfarben oder erstelle dir deine Eigene! \n"
-                        + "1,5. Wähle den Iconstyle (hell oder dunkel), damit die Icons zu deiner Farbe passen\n"
-                        + "2. Bemerkung wird jetzt unter dem Eintrag angezeigt\n"
-                        + "3. Allg. Bemerkungen werden jetzt beim Scrollen ausgeblendet, Option dazu in den Einstellungen\n"
-                        + "4. Menueintrag um den Vertretungsplan im Browser anzuzeigen, sollte es Probleme geben oder spezielle Pläne\n"
-                        + "5. Überarbeitete Einstellungen\n"
-                        + "6. Bugfixes und Optimierungen (Dienstag und so)\n\n"
-                        + "NEWS:\n\nSchriftliches Abitur ist endlich vorbei und ich hoffe alle Abiturienten habts gut überstanden.\n"
-                        + "Der Plan: (ZS) Plan an weitere Schule bringen, ich denke als erstes werde ich mit der ERS anfangen, mal sehen wie das läuft.\n"
-                        + "Ich werde ein paar Mechanismen in der App ändern, welche mir möglichen machen werden, euch nur zu benachrichtigen, wenn sich etwas in EURER Klasse/Stufe ändert!\n"
-                        + "Außerdem möchte ich die App stabiler machen, besonders für Geräte ab Android 4.0. Schreibt mir einfach ein Feedback, wenn ihr irgendwo Verbesserungsmöglichkeiten oder einfach nur nervige Sachen seht oder sendet mir einen Fehlerbericht mit einer kleinen Naricht was ihr gerade vor dem Absturz gemacht habt.\n"
-                        + "Nicht zu vergessen: ZS PLAN HAT JETZT ÜBER 500 DOWNLOADS :D :D :D\n"
-                        + "Ich danke allen, die dabei sind und in ZS Plan eine nützliche App gefunden haben.\n"
+        builder.setTitle("Version 2.8.2 : Kleinigkeiten");
+        builder.setMessage("soo meine fünf fleißigen Tester, alte Pläne werden jetzt beim Starten von V-Plan gelöscht.\n"
+                + "Hätte jemand eine Idee, was man anstatt der Klassen in das seitliche Menu (NavigationDrawer) einbauen könnte ?\n"
+                + "Wenn ich dafür etwas gefunden hab, wird V-Plan veröffentlicht"
         );
 
-        builder.setPositiveButton("Abitur vorbei ...", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(activity, "Dobby ist jetzt FREI! :D", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -142,35 +131,7 @@ public class Startup implements OnShowcaseEventListener {
         ActionItemTarget refreshItemTarget = new ActionItemTarget(activity, R.id.action_refresh);
         ShowcaseView showcaseView = builder.build();
         showcaseView.setShowcase(refreshItemTarget, true);
-        showcaseView.setOnShowcaseEventListener(new OnShowcaseEventListener() {
-            @Override
-            public void onShowcaseViewHide(ShowcaseView showcaseView) {
-                switch (Integer.valueOf((String) showcaseView.getTag())) {
-                    case 0:
-                        setupDrawerGuide();
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        setupColorGuide();
-                        break;
-                    case 3:
-                        setupBemerkungsGuide();
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-
-            }
-
-            @Override
-            public void onShowcaseViewShow(ShowcaseView showcaseView) {
-
-            }
-        });
+        showcaseView.setOnShowcaseEventListener(this);
         showcaseView.setScaleMultiplier(0.5f);
         showcaseView.setTag("0");
         ((ViewGroup) activity.getWindow().getDecorView()).addView(showcaseView);
@@ -195,6 +156,26 @@ public class Startup implements OnShowcaseEventListener {
         homeShowcaseView.setOnShowcaseEventListener(this);
         homeShowcaseView.setScaleMultiplier(0.7f);
         homeShowcaseView.animateGesture(0, height / 2, width / 2, height / 2);
+        homeShowcaseView.setTag("1");
+        ((ViewGroup) activity.getWindow().getDecorView()).addView(homeShowcaseView);
+
+    }
+
+    private void setupSpinnerGuide() {
+
+        ShowcaseView.ConfigOptions co = new ShowcaseView.ConfigOptions();
+        co.hideOnClickOutside = false;
+        co.shotType = ShowcaseView.TYPE_ONE_SHOT;
+        co.noButton = false;
+        ShowcaseViewBuilder builder = new ShowcaseViewBuilder(activity);
+        builder.setConfigOptions(co);
+        builder.setText(R.string.home_button_showcase_title, R.string.home_button_showcase_message);
+
+        homeShowcaseView = builder.build();
+        homeShowcaseView.setShowcaseItem(ShowcaseView.ITEM_ACTION_HOME, android.R.id.home, activity);
+        homeShowcaseView.setShowcaseItem(ShowcaseView.ITEM_SPINNER, 0, activity);
+        homeShowcaseView.setOnShowcaseEventListener(this);
+        homeShowcaseView.setScaleMultiplier(0.4f);
         homeShowcaseView.setTag("1");
         ((ViewGroup) activity.getWindow().getDecorView()).addView(homeShowcaseView);
 
@@ -269,7 +250,8 @@ public class Startup implements OnShowcaseEventListener {
     public void onShowcaseViewHide(ShowcaseView showcaseView) {
         switch (Integer.valueOf((String) showcaseView.getTag())) {
             case 0:
-                setupDrawerGuide();
+                //setupDrawerGuide();
+                setupSpinnerGuide();
                 break;
             case 1:
                 break;
