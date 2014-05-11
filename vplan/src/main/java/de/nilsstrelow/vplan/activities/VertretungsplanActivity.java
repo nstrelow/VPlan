@@ -240,7 +240,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 getSupportActionBar().setTitle(mTitle);
                 supportInvalidateOptionsMenu();
                 if (startup.isTutorialMode())
-                    startup.setupSwipeGuide();
+                    startup.setupSpinnerGuide();
 
                 super.onDrawerClosed(view);
             }
@@ -523,7 +523,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        getSupportActionBar().setSelectedNavigationItem(position);
         currentSchoolName = schools[position];
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(Settings.MY_SCHOOL_PREF, position);
@@ -536,14 +535,14 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     @Override
     public boolean onNavigationItemSelected(int position, long itemId) {
-        //mDrawerList.setItemChecked(position, true);
-        //mDrawerList.setSelection(position);
         currentSchoolClassName = schoolClasses[position];
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
         editor.commit();
         updateClass();
         loadClass();
+        if (startup.isTutorialMode())
+            startup.hideShowcaseView();
         return true;
     }
 

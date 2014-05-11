@@ -25,7 +25,7 @@ import de.nilsstrelow.vplan.activities.Settings;
 public class Startup implements OnShowcaseEventListener {
 
     public static final String UPDATE_NOTIFICATION = "showed_get_update_notifications";
-    public static final String NEW_VERSION_MSG = "new_version_msg" + "205";
+    public static final String NEW_VERSION_MSG = "new_version_msg" + "290";
     private Activity activity;
     private SharedPreferences sharedPreferences;
     private boolean isTutorialMode = false;
@@ -53,7 +53,8 @@ public class Startup implements OnShowcaseEventListener {
     }
 
     public void hideShowcaseView() {
-        homeShowcaseView.hide();
+        if(homeShowcaseView != null)
+            homeShowcaseView.hide();
     }
 
     public void setupNewVersionGuide() {
@@ -66,16 +67,16 @@ public class Startup implements OnShowcaseEventListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
-        builder.setTitle("Version 2.8.2 : Kleinigkeiten");
-        builder.setMessage("soo meine fünf fleißigen Tester, alte Pläne werden jetzt beim Starten von V-Plan gelöscht.\n"
-                + "Hätte jemand eine Idee, was man anstatt der Klassen in das seitliche Menu (NavigationDrawer) einbauen könnte ?\n"
-                + "Wenn ich dafür etwas gefunden hab, wird V-Plan veröffentlicht"
+        builder.setTitle("Version 2.9 : Welcome ERS");
+        builder.setMessage(
+                "*Vertretungsplan für die Ernst-Reuter-Schule I\n" +
+                "*Schulliste im Seitenmenu (NavigationDrawer)\n\n\n"
         );
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("One week left", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(activity, "", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "You should go where you belong", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -161,7 +162,7 @@ public class Startup implements OnShowcaseEventListener {
 
     }
 
-    private void setupSpinnerGuide() {
+    public void setupSpinnerGuide() {
 
         ShowcaseView.ConfigOptions co = new ShowcaseView.ConfigOptions();
         co.hideOnClickOutside = false;
@@ -169,14 +170,13 @@ public class Startup implements OnShowcaseEventListener {
         co.noButton = false;
         ShowcaseViewBuilder builder = new ShowcaseViewBuilder(activity);
         builder.setConfigOptions(co);
-        builder.setText(R.string.home_button_showcase_title, R.string.home_button_showcase_message);
+        builder.setText(R.string.actionbar_spinner_showcase_title, R.string.actionbar_spinner_showcase_message);
 
         homeShowcaseView = builder.build();
-        homeShowcaseView.setShowcaseItem(ShowcaseView.ITEM_ACTION_HOME, android.R.id.home, activity);
         homeShowcaseView.setShowcaseItem(ShowcaseView.ITEM_SPINNER, 0, activity);
         homeShowcaseView.setOnShowcaseEventListener(this);
         homeShowcaseView.setScaleMultiplier(0.4f);
-        homeShowcaseView.setTag("1");
+        homeShowcaseView.setTag("2");
         ((ViewGroup) activity.getWindow().getDecorView()).addView(homeShowcaseView);
 
     }
@@ -197,7 +197,7 @@ public class Startup implements OnShowcaseEventListener {
         showcaseView.setShowcase(swipeTarget, true);
         showcaseView.setOnShowcaseEventListener(this);
         showcaseView.animateGesture(width + width / 2.7f, height, width - width / 2, height);
-        showcaseView.setTag("2");
+        showcaseView.setTag("3");
         ((ViewGroup) activity.getWindow().getDecorView()).addView(showcaseView);
 
     }
@@ -250,15 +250,17 @@ public class Startup implements OnShowcaseEventListener {
     public void onShowcaseViewHide(ShowcaseView showcaseView) {
         switch (Integer.valueOf((String) showcaseView.getTag())) {
             case 0:
-                //setupDrawerGuide();
-                setupSpinnerGuide();
+                setupDrawerGuide();
                 break;
             case 1:
                 break;
             case 2:
-                setupColorGuide();
+                setupSwipeGuide();
                 break;
             case 3:
+                setupColorGuide();
+                break;
+            case 4:
                 setupBemerkungsGuide();
                 break;
 
