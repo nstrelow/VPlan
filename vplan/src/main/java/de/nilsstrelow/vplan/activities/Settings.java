@@ -41,6 +41,7 @@ import de.nilsstrelow.vplan.constants.Device;
 public class Settings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String MY_SCHOOL_CLASS_PREF = "pref_my_school_class";
+    public static final String MY_SCHOOL_PREF = "pref_my_school";
     public static final String SHOW_TUTORIAL_PREF = "pref_show_tutorial2";
     public static final String CHECK_FOR_UPDATE = "pref_check_for_update";
     public static final String VERSION_PREF = "pref_version";

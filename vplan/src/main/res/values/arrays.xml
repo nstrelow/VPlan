@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <string-array name="schools">
+        <item>Ziehenschule</item>
+        <item>Ernst-Reuter-Schule I</item>
+    </string-array>
+    
     <string-array name="zs_classes">
         <item>5</item>
         <item>5a</item>
@@ -37,6 +43,12 @@
         <item>9e</item>
         <item>9f</item>
         <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+    </string-array>
+
+    <string-array name="ers_classes">
         <item>11</item>
         <item>12</item>
         <item>13</item>

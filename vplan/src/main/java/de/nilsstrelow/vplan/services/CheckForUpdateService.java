@@ -3,6 +3,7 @@ package de.nilsstrelow.vplan.services;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -33,6 +34,8 @@ public class CheckForUpdateService extends Service {
     public static final int NOT_NEED_UPDATE = 1;
     public static Handler handler;
     private String schoolClassName;
+
+    private String DEVICE_PATH;
 
     @Override
     public void onCreate() {
@@ -89,7 +92,7 @@ public class CheckForUpdateService extends Service {
 
         if (checkForUpdate) {
             if (NetworkUtils.isInternetAvailable(this)) {
-                new CheckForUpdateTask(schoolClassName).execute();
+                new CheckForUpdateTask(schoolClassName, this).execute();
             }
         }
         return Service.START_NOT_STICKY;
@@ -103,15 +106,19 @@ public class CheckForUpdateService extends Service {
     public static class CheckForUpdateTask extends AsyncTask<String, Integer, Boolean> {
 
         private String schoolClassName;
+        private Context context;
+        private String DEVICE_PATH;
 
-        public CheckForUpdateTask(String schoolClassName) {
+        public CheckForUpdateTask(String schoolClassName, Context context) {
             this.schoolClassName = schoolClassName;
+            this.context = context;
+            DEVICE_PATH = Device.getDevicePath(context);
         }
 
         @Override
         protected Boolean doInBackground(String... fileStrings) {
-            String localTimestampPath = Device.VPLAN_PATH + schoolClassName + Device.TIMESTAMP;
-            String onlineTimestampPath = Server.ZS_PLAN_URL + schoolClassName + Server.TIMESTAMP;
+            String localTimestampPath = DEVICE_PATH + schoolClassName + Device.TIMESTAMP;
+            String onlineTimestampPath = Server.getPlanUrl(context) + schoolClassName + Server.TIMESTAMP;
             String localTimestamp = FileUtils.readFile(localTimestampPath);
             String onlineTimestamp = NetworkUtils.getFile(onlineTimestampPath);
             return !onlineTimestamp.equals(localTimestamp);

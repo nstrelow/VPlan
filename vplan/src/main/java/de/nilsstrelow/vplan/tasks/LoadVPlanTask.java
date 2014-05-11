@@ -22,9 +22,11 @@ import de.nilsstrelow.vplan.utils.FileUtils;
 public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
 
     private Activity activity;
+    private String DEVICE_PATH;
 
     public LoadVPlanTask(Activity activity) {
         this.activity = activity;
+        DEVICE_PATH = Device.getDevicePath(activity);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class LoadVPlanTask extends AsyncTask<String, Integer, SchoolClass> {
         SchoolDay schoolDay;
 
         // paths
-        localSchoolClassPath = Device.VPLAN_PATH + schoolClassName[0];
+        localSchoolClassPath = DEVICE_PATH + schoolClassName[0];
         localTimeStampPath = localSchoolClassPath + "/timestamp";
 
         File timestamp = new File(localTimeStampPath);

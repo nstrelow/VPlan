@@ -27,6 +27,7 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
     private static boolean UPDATED;
     private final String TAG = DownloadVPlanTask.class.getSimpleName();
     private final Context context;
+    private String PLAN_URL;
     public File timestamp;
     private String vplanPath;
 
@@ -35,6 +36,7 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
         this.vplanPath = path;
         timestamp = new File(Device.TIMESTAMP_PATH);
         UPDATED = false;
+        PLAN_URL = Server.getPlanUrl(context);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
         return updateMyClass(schoolClassName[0]);
     }
 
-    private boolean updateAllClasses() {
+    /*private boolean updateAllClasses() {
         String onlineTimestamp = NetworkUtils.getFile(Server.ZS_TIMESTAMP_URL);
         String localTimestamp = FileUtils.readFile(Device.TIMESTAMP_PATH);
 
@@ -65,12 +67,12 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
             FileUtils.saveFile(onlineTimestamp, Device.TIMESTAMP_PATH);
         }
         return UPDATED;
-    }
+    }*/
 
     private boolean updateMyClass(String schoolClassName) {
 
-        String onlineTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClassName + "/timestamp");
-        String localTimestamp = FileUtils.readFile(Device.VPLAN_PATH + schoolClassName + "/timestamp");
+        String onlineTimestamp = NetworkUtils.getFile(PLAN_URL + schoolClassName + "/timestamp");
+        String localTimestamp = FileUtils.readFile(vplanPath + schoolClassName + "/timestamp");
 
         if (!onlineTimestamp.equals(localTimestamp)) {
 
@@ -86,8 +88,8 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
 
         String schoolClassName = "generic";
 
-        String onlineTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClassName + "/timestamp");
-        String localTimestamp = FileUtils.readFile(Device.VPLAN_PATH + schoolClassName + "/timestamp");
+        String onlineTimestamp = NetworkUtils.getFile(PLAN_URL + schoolClassName + "/timestamp");
+        String localTimestamp = FileUtils.readFile(vplanPath + schoolClassName + "/timestamp");
 
         if (!onlineTimestamp.equals(localTimestamp)) {
 
@@ -103,10 +105,10 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
         /* update Subtitle */
         publishProgress(schoolClass);
 
-        String localDirPath = Device.VPLAN_PATH + schoolClass;
+        String localDirPath = vplanPath + schoolClass;
         String localTimestampPath = localDirPath + "/timestamp";
 
-        String onlineClassTimestamp = NetworkUtils.getFile(Server.ZS_PLAN_URL + schoolClass + "/timestamp");
+        String onlineClassTimestamp = NetworkUtils.getFile(PLAN_URL + schoolClass + "/timestamp");
         String localClassTimestamp;
 
         File dir = new File(localDirPath);
@@ -130,14 +132,14 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
 
             for (String planToBeUpdated : plansToBeUpdated) {
                 String filename = planToBeUpdated.substring(0, planToBeUpdated.indexOf("'"));
-                newPlanServerUrl = Server.ZS_PLAN_URL + schoolClass + "/" + filename;
+                newPlanServerUrl = PLAN_URL + schoolClass + "/" + filename;
                 newPlanDevicePath = localDirPath + "/" + filename;
                 NetworkUtils.downloadFileTo(newPlanServerUrl, newPlanDevicePath);
                 Log.i(TAG, "Plan updated: " + filename);
             }
         }
         /* Update class timestamp */
-        FileUtils.saveFile(onlineClassTimestamp, Device.VPLAN_PATH + schoolClass + "/timestamp");
+        FileUtils.saveFile(onlineClassTimestamp, vplanPath + schoolClass + "/timestamp");
     }
 
     @Override

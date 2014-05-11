@@ -91,10 +91,10 @@ public class HourAdapter extends BaseAdapter {
                 rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_generic));
                 //final String bemerkung = (row.length > 7) ? row[7] : "";
                 // special colors for different remarks
-                if (entry.bemerkung.contains("Entfall") || entry.bemerkung.contains("eigenv.Arb.")) {
+                if (entry.bemerkung.contains("Entfall") || entry.bemerkung.contains("eigenv.Arb.") || entry.bemerkung.contains("entfällt")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_entfall));
                 }
-                if (entry.bemerkung.contains("andr. Raum")) {
+                if (entry.bemerkung.contains("andr. Raum") || entry.bemerkung.contains("Raumaenderung")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_andraum));
                 }
                 if (entry.bemerkung.contains("Vertretung")) {

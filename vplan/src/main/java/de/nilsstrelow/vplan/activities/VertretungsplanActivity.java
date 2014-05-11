@@ -58,10 +58,11 @@ import java.util.Set;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.nilsstrelow.vplan.R;
-import de.nilsstrelow.vplan.adapters.ClassListViewAdapter;
 import de.nilsstrelow.vplan.adapters.DaysPagerAdapter;
+import de.nilsstrelow.vplan.adapters.SchoolListViewAdapter;
 import de.nilsstrelow.vplan.constants.Device;
 import de.nilsstrelow.vplan.constants.HandlerMsg;
+import de.nilsstrelow.vplan.constants.Schools;
 import de.nilsstrelow.vplan.constants.Server;
 import de.nilsstrelow.vplan.fragments.FeedbackDialogFragment;
 import de.nilsstrelow.vplan.helpers.ErrorMessage;
@@ -81,12 +82,14 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public static SharedPreferences sharedPref;
     public static Typeface robotoBold;
     public static int NUM_PAGES;
+    public static String[] schools;
     public static String[] schoolClasses;
     private final String TAG = VertretungsplanActivity.class.getSimpleName();
     int settingsRequestCode = 2433;
     int counter = 0;
     int randomEasterEggNumber = 0;
     ActionBar actionBar;
+    private String currentSchoolName;
     private String currentSchoolClassName;
     // UI items for Actionbar
     private CharSequence mTitle;
@@ -120,7 +123,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         robotoBold = Typeface.createFromAsset(getAssets(),
                 "Roboto-Bold.ttf");
 
-        schoolClasses = getResources().getStringArray(R.array.zs_classes);
+        schools = getResources().getStringArray(R.array.schools);
+        Device.initGenericPath(this);
 
         handler = new Handler() {
 
@@ -223,7 +227,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        ListAdapter listAdapter = new ClassListViewAdapter(this, getResources().getStringArray(R.array.zs_classes));
+        ListAdapter listAdapter = new SchoolListViewAdapter(this, getResources().getStringArray(R.array.schools));
 
         mDrawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
@@ -291,7 +295,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
-        mSpinnerAdapter = new ArrayAdapter(this, R.array.zs_classes) {
+        initSchools(sharedPref.getInt(Settings.MY_SCHOOL_PREF, 0));
+        mSpinnerAdapter = new ArrayAdapter(this, R.layout.listrow_class_spinner) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 final String className = schoolClasses[position];
@@ -404,6 +409,17 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         }
     }
 
+    public void initSchools(int school) {
+        switch (school) {
+            case Schools.ZS:
+                schoolClasses = getResources().getStringArray(R.array.zs_classes);
+            break;
+            case Schools.ERS:
+                schoolClasses = getResources().getStringArray(R.array.ers_classes);
+            break;
+        }
+    }
+
     public boolean useLightIcons() {
         return sharedPref.getBoolean(Settings.ACTIONBAR_ICON_STYLE_PREF, false);
     }
@@ -420,15 +436,16 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     private void updateClass() {
         String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
-        downloadVPlanTask = new DownloadVPlanTask(this, Device.VPLAN_PATH);
+        downloadVPlanTask = new DownloadVPlanTask(this, Device.getDevicePath(this));
         downloadVPlanTask.execute(mySchoolClass);
     }
 
     private void loadClass() {
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
-        mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position); //don't need that here
+        int schoolIndex = sharedPref.getInt(Settings.MY_SCHOOL_PREF, 0);
+        mDrawerList.setItemChecked(schoolIndex, true);
+        mDrawerList.setSelection(schoolIndex);
         getSupportActionBar().setSelectedNavigationItem(position);
         mDrawerLayout.closeDrawer(mDrawerList);
         loadVPlanTask = new LoadVPlanTask(this);
@@ -507,18 +524,20 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
         getSupportActionBar().setSelectedNavigationItem(position);
-        currentSchoolClassName = schoolClasses[position];
+        currentSchoolName = schools[position];
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
+        editor.putInt(Settings.MY_SCHOOL_PREF, position);
         editor.commit();
+        initSchools(position);
+        Device.initGenericPath(this);
         updateClass();
         loadClass();
     }
 
     @Override
     public boolean onNavigationItemSelected(int position, long itemId) {
-        mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position);
+        //mDrawerList.setItemChecked(position, true);
+        //mDrawerList.setSelection(position);
         currentSchoolClassName = schoolClasses[position];
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
@@ -628,7 +647,15 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 break;
             case R.id.action_show_links:
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(Server.ZS_WEBSITE_URL));
+                int schoolIndex = sharedPref.getInt(Settings.MY_SCHOOL_PREF, 0);
+                switch (schoolIndex) {
+                    case Schools.ZS:
+                        i.setData(Uri.parse(Server.ZS_WEBSITE_URL));
+                        break;
+                    case Schools.ERS:
+                        i.setData(Uri.parse(Server.ERS_WEBSITE_URL));
+                        break;
+                }
                 startActivity(i);
                 break;
             case android.R.id.home:
@@ -646,7 +673,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private void deleteOldVPlans() {
         String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         try {
-            final String PATH = Device.VPLAN_PATH + mySchoolClass;
+            final String PATH = Device.getDevicePath(this) + mySchoolClass;
 
             File myClassDir = new File(PATH + "/");
             if (myClassDir.exists()) {
