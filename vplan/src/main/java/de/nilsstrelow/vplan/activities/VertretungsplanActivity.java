@@ -279,13 +279,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             actionBarSubTitle = (TextView) findViewById(subTitleId);
         }
         if (useLightIcons()) {
-            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_zs_drawer_white));
+            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo_white));
             if (actionBarTitle != null)
                 actionBarTitle.setTextColor(getResources().getColor(R.color.holo_white));
             if (actionBarSubTitle != null)
                 actionBarSubTitle.setTextColor(getResources().getColor(R.color.holo_white));
         } else {
-            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_zs_drawer));
+            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo));
             if (actionBarTitle != null)
                 actionBarTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
             if (actionBarSubTitle != null)

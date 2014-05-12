@@ -60,7 +60,7 @@ public class CheckForUpdateService extends Service {
 
                         NotificationCompat.Builder mBuilder =
                                 new NotificationCompat.Builder(getApplicationContext())
-                                        .setSmallIcon(R.drawable.ic_zs_drawer_white)
+                                        .setSmallIcon(R.drawable.ic_vplan_logo_white)
                                         .setContentTitle("V-Plan")
                                         .setContentText("Neuer Plan für Klasse " + schoolClassName)
                                         .setVibrate(pattern)

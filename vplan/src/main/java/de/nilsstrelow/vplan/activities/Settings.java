@@ -114,11 +114,11 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
                 actionBarTitle = (TextView) findViewById(titleId);
             }
             if (useLightIcons()) {
-                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_zs_drawer_white));
+                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo_white));
                 if (actionBarTitle != null)
                     actionBarTitle.setTextColor(getResources().getColor(R.color.holo_white));
             } else {
-                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_zs_drawer));
+                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo));
                 if (actionBarTitle != null)
                     actionBarTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
             }

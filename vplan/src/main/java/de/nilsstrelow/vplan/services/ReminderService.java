@@ -43,7 +43,7 @@ public class ReminderService extends Service {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getApplication())
-                        .setSmallIcon(R.drawable.ic_zs_drawer_white)
+                        .setSmallIcon(R.drawable.ic_vplan_logo_white)
                         .setVibrate(pattern)
                         .setAutoCancel(true)
                         .setContentTitle(compactTitle)
