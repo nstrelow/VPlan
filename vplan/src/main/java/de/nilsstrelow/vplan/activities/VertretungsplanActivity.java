@@ -89,7 +89,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     int counter = 0;
     int randomEasterEggNumber = 0;
     ActionBar actionBar;
-    private String currentSchoolName;
     private String currentSchoolClassName;
     // UI items for Actionbar
     private CharSequence mTitle;
@@ -523,12 +522,17 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        currentSchoolName = schools[position];
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(Settings.MY_SCHOOL_PREF, position);
         editor.commit();
         initSchools(position);
         Device.initGenericPath(this);
+        int classIndex = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
+        if (!Arrays.asList(schoolClasses).contains(currentSchoolClassName)) {
+            editor = sharedPref.edit();
+            editor.putString(Settings.MY_SCHOOL_CLASS_PREF, schoolClasses[0]);
+            editor.commit();
+        }
         updateClass();
         loadClass();
     }
