@@ -76,7 +76,7 @@ public class FeedbackDialogFragment extends DialogFragment {
                 Intent intent = new Intent(Intent.ACTION_SEND)
                         .setType("message/rfc822")
                         .putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL})
-                        .putExtra(Intent.EXTRA_SUBJECT, "Feedback zu ZS Plan")
+                        .putExtra(Intent.EXTRA_SUBJECT, "Feedback zu V Plan")
                         .putExtra(Intent.EXTRA_TEXT, body);
 
                 try {
