@@ -53,7 +53,7 @@ public class Startup implements OnShowcaseEventListener {
     }
 
     public void hideShowcaseView() {
-        if(homeShowcaseView != null)
+        if (homeShowcaseView != null)
             homeShowcaseView.hide();
     }
 
@@ -70,7 +70,7 @@ public class Startup implements OnShowcaseEventListener {
         builder.setTitle("Version 2.9 : Welcome ERS");
         builder.setMessage(
                 "*Vertretungsplan für die Ernst-Reuter-Schule I\n" +
-                "*Schulliste im Seitenmenu (NavigationDrawer)\n\n\n"
+                        "*Schulliste im Seitenmenu (NavigationDrawer)\n\n\n"
         );
 
         builder.setPositiveButton("One week left", new DialogInterface.OnClickListener() {

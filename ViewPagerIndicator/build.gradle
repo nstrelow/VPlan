@@ -4,14 +4,14 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.10.+'
     }
 }
 
 apply plugin: 'android-library'
 
 dependencies {
-	compile 'com.android.support:support-v4:19.0.1'
+    compile 'com.android.support:support-v4:19.0.1'
 }
 
 android {
@@ -21,12 +21,12 @@ android {
     lintOptions {
         abortOnError false
     }
-	
-	sourceSets {
-		main {
-			manifest.srcFile 'AndroidManifest.xml'
-			java.srcDirs = ['src']
-			res.srcDirs = ['res']
-		}
-	}
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
 }

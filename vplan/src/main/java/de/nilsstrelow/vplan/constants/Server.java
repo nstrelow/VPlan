@@ -1,7 +1,6 @@
 package de.nilsstrelow.vplan.constants;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import de.nilsstrelow.vplan.activities.Settings;

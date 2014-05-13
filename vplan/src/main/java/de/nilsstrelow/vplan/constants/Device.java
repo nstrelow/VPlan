@@ -15,9 +15,8 @@ public class Device {
     public static final String ZS_VPLAN_PATH = VPLAN_PATH + "zs/";
     public static final String ERS_VPLAN_PATH = VPLAN_PATH + "ers/";
     public static final String TIMESTAMP_PATH = VPLAN_PATH + "timestamp";
-    public static String GENERIC_MSG_PATH;
-
     public static final String TIMESTAMP = "/timestamp";
+    public static String GENERIC_MSG_PATH;
 
     public static String getDevicePath(Context context) {
         int schoolIndex = PreferenceManager.getDefaultSharedPreferences(context).getInt(Settings.MY_SCHOOL_PREF, 0);

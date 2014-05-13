@@ -27,8 +27,8 @@ public class DownloadVPlanTask extends AsyncTask<String, String, Boolean> {
     private static boolean UPDATED;
     private final String TAG = DownloadVPlanTask.class.getSimpleName();
     private final Context context;
-    private String PLAN_URL;
     public File timestamp;
+    private String PLAN_URL;
     private String vplanPath;
 
     public DownloadVPlanTask(Context context, String path) {

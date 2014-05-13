@@ -412,10 +412,10 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         switch (school) {
             case Schools.ZS:
                 schoolClasses = getResources().getStringArray(R.array.zs_classes);
-            break;
+                break;
             case Schools.ERS:
                 schoolClasses = getResources().getStringArray(R.array.ers_classes);
-            break;
+                break;
         }
     }
 
