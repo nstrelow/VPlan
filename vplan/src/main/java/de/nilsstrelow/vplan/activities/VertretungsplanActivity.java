@@ -160,6 +160,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     case HandlerMsg.UPDATING:
                         String updatingSchoolClass = (String) msg.obj;
                         setSubtitle("Update " + updatingSchoolClass + "...");
+                        break;
                     case HandlerMsg.UPDATED:
                         loadPlan();
                         break;
@@ -207,6 +208,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
         initDrawer();
         initActionBar();
+
+        loadClass();
 
         startup = new Startup(this, sharedPref);
         startup.start();
@@ -444,9 +447,9 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
         int schoolIndex = sharedPref.getInt(Settings.MY_SCHOOL_PREF, 0);
+        getSupportActionBar().setSelectedNavigationItem(position);
         mDrawerList.setItemChecked(schoolIndex, true);
         mDrawerList.setSelection(schoolIndex);
-        getSupportActionBar().setSelectedNavigationItem(position);
         mDrawerLayout.closeDrawer(mDrawerList);
         loadVPlanTask = new LoadVPlanTask(this);
         loadVPlanTask.execute(currentSchoolClassName);
@@ -456,8 +459,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     protected void onResume() {
         super.onResume();
         initActionBar();
-        loadClass();
-        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        initSpinner();
         updateClass();
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
@@ -541,15 +543,18 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     @Override
     public boolean onNavigationItemSelected(int position, long itemId) {
-        currentSchoolClassName = schoolClasses[position];
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
-        editor.commit();
-        updateClass();
-        loadClass();
-        if (startup.isTutorialMode())
-            startup.hideShowcaseView();
-        return true;
+        if (!currentSchoolClassName.equals(schoolClasses[position])) {
+            currentSchoolClassName = schoolClasses[position];
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(Settings.MY_SCHOOL_CLASS_PREF, currentSchoolClassName);
+            editor.commit();
+            updateClass();
+            loadClass();
+            if (startup.isTutorialMode())
+                startup.hideShowcaseView();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -570,6 +575,12 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         actionBarDate.setText(title);
         actionBar.setCustomView(v);
 
+    }
+
+    public void initSpinner() {
+        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
+        getSupportActionBar().setSelectedNavigationItem(position);
     }
 
     public void setSubtitle(String title) {
