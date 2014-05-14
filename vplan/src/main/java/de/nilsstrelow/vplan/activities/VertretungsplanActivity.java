@@ -142,7 +142,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                         SchoolClass schoolClass = ((SchoolClass) msg.obj);
                         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
 
-                        setupTitle(currentSchoolClassName, schoolClass);
+                        setupTitle(schoolClass);
                         setupViewPager(schoolClass);
                         break;
                     case HandlerMsg.STARTING_DOWNLOADING_PLAN:
@@ -155,10 +155,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                     case HandlerMsg.FINISHED_DOWNLOADING_PLAN:
                         isDownloading = false;
                         setRefreshActionButtonState(isLoading());
+                        setSubtitle(null);
                         break;
                     case HandlerMsg.UPDATING:
                         String updatingSchoolClass = (String) msg.obj;
-                        setSubtitle("Updating " + updatingSchoolClass + "...");
+                        setSubtitle("Update " + updatingSchoolClass + "...");
                     case HandlerMsg.UPDATED:
                         loadPlan();
                         break;
@@ -456,6 +457,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         super.onResume();
         initActionBar();
         loadClass();
+        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         updateClass();
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
@@ -511,7 +513,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
             @Override
             public void onPageSelected(int position) {
-                setupTitle(currentSchoolClassName, schoolClass, position);
+                setupTitle(schoolClass, position);
             }
 
         });
@@ -527,7 +529,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         editor.commit();
         initSchools(position);
         Device.initGenericPath(this);
-        int classIndex = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
+
         if (!Arrays.asList(schoolClasses).contains(currentSchoolClassName)) {
             editor = sharedPref.edit();
             editor.putString(Settings.MY_SCHOOL_CLASS_PREF, schoolClasses[0]);
@@ -553,29 +555,52 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        TextView actionBarDate = (TextView) getLayoutInflater().inflate(
-                R.layout.actionbar_date_textview,
-                null);
+        View v;
+        if (getSupportActionBar().getCustomView() != null)
+            v = getSupportActionBar().getCustomView();
+        else {
+            v = getLayoutInflater().inflate(R.layout.actionbar_date_textview, null);
+        }
+        TextView actionBarDate = (TextView) v.findViewById(R.id.dateTxt);
         if (useLightIcons()) {
             actionBarDate.setTextColor(Color.WHITE);
         } else {
             actionBarDate.setTextColor(Color.BLACK);
         }
         actionBarDate.setText(title);
-        actionBar.setCustomView(actionBarDate);
+        actionBar.setCustomView(v);
 
     }
 
-    public void setupTitle(String schoolClassName, SchoolClass schoolClass) {
+    public void setSubtitle(String title) {
+        View v;
+        if (getSupportActionBar().getCustomView() != null)
+            v = getSupportActionBar().getCustomView();
+        else {
+            v = getLayoutInflater().inflate(R.layout.actionbar_date_textview, null);
+        }
+        TextView subtitle = (TextView) v.findViewById(R.id.subtitle);
+        if (title != null) {
+            subtitle.setVisibility(TextView.VISIBLE);
+            if (useLightIcons()) {
+                subtitle.setTextColor(Color.WHITE);
+            } else {
+                subtitle.setTextColor(Color.BLACK);
+            }
+            subtitle.setText(title);
+            actionBar.setCustomView(v);
+        } else {
+            subtitle.setText("");
+            subtitle.setVisibility(TextView.GONE);
+        }
+    }
+
+    public void setupTitle(SchoolClass schoolClass) {
         setTitle(DateUtils.parseDate(schoolClass.getDay(0).day).replaceFirst("\\.", " "));
     }
 
-    public void setupTitle(String schoolClassName, SchoolClass schoolClass, int position) {
+    public void setupTitle(SchoolClass schoolClass, int position) {
         setTitle(DateUtils.parseDate(schoolClass.getDay(position).day).replaceFirst("\\.", " "));
-    }
-
-    public void setSubtitle(CharSequence subTitle) {
-        //getSupportActionBar().setSubtitle(subTitle);
     }
 
     void showFeedbackDialog() {
@@ -610,7 +635,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mDrawerLayout.isDrawerOpen(R.id.left_drawer)) {
+        if (!mDrawerLayout.isDrawerOpen(mDrawerList)) {
             getMenuInflater().inflate(R.menu.vertretungsplan, menu);
             colorRefresh(menu);
             restoreActionBar();

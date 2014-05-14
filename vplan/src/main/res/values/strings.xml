@@ -8,7 +8,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Einstellungen</string>
     <string name="load_plan_msg">Einträge werden generiert…</string>
-    <string name="check_update_plan_msg">Suche nach Updates…</string>
+    <string name="check_update_plan_msg">Suche…</string>
     <string name="update_plan_msg">Update der Pläne…</string>
     <string name="plan_was_updated_msg">Der Vertretungsplan wurde gerade aktualisiert.</string>
     <string name="no_updates_msg">Keine Updates für den Vertretungsplan gefunden.</string>
