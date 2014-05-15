@@ -16,7 +16,7 @@
     <string name="choose_school_class_dialog_title">Wähle deine Klasse…</string>
     <string name="choose_school_class_title">Meine Klasse</string>
     <string name="title_version">Version</string>
-    <string name="title_info">Über</string>
+    <string name="title_about">Über</string>
 
     <!-- Showcase elements -->
     <string name="refresh_button_showcase_title">Refresh-Button</string>
@@ -92,5 +92,30 @@
     <string name="notification_line_bemerkung">Bemerkung: %1$s</string>
     <string name="title_activity_add_reminder">AddReminderActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="action_about">About</string>
 
+    <string name="about_title" translatable="false"><![CDATA[
+        <b>%1$s</b>&nbsp;<font color="#888888">v%2$s</font>
+    ]]></string>
+    <string name="about_message"><![CDATA[
+    <html><body>
+        Copyright ©2014 <a href="https://plus.google.com/+NilsStrelow">Nils Strelow</a>. All Rights Reserved.
+        <br/>
+        <br/>V-Plan is open source,
+        <br/>licensed under GPLv2: <a href="https://github.com/djnilse/VPlan">GitHub</a>
+        <br/>
+        <br/>Many thanks to those open source tools:
+        <br/>• <a href="http://developer.android.com/tools/support-library/index.html">Android Support Library</a>
+        <br/>• <a href="https://github.com/amlcurran/ShowcaseView">ShowcaseView</a>
+        <br/>• <a href="https://github.com/nhaarman/ListViewAnimations">ListViewAnimations</a>
+        <br/>• <a href="https://github.com/LarsWerkman/HoloColorPicker">HoloColorPicker</a>
+        <br/>• <a href="https://github.com/keyboardsurfer/Crouton">Crouton</a>
+        <br/>• <a href="http://viewpagerindicator.com/">ViewPagerIndicator</a>
+        <br/>
+        <br/>and thanks to those supporting me and providing me with plenty of ideas:
+        <br/>• Alexander Kowatzki (pre-alpha tester)
+        <br/>• Christopher Schwarz
+        <br/>• Philipp Wornath
+    </html></body>
+    ]]></string>
 </resources>

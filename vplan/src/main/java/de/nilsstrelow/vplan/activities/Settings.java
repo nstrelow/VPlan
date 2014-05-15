@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -45,7 +43,6 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
     public static final String MY_SCHOOL_PREF = "pref_my_school";
     public static final String SHOW_TUTORIAL_PREF = "pref_show_tutorial2";
     public static final String CHECK_FOR_UPDATE = "pref_check_for_update";
-    public static final String VERSION_PREF = "pref_version";
     public static final String CHANGELOG_PREF = "pref_changelog";
     public static final String ACTIONBAR_COLOR_PREF = "pref_ab_color";
     public static final String ACTIONBAR_ICON_STYLE_PREF = "pref_ab_icon_style";
@@ -54,12 +51,9 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
 
     SharedPreferences sp;
     int counter = 0;
-    private ListPreference mClassListPreference;
     private Preference mTutorialPreference;
     private Preference mUpdatePreference;
-    private Preference mVersionPreference;
     private Preference mHideCommonPreference;
-    //private Preference mActionBarColorPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,28 +69,17 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        mClassListPreference = (ListPreference) prefSet.findPreference(MY_SCHOOL_CLASS_PREF);
         mTutorialPreference = prefSet.findPreference(SHOW_TUTORIAL_PREF);
         mUpdatePreference = prefSet.findPreference(CHECK_FOR_UPDATE);
         mHideCommonPreference = prefSet.findPreference(HIDE_COMMON_PREF);
-        mVersionPreference = prefSet.findPreference(VERSION_PREF);
-        //mActionBarColorPreference = prefSet.findPreference(ACTIONBAR_COLOR_PREF);
 
-        PackageInfo pInfo = null;
-        try {
-            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        mVersionPreference.setSummary(pInfo.versionName);
-        Resources res = getResources();
-        String tutorialSum = sp.getBoolean(SHOW_TUTORIAL_PREF, true) ? res.getString(R.string.sum_tutorial_is_shown) : res.getString(R.string.sum_tutorial_not_shown);
+        String tutorialSum = sp.getBoolean(SHOW_TUTORIAL_PREF, true) ? getString(R.string.sum_tutorial_is_shown) : getString(R.string.sum_tutorial_not_shown);
         mTutorialPreference.setSummary(tutorialSum);
-        String hideCommonSum = sp.getBoolean(HIDE_COMMON_PREF, true) ? res.getString(R.string.sum_hide_common) : res.getString(R.string.sum_not_hide_common);
+        String hideCommonSum = sp.getBoolean(HIDE_COMMON_PREF, true) ? getString(R.string.sum_hide_common) : getString(R.string.sum_not_hide_common);
         mHideCommonPreference.setSummary(hideCommonSum);
-        String updateSum = sp.getBoolean(CHECK_FOR_UPDATE, true) ? res.getString(R.string.sum_check_for_update) : res.getString(R.string.sum_not_check_for_update);
+        String updateSum = sp.getBoolean(CHECK_FOR_UPDATE, true) ? getString(R.string.sum_check_for_update) : getString(R.string.sum_not_check_for_update);
         mUpdatePreference.setSummary(updateSum);
-        mClassListPreference.setSummary(sp.getString(MY_SCHOOL_CLASS_PREF, "Bitte wähle deine Klasse aus..."));
+
 
         setResult(Activity.RESULT_CANCELED);
 
@@ -160,12 +143,12 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
             pref.setSummary(listPref.getEntry());
         }
         if (key.equals(CHECK_FOR_UPDATE)) {
-            String updateSum = sp.getBoolean(CHECK_FOR_UPDATE, true) ? getResources().getString(R.string.sum_check_for_update) : getResources().getString(R.string.sum_not_check_for_update);
+            String updateSum = sp.getBoolean(CHECK_FOR_UPDATE, true) ? getString(R.string.sum_check_for_update) : getString(R.string.sum_not_check_for_update);
             mUpdatePreference.setSummary(updateSum);
         }
 
         if (key.equals(HIDE_COMMON_PREF)) {
-            String hideCommonSum = sp.getBoolean(HIDE_COMMON_PREF, true) ? getResources().getString(R.string.sum_hide_common) : getResources().getString(R.string.sum_not_hide_common);
+            String hideCommonSum = sp.getBoolean(HIDE_COMMON_PREF, true) ? getString(R.string.sum_hide_common) : getString(R.string.sum_not_hide_common);
             mHideCommonPreference.setSummary(hideCommonSum);
         }
 
@@ -182,7 +165,7 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
         }
 
         if (key.equals(SHOW_TUTORIAL_PREF)) {
-            String tutorialSum = sp.getBoolean(SHOW_TUTORIAL_PREF, true) ? getResources().getString(R.string.sum_tutorial_is_shown) : getResources().getString(R.string.sum_tutorial_not_shown);
+            String tutorialSum = sp.getBoolean(SHOW_TUTORIAL_PREF, true) ? getString(R.string.sum_tutorial_is_shown) : getString(R.string.sum_tutorial_not_shown);
             pref.setSummary(tutorialSum);
         }
     }
@@ -190,7 +173,6 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;

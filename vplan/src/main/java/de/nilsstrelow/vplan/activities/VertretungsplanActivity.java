@@ -64,6 +64,7 @@ import de.nilsstrelow.vplan.constants.Device;
 import de.nilsstrelow.vplan.constants.HandlerMsg;
 import de.nilsstrelow.vplan.constants.Schools;
 import de.nilsstrelow.vplan.constants.Server;
+import de.nilsstrelow.vplan.fragments.AboutDialogFragment;
 import de.nilsstrelow.vplan.fragments.FeedbackDialogFragment;
 import de.nilsstrelow.vplan.helpers.ErrorMessage;
 import de.nilsstrelow.vplan.helpers.SchoolClass;
@@ -463,11 +464,18 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         updateClass();
         if (startup.isNewVersion())
             startup.setupNewVersionGuide();
-        startCheckForUpdate();
 
         // set up random easteregg click counter
         Random rand = new Random();
         randomEasterEggNumber = rand.nextInt(6) + 4;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        startCheckForUpdate();
+        loadVPlanTask.cancel(true);
+        downloadVPlanTask.cancel(true);
     }
 
     @Override
@@ -479,13 +487,6 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void startCheckForUpdate() {
         Intent intent = new Intent(this, CheckForUpdateBroadcastReceiver.class);
         sendBroadcast(intent);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        loadVPlanTask.cancel(true);
-        downloadVPlanTask.cancel(true);
     }
 
     private void setupViewPager(final SchoolClass schoolClass) {
@@ -626,6 +627,19 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         newFragment.show(ft, "feedback");
     }
 
+    void showAboutDialog() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("about");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment newFragment = AboutDialogFragment.newInstance();
+        newFragment.show(ft, "about");
+    }
+
+
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -683,6 +697,9 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                 return true;
             case R.id.action_feedback:
                 showFeedbackDialog();
+                break;
+            case R.id.action_about:
+                showAboutDialog();
                 break;
             case R.id.action_show_links:
                 Intent i = new Intent(Intent.ACTION_VIEW);

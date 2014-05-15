@@ -3,13 +3,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="pref_screen_settings">
     <PreferenceCategory android:title="@string/title_common">
-        <ListPreference
-            android:defaultValue="0"
-            android:dialogTitle="@string/choose_school_class_dialog_title"
-            android:entries="@array/zs_classes"
-            android:entryValues="@array/zs_classes"
-            android:key="pref_my_school_class"
-            android:title="@string/choose_school_class_title" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="pref_check_for_update"
@@ -39,22 +32,5 @@
             android:key="pref_ab_icon_style"
             android:summary="@string/ab_icon_style_sum"
             android:title="@string/ab_icon_style_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/title_info">
-        <Preference
-            android:key="pref_version"
-            android:title="@string/title_version" />
-        <Preference
-            android:key="pref_changelog"
-            android:title="@string/title_changes" />
-        <Preference
-            android:key="tester"
-            android:summary="Alexander Kowatzki"
-            android:title="Tester" />
-        <Preference
-            android:key="copyright"
-            android:summary="©2014 Nils Strelow"
-            android:title="Copyright" />
     </PreferenceCategory>
 </PreferenceScreen>
