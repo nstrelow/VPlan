@@ -67,16 +67,29 @@ public class Startup implements OnShowcaseEventListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
-        builder.setTitle("Version 2.9 : Welcome ERS");
+        builder.setTitle("Version 3.0 : V-Plan für alle");
         builder.setMessage(
-                "*Vertretungsplan für die Ernst-Reuter-Schule I\n" +
-                        "*Schulliste im Seitenmenu (NavigationDrawer)\n\n\n"
+                "Dies ist V-Plan, DIE Vertretungsplan-App\n\n" +
+                        "V-Plan unterstützt zurzeit die Ziehenschule und die Ernst-Reuter-Schule I, weitere Schulen folgen\n" +
+                        "V-Plan ersetzt ZS-Plan und kommt mit vielen wichtigen Änderungen:\n" +
+                        "* Verbesserung von Performance, Speicher und mehr\n" +
+                        "* Benachrichtigung bei Änderungen des Plans seiner Klasse\n" +
+                        "* Erinnerungen erstellen durch langen Klick auf Eintrag\n" +
+                        "* Multi-School Support angefangen mit ERS I\n" +
+                        "* verbesserte Benutzeroberfläche\n" +
+                        "Unter Einstellungen findet ihr weitere Funktionen\n\n\n" +
+                        "Vom Entwickler: Mein Name ist Nils Strelow, Abiturient an der Ziehenschule.\n" +
+                        "Das Ziel dieser App ist es möglichst vielen Schulen in eine einzige Vertretungsplan-App einzubinden.\n" +
+                        "V-Plan ist Opensource und steht unter der Apache License v2\n" +
+                        "Bei Fehler, Anmerkungen, etc. benutzt bitte die Feedback Option.\n\n" +
+                        "Mit Freundlichen Grüßen\n\n" +
+                        "Nils Strelow"
         );
 
-        builder.setPositiveButton("One week left", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Get started with V-Plan!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(activity, "You should go where you belong", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Viel Spaß!", Toast.LENGTH_LONG).show();
             }
         });
 

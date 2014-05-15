@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 19
-        versionCode 296
-        versionName "2.9.6"
+        versionCode 297
+        versionName "2.9.7"
     }
 
     if (project.hasProperty("VPlan.signing")

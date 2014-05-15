@@ -33,6 +33,7 @@ import java.io.File;
 
 import de.nilsstrelow.vplan.R;
 import de.nilsstrelow.vplan.constants.Device;
+import de.nilsstrelow.vplan.utils.Startup;
 
 /**
  * Created by djnilse on 11/19/13.
@@ -355,7 +356,7 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
 
     private void deleteFolder(File folder) {
         File[] files = folder.listFiles();
-        if (files != null) { //some JVMs return null for empty dirs
+        if (files != null) {
             for (File f : files) {
                 if (f.isDirectory()) {
                     deleteFolder(f);
@@ -402,24 +403,10 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
                 initializeActionBar();
             }
         }
-        /*if (preference.getKey().equals(CHANGELOG_PREF)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setTitle("");
-            builder.setMessage("");
+        if (preference.getKey().equals(CHANGELOG_PREF)) {
+            new Startup(this, preferenceScreen.getSharedPreferences()).setupNewVersionGuide();
 
-            builder.setPositiveButton("", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(getApplication(), "", Toast.LENGTH_LONG).show();
-                }
-            });
-
-
-            Dialog dialog = builder.create();
-            dialog.show();
-        }*/
-
+        }
 
         counter++;
         if (counter == 10) {

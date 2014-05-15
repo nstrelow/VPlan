@@ -30,7 +30,7 @@
     <string name="colors_showcase_title">Farben</string>
     <string name="colors_showcase_message">Die Farben der Einträge haben folgende Bedeutung:\n\nrot = Entfall\ngrün = anderer Raum\nlila = Vertretung\ngelb = Betreuung\nblau = Verlegung\norange = Klausur</string>
     <string name="touch_info_showcase_title">Bemerkungen</string>
-    <string name="touch_info_showcase_message">Um die Bemerkungen für den jeweiligen Eintrag anzuzeigen, drücke einfach auf den Eintrag.\n\nSo das wärs dann!\nVIEL SPAß beim Benutzen von ZS-Plan wünschen dir Nils Strelow und FUNceptionApps ;D</string>
+    <string name="touch_info_showcase_message">Um die Bemerkungen für den jeweiligen Eintrag anzuzeigen, drücke einfach auf den Eintrag.\n\nSo das wärs dann!\nVIEL SPAß beim Benutzen von V-Plan wünscht dir Nils Strelow ;D</string>
     <string name="sum_tutorial_is_shown"> wird beim nächsten Start angezeigt</string>
     <string name="sum_tutorial_not_shown"> wird nicht beim Start angezeigt</string>
     <string name="title_tutorial">Tutorial</string>
