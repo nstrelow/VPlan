@@ -45,7 +45,7 @@
 
         <activity
             android:name="de.nilsstrelow.vplan.activities.AddReminderActivity"
-            android:label="@string/title_activity_add_reminder"></activity>
+            android:label="@string/title_activity_add_reminder" />
     </application>
 
 </manifest>

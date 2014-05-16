@@ -80,7 +80,7 @@ public class Startup implements OnShowcaseEventListener {
                         "Unter Einstellungen findet ihr weitere Funktionen\n\n\n" +
                         "Vom Entwickler: Mein Name ist Nils Strelow, Abiturient an der Ziehenschule.\n" +
                         "Das Ziel dieser App ist es möglichst vielen Schulen in eine einzige Vertretungsplan-App einzubinden.\n" +
-                        "V-Plan ist Opensource und steht unter der Apache License v2\n" +
+                        "V-Plan ist Opensource und steht unter der GNU General Public License v2\n" +
                         "Bei Fehler, Anmerkungen, etc. benutzt bitte die Feedback Option.\n\n" +
                         "Mit Freundlichen Grüßen\n\n" +
                         "Nils Strelow"
