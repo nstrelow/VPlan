@@ -25,7 +25,7 @@ import de.nilsstrelow.vplan.activities.Settings;
 public class Startup implements OnShowcaseEventListener {
 
     public static final String UPDATE_NOTIFICATION = "showed_get_update_notifications";
-    public static final String NEW_VERSION_MSG = "new_version_msg" + "290";
+    public static final String NEW_VERSION_MSG = "new_version_msg" + "300";
     private Activity activity;
     private SharedPreferences sharedPreferences;
     private boolean isTutorialMode = false;
