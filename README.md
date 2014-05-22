@@ -30,12 +30,12 @@ The substitution plans are downloaded from their respective school sites and for
 
 ## Open-Source-Licenses
 [ShowcaseView](https://github.com/amlcurran/ShowcaseView): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-Copyright © 2012 Alex Curran ([+Alex](https://plus.google.com/110510888639261520925/posts))
+Copyright © 2012 Alex Curran ([+Alex](https://plus.google.com/110510888639261520925))
 
-[ListViewAnimations](https://github.com/nhaarman/ListViewAnimations): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[ListViewAnimations](https://github.com/nhaarman/ListViewAnimations): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) ([+Niek Haarman](https://plus.google.com/+NiekHaarman))
 Copyright © 2013 Niek Haarman
 
-[Holo ColorPicker](https://github.com/LarsWerkman/HoloColorPicker): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[Holo ColorPicker](https://github.com/LarsWerkman/HoloColorPicker): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) ([+Niek Haarman](https://plus.google.com/+LarsWerkman))
 Copyright © 2012 Lars Werkman
 
 [Crouton](https://github.com/keyboardsurfer/Crouton): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
