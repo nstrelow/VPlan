@@ -38,7 +38,7 @@ public class Entry implements Serializable {
         } else {
             isNormalEntry = false;
             for (int i = 0; i < data.length; i++) {
-                line = line + data[0];
+                line = line + data[i];
             }
         }
     }
