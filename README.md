@@ -32,11 +32,11 @@ The substitution plans are downloaded from their respective school sites and for
 [ShowcaseView](https://github.com/amlcurran/ShowcaseView): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 Copyright © 2012 Alex Curran ([+Alex](https://plus.google.com/110510888639261520925))
 
-[ListViewAnimations](https://github.com/nhaarman/ListViewAnimations): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) ([+Niek Haarman](https://plus.google.com/+NiekHaarman))
-Copyright © 2013 Niek Haarman
+[ListViewAnimations](https://github.com/nhaarman/ListViewAnimations): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Copyright © 2013 Niek Haarman ([+Niek Haarman](https://plus.google.com/+NiekHaarman))
 
-[Holo ColorPicker](https://github.com/LarsWerkman/HoloColorPicker): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) ([+Niek Haarman](https://plus.google.com/+LarsWerkman))
-Copyright © 2012 Lars Werkman
+[Holo ColorPicker](https://github.com/LarsWerkman/HoloColorPicker): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Copyright © 2012 Lars Werkman ([+Niek Haarman](https://plus.google.com/+LarsWerkman))
 
 [Crouton](https://github.com/keyboardsurfer/Crouton): [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 Copyright © 2014 Benjamin Weiss ([+Benjamin Weiss](https://plus.google.com/u/0/+BenjaminWeiss/posts))
