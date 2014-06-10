@@ -25,7 +25,7 @@ public class Entry implements Serializable {
 
     public Entry(String[] data) {
         line = "";
-        if (data.length == 8) {
+        if (data.length >= 8) {
             isNormalEntry = true;
             stunde = data[0];
             vertreter = data[1];
@@ -34,7 +34,11 @@ public class Entry implements Serializable {
             stattLehrer = data[4];
             stattFach = data[5];
             stattRaum = data[6];
-            bemerkung = data[7];
+            bemerkung = "";
+            for(int n = 7; n < data.length; n++) {
+                bemerkung += data[n];
+            }
+
         } else {
             isNormalEntry = false;
             for (int i = 0; i < data.length; i++) {
