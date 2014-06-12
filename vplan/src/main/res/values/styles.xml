@@ -22,9 +22,10 @@
     <style name="row_element">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Small</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="header_text_view">
