@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.1"
+    buildToolsVersion "20"
 
     android.aaptOptions.useAaptPngCruncher = true
 
@@ -25,7 +25,7 @@ android {
 
 
 dependencies {
-    compile('de.keyboardsurfer.android.widget:crouton:1.8.4') {
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.4@aar') {
         // exclusion is not neccessary, but generally a good idea.
         exclude group: 'com.google.android', module: 'support-v4'
     }
@@ -34,6 +34,7 @@ dependencies {
     compile project(':ShowcaseView')
     compile project(':ViewPagerIndicator')
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:19.1.+'
-    compile 'com.android.support:support-v4:19.1.+'
+    //compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.android.support:support-v4:20.+'
 }
