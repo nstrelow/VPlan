@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="LightTheme">@android:style/Widget.Holo.ActionButton.Overflow
+        @drawable/ic_ab_back_holo_dark_am
+    </style>
+</resources>
