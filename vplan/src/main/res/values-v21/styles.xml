@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LightTheme">@android:style/Widget.Holo.ActionButton.Overflow
-        @drawable/ic_ab_back_holo_dark_am
+    <style name="LightTheme" parent="android:Theme.Material.Light">
+        <item name="android:colorPrimary">#5677fc</item>
+        <item name="android:colorPrimaryDark">#455ede</item>
+        <item name="android:colorAccent">#1de9b6</item>
+        <item name="android:textColorPrimary">#eceff1</item>
     </style>
 </resources>

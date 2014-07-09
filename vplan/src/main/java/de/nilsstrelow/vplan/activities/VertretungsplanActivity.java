@@ -114,8 +114,6 @@ public class VertretungsplanActivity extends Activity implements ListView.OnItem
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        initTheme();
-
         setContentView(R.layout.activity_plan);
 
         robotoBold = Typeface.createFromAsset(getAssets(),
@@ -268,8 +266,8 @@ public class VertretungsplanActivity extends Activity implements ListView.OnItem
 
     private void initActionBar() {
         actionBar = getActionBar();
-        int color = sharedPref.getInt(Settings.ACTIONBAR_COLOR_PREF, 0xffffff);
-        actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        //int color = sharedPref.getInt(Settings.ACTIONBAR_COLOR_PREF, 0xffffff);
+        //actionBar.setBackgroundDrawable(new ColorDrawable(color));
         int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
         int subTitleId = Resources.getSystem().getIdentifier("action_bar_subtitle", "id", "android");
         TextView actionBarTitle = null;
