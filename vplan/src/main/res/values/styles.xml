@@ -1,22 +1,17 @@
 <resources>
 
-    <style name="LightTheme" parent="Theme.AppCompat.Light">
+    <style name="LightTheme" parent="android:Theme.Holo.Light">
         <item name="android:actionOverflowButtonStyle">
-            @style/Widget.AppCompat.ActionButton.Overflow
+            @android:style/Widget.Holo.ActionButton.Overflow
         </item>
-        <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.ActionButton.Overflow</item>
-        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
-        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
+        <item name="android:homeAsUpIndicator">@drawable/ab_holo_gray</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.Light">
+    <style name="DarkTheme" parent="android:Theme.Holo.Light">
         <item name="android:actionOverflowButtonStyle">
-            @style/Widget.AppCompat.Light.ActionButton.Overflow
+            @android:style/Widget.Holo.Light.ActionButton.Overflow
         </item>
-        <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.Light.ActionButton.Overflow
-        </item>
-        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
-        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
+        <item name="android:homeAsUpIndicator">@drawable/ab_holo_gray</item>
     </style>
 
     <style name="row_element">

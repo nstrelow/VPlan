@@ -1,8 +1,13 @@
 package de.nilsstrelow.vplan.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,17 +25,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,7 +75,7 @@ import de.nilsstrelow.vplan.utils.FileUtils;
 import de.nilsstrelow.vplan.utils.SchoolClassUtils;
 import de.nilsstrelow.vplan.utils.Startup;
 
-public class VertretungsplanActivity extends ActionBarActivity implements ListView.OnItemClickListener, ActionBar.OnNavigationListener {
+public class VertretungsplanActivity extends Activity implements ListView.OnItemClickListener, ActionBar.OnNavigationListener {
 
     public static Handler handler;
     public static SharedPreferences sharedPref;
@@ -100,7 +98,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     private ActionBarDrawerToggle mDrawerToggle;
     private ViewPager mPager;
     private ArrayAdapter mSpinnerAdapter;
-    private android.app.ActionBar.OnNavigationListener mOnNavigationListener;
+    private ActionBar.OnNavigationListener mOnNavigationListener;
     // MenuItem to refresh
     private Menu optionsMenu;
     private boolean isLoading = false;
@@ -132,7 +130,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case HandlerMsg.STARTING_LOADING_PLAN:
-                        supportInvalidateOptionsMenu();
+                        invalidateOptionsMenu();
                         isLoading = true;
                         setRefreshActionButtonState(isLoading());
                         break;
@@ -147,7 +145,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
                         setupViewPager(schoolClass);
                         break;
                     case HandlerMsg.STARTING_DOWNLOADING_PLAN:
-                        supportInvalidateOptionsMenu();
+                        invalidateOptionsMenu();
                         setSubtitle((String) msg.obj);
 
                         isDownloading = true;
@@ -241,8 +239,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         ) {
             public void onDrawerClosed(View view) {
 
-                getSupportActionBar().setTitle(mTitle);
-                supportInvalidateOptionsMenu();
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu();
                 if (startup.isTutorialMode())
                     startup.setupSpinnerGuide();
 
@@ -251,8 +249,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
             public void onDrawerOpened(View drawerView) {
 
-                getSupportActionBar().setTitle(mDrawerTitle);
-                supportInvalidateOptionsMenu();
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu();
                 if (startup.isTutorialMode())
                     startup.hideShowcaseView();
 
@@ -265,11 +263,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // just styling option add shadow the right edge of the drawer
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
     }
 
     private void initActionBar() {
-        actionBar = getSupportActionBar();
+        actionBar = getActionBar();
         int color = sharedPref.getInt(Settings.ACTIONBAR_COLOR_PREF, 0xffffff);
         actionBar.setBackgroundDrawable(new ColorDrawable(color));
         int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
@@ -448,7 +446,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
         int schoolIndex = sharedPref.getInt(Settings.MY_SCHOOL_PREF, 0);
-        getSupportActionBar().setSelectedNavigationItem(position);
+        getActionBar().setSelectedNavigationItem(position);
         mDrawerList.setItemChecked(schoolIndex, true);
         mDrawerList.setSelection(schoolIndex);
         mDrawerLayout.closeDrawer(mDrawerList);
@@ -494,7 +492,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setVisibility(ViewPager.VISIBLE);
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         mPagerAdapter = new DaysPagerAdapter(fragmentManager, schoolClass);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(NUM_PAGES - 1);
@@ -562,8 +560,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void setTitle(CharSequence title) {
         mTitle = title;
         View v;
-        if (getSupportActionBar().getCustomView() != null)
-            v = getSupportActionBar().getCustomView();
+        if (getActionBar().getCustomView() != null)
+            v = getActionBar().getCustomView();
         else {
             v = getLayoutInflater().inflate(R.layout.actionbar_date_textview, null);
         }
@@ -581,13 +579,13 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     public void initSpinner() {
         currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         int position = SchoolClassUtils.getClassIndex(schoolClasses, currentSchoolClassName);
-        getSupportActionBar().setSelectedNavigationItem(position);
+        getActionBar().setSelectedNavigationItem(position);
     }
 
     public void setSubtitle(String title) {
         View v;
-        if (getSupportActionBar().getCustomView() != null)
-            v = getSupportActionBar().getCustomView();
+        if (getActionBar().getCustomView() != null)
+            v = getActionBar().getCustomView();
         else {
             v = getLayoutInflater().inflate(R.layout.actionbar_date_textview, null);
         }
@@ -616,8 +614,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     void showFeedbackDialog() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("feedback");
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("feedback");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -628,8 +626,8 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     void showAboutDialog() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("about");
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("about");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -641,7 +639,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -786,11 +784,11 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
             final MenuItem refreshItem = optionsMenu.findItem(R.id.action_refresh);
             if (refreshItem != null) {
                 if (refreshing) {
-                    if (MenuItemCompat.getActionView(refreshItem) == null) {
-                        MenuItemCompat.setActionView(refreshItem, R.layout.actionbar_indeterminate_progress);
+                    if (refreshItem.getActionView() == null) {
+                        refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
                     }
                 } else {
-                    MenuItemCompat.setActionView(refreshItem, null);
+                    refreshItem.setActionView(null);
 
                     /* also set subtitle null */
                     setSubtitle(null);

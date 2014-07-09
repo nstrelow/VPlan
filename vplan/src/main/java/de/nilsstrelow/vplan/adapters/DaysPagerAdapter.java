@@ -1,8 +1,8 @@
 package de.nilsstrelow.vplan.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentPagerAdapter;
 
 import de.nilsstrelow.vplan.activities.VertretungsplanActivity;
 import de.nilsstrelow.vplan.fragments.ClassDayViewFragment;
@@ -12,7 +12,7 @@ import de.nilsstrelow.vplan.helpers.SchoolClass;
  * PagerAdapter to show substitution plan of one class
  * Created by djnilse on 08.04.2014.
  */
-public class DaysPagerAdapter extends FragmentStatePagerAdapter {
+public class DaysPagerAdapter extends FragmentPagerAdapter {
 
     private SchoolClass schoolClass;
 

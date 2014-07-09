@@ -1,12 +1,11 @@
 package de.nilsstrelow.vplan.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -23,7 +22,7 @@ import de.nilsstrelow.vplan.helpers.Entry;
 import de.nilsstrelow.vplan.services.ReminderService;
 import de.nilsstrelow.vplan.utils.DateUtils;
 
-public class AddReminderActivity extends ActionBarActivity {
+public class AddReminderActivity extends Activity {
 
     public static final String TAG = AddReminderActivity.class.getSimpleName();
     public static final String ENTRY_KEY = "entry_key";
@@ -100,7 +99,7 @@ public class AddReminderActivity extends ActionBarActivity {
                 }
             });
 
-            final ActionBar actionBar = getSupportActionBar();
+            final ActionBar actionBar = getActionBar();
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowCustomEnabled(true);

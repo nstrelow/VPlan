@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:text="@string/feedback_cancel" />
 
         <View
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:text="@string/bt_send_feeback_mail" />
     </LinearLayout>
 </LinearLayout>

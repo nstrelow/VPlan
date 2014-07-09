@@ -28,7 +28,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rVertreter"
@@ -42,7 +42,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rFach"
@@ -56,7 +56,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rRaum"
@@ -80,7 +80,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rStattLehrer"
@@ -94,7 +94,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rStattFach"
@@ -108,7 +108,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dividerVertical" />
+                android:background="?android:attr/dividerVertical" />
 
             <TextView
                 android:id="@+id/rStattRaum"
@@ -128,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/view_padding"
-        android:background="?attr/dividerVertical" />
+        android:background="?android:attr/dividerVertical" />
 
     <TextView
         android:id="@+id/rBemerkung"

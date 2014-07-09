@@ -35,7 +35,7 @@ public class Entry implements Serializable {
             stattFach = data[5];
             stattRaum = data[6];
             bemerkung = "";
-            for(int n = 7; n < data.length; n++) {
+            for (int n = 7; n < data.length; n++) {
                 bemerkung += data[n];
             }
 

@@ -134,7 +134,7 @@
             android:id="@+id/bt_custom_color"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:text="@string/custom_color" />
     </LinearLayout>
 </ScrollView>

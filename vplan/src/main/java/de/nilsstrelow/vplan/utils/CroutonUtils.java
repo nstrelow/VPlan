@@ -20,7 +20,7 @@ public class CroutonUtils {
     public static final int CROUTON_ALERT = 2;
 
     static Configuration config
-            = new de.keyboardsurfer.android.widget.crouton.Configuration.Builder()
+            = new Configuration.Builder()
             .setDuration(2000).build();
 
     static Style mCONFIRM = new Style.Builder()

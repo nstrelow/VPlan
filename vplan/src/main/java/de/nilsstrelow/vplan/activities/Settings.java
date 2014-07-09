@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -87,27 +86,25 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
 
 
     private void initializeActionBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            ActionBar actionBar = getActionBar();
-            int color = sp.getInt(ACTIONBAR_COLOR_PREF, 0xffffff);
-            actionBar.setBackgroundDrawable(new ColorDrawable(color));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
-            TextView actionBarTitle = null;
-            if (titleId != 0) {
-                actionBarTitle = (TextView) findViewById(titleId);
-            }
-            if (useLightIcons()) {
-                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo_white));
-                if (actionBarTitle != null)
-                    actionBarTitle.setTextColor(getResources().getColor(R.color.holo_white));
-            } else {
-                actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo));
-                if (actionBarTitle != null)
-                    actionBarTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
-            }
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        ActionBar actionBar = getActionBar();
+        int color = sp.getInt(ACTIONBAR_COLOR_PREF, 0xffffff);
+        actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+        TextView actionBarTitle = null;
+        if (titleId != 0) {
+            actionBarTitle = (TextView) findViewById(titleId);
         }
+        if (useLightIcons()) {
+            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo_white));
+            if (actionBarTitle != null)
+                actionBarTitle.setTextColor(getResources().getColor(R.color.holo_white));
+        } else {
+            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_vplan_logo));
+            if (actionBarTitle != null)
+                actionBarTitle.setTextColor(getResources().getColor(R.color.holo_gray_dark));
+        }
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     }
 
     private void initializeTheme() {
@@ -359,31 +356,7 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
             showColorPicker();
         }
         if (preference.getKey().equals(ACTIONBAR_ICON_STYLE_PREF)) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                AlertDialog iconStyleDialog = new AlertDialog.Builder(this)
-                        .setTitle("Style der Icons")
-                        .setMessage("Wähle den Style der Icons passend zu der Farbe deiner Statusleiste")
-                        .setInverseBackgroundForced(true)
-                        .setPositiveButton("Hell", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putBoolean(ACTIONBAR_ICON_STYLE_PREF, true);
-                                editor.commit();
-                            }
-                        })
-                        .setNegativeButton("Dunkel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putBoolean(ACTIONBAR_ICON_STYLE_PREF, false);
-                                editor.commit();
-                            }
-                        }).create();
-                iconStyleDialog.show();
-            } else {
-                initializeActionBar();
-            }
+            initializeActionBar();
         }
         if (preference.getKey().equals(CHANGELOG_PREF)) {
             new Startup(this, preferenceScreen.getSharedPreferences()).setupNewVersionGuide();

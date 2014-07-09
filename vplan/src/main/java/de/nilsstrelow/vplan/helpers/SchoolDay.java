@@ -18,7 +18,7 @@ import de.nilsstrelow.vplan.utils.FileUtils;
 
 public class SchoolDay implements Parcelable {
 
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+    public static final Creator CREATOR = new Creator() {
         public SchoolDay createFromParcel(Parcel in) {
             return new SchoolDay(in);
         }

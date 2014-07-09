@@ -14,7 +14,7 @@
         android:background="@drawable/rectangle_orange"
         android:gravity="center"
         android:minHeight="48dp"
-        android:textAppearance="?attr/textAppearanceListItem"
+        android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:textStyle="bold" />

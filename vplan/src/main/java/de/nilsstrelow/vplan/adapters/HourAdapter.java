@@ -1,13 +1,12 @@
 package de.nilsstrelow.vplan.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.view.ActionMode;
 import android.util.TypedValue;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,10 +35,10 @@ import de.nilsstrelow.vplan.utils.UIUtils;
 public class HourAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
-    ActionBarActivity activity;
+    Activity activity;
     SchoolDay schoolDay;
 
-    public HourAdapter(ActionBarActivity activity, SchoolDay schoolDay) {
+    public HourAdapter(Activity activity, SchoolDay schoolDay) {
         this.activity = activity;
         this.schoolDay = schoolDay;
         inflater = (LayoutInflater) activity
@@ -149,15 +148,14 @@ public class HourAdapter extends BaseAdapter {
                     public boolean onLongClick(View v) {
 
                         view = v;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                            view.setAlpha(0.7f);
-                        activity.startSupportActionMode(new ActionMode.Callback() {
+                        view.setAlpha(0.7f);
+                        activity.startActionMode(new ActionMode.Callback() {
                             @Override
                             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                                 switch (item.getItemId()) {
 
                                     case R.id.action_add_reminder:
-                                        activity.getSupportFragmentManager();
+                                        activity.getFragmentManager();
                                         Entry selectedEntry = schoolDay.getEntry(position);
                                         Intent reminderIntent = new Intent(activity, AddReminderActivity.class);
                                         reminderIntent.putExtra(AddReminderActivity.ENTRY_KEY, selectedEntry);
@@ -178,8 +176,7 @@ public class HourAdapter extends BaseAdapter {
 
                             @Override
                             public void onDestroyActionMode(ActionMode mode) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                                    view.setAlpha(1);
+                                view.setAlpha(1);
                             }
 
                             @Override
