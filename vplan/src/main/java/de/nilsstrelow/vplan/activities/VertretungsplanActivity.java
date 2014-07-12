@@ -430,7 +430,7 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
 
     private void loadPlan() {
         String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
-        LoadVPlanTask loadVPlanTask = new LoadVPlanTask(this);
+        loadVPlanTask = new LoadVPlanTask(this);
         loadVPlanTask.execute(mySchoolClass);
         if (!isRunning()) {
             Toast.makeText(this, R.string.no_plan_msg, Toast.LENGTH_LONG).show();
@@ -727,9 +727,9 @@ public class VertretungsplanActivity extends ActionBarActivity implements ListVi
     }
 
     private void deleteOldVPlans() {
-        String mySchoolClass = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
+        currentSchoolClassName = sharedPref.getString(Settings.MY_SCHOOL_CLASS_PREF, "5a");
         try {
-            final String PATH = Device.getDevicePath(this) + mySchoolClass;
+            final String PATH = Device.getDevicePath(this) + currentSchoolClassName;
 
             File myClassDir = new File(PATH + "/");
             if (myClassDir.exists()) {
