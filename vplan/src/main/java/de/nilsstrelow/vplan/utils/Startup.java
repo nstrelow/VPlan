@@ -67,29 +67,16 @@ public class Startup implements OnShowcaseEventListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
-        builder.setTitle("Version 3.0 : V-Plan für alle");
+        builder.setTitle("Version 3.1 : 5g der Ziehen ist auch dabei!");
         builder.setMessage(
-                "Dies ist V-Plan, DIE Vertretungsplan-App\n\n" +
-                        "V-Plan unterstützt zurzeit die Ziehenschule und die Ernst-Reuter-Schule I, weitere Schulen folgen\n" +
-                        "V-Plan ersetzt ZS-Plan und kommt mit vielen wichtigen Änderungen:\n" +
-                        "* Verbesserung von Performance, Speicher und mehr\n" +
-                        "* Benachrichtigung bei Änderungen des Plans seiner Klasse\n" +
-                        "* Erinnerungen erstellen durch langen Klick auf Eintrag\n" +
-                        "* Multi-School Support angefangen mit ERS I\n" +
-                        "* verbesserte Benutzeroberfläche\n" +
-                        "Unter Einstellungen findet ihr weitere Funktionen\n\n\n" +
-                        "Vom Entwickler: Mein Name ist Nils Strelow, Abiturient an der Ziehenschule.\n" +
-                        "Das Ziel dieser App ist es möglichst vielen Schulen in eine einzige Vertretungsplan-App einzubinden.\n" +
-                        "V-Plan ist Opensource und steht unter der GNU General Public License v2\n" +
-                        "Bei Fehler, Anmerkungen, etc. benutzt bitte die Feedback Option.\n\n" +
-                        "Mit Freundlichen Grüßen\n\n" +
-                        "Nils Strelow"
+                "Jetzt sind die Vertretungspläne für die Klasse 5g abrufbar.\n\n\n" +
+                "Viel Spaß und ein tolles Schuljahr wünscht Nils Strelow"
         );
 
-        builder.setPositiveButton("Get started with V-Plan!", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("VPlan ist cooler als DSB :P!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(activity, "Viel Spaß!", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Genau!", Toast.LENGTH_LONG).show();
             }
         });
 
