@@ -94,19 +94,19 @@ public class HourAdapter extends BaseAdapter {
                 if (entry.bemerkung.contains("Entfall") || entry.bemerkung.contains("eigenv.Arb.") || entry.bemerkung.contains("entfällt")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_entfall));
                 }
-                if (entry.bemerkung.contains("andr. Raum") || entry.bemerkung.contains("Raumaenderung")) {
+                else if (entry.bemerkung.contains("andr. Raum") || entry.bemerkung.contains("Raumaenderung")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_andraum));
                 }
-                if (entry.bemerkung.contains("Vertretung")) {
+                else if (entry.bemerkung.contains("Vertretung")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_vertretung));
                 }
-                if (entry.bemerkung.contains("Betreuung")) {
+                else if (entry.bemerkung.contains("Betreuung")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_betreuung));
                 }
-                if (entry.bemerkung.contains("Verlegung")) {
+                else if (entry.bemerkung.contains("Verlegung")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_verlegung));
                 }
-                if (entry.bemerkung.contains("Klausur")) {
+                else if (entry.bemerkung.contains("Klausur")) {
                     rowView.setBackgroundDrawable(parent.getResources().getDrawable(R.drawable.rectangle_klausur));
                 }
 
