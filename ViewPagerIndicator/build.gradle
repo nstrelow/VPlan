@@ -6,7 +6,7 @@ dependencies {
 
 android {
     compileSdkVersion 20
-    buildToolsVersion '20'
+    buildToolsVersion "20"
 
     lintOptions {
         abortOnError false

@@ -5,8 +5,6 @@
             @style/Widget.AppCompat.ActionButton.Overflow
         </item>
         <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.ActionButton.Overflow</item>
-        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
-        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_dark</item>
     </style>
 
     <style name="DarkTheme" parent="Theme.AppCompat.Light">
@@ -15,8 +13,6 @@
         </item>
         <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.Light.ActionButton.Overflow
         </item>
-        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
-        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_holo_light</item>
     </style>
 
     <style name="row_element">
